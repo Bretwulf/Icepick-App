@@ -18,10 +18,10 @@ interface iUserContext {
 }
 
 const userContext = createContext({} as iUserContext);
-
+//alguns erros ainda presentes no arquivo, enquanto eu implemento as funções em si :)
 const UserProvider = ({children}:iContextProps) => {
     return ( 
-        <userContext.Provider value={{}}>
+        <userContext.Provider value={{}}> 
             {children}
         </userContext.Provider>
      );
