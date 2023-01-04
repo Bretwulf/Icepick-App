@@ -1,18 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import React from "react";
+import "./App.css";
+import LoginPage from "./components/login/login";
+import RegisterPage from "./components/register/Register";
+import EditPage from "./components/edit/edit";
+import DeletePage from './components/delete/delete';
+import GetPage from "./components/get/getData";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route/>
-        <Route/>
-        <Route/>
-        <Route/>
-        <Route/>
-      </Routes>
+      <LoginPage />
+      <div></div>
+      <RegisterPage/>
+      <div>
+        <EditPage/>
+      </div>
+      <DeletePage/>
+      <GetPage/>
     </div>
   );
 }
