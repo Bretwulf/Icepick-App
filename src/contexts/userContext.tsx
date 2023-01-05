@@ -11,7 +11,7 @@ import {
 import { API } from "../services/axios";
 import { ToastContent } from "react-toastify";
 import { AxiosError } from "axios";
-import { Toash } from "../components/Toast";
+import { Toast } from "../components/Toast";
 
 interface iLoginError {
   error: string;
@@ -28,14 +28,14 @@ const UserProvider = ({ children }: iContextProps) => {
       const response = await API.post<iLoginResponse>("login", data, {
         headers: { "Content-Type": "application/json" },
       });
-      Toash("Login realizado com sucesso.", "sucess")
+      Toast("Login realizado com sucesso.", "sucess")
       setUser(response.data.user);
       setToken(response.data.accessToken);
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toash(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
     }
   };
 
@@ -44,12 +44,12 @@ const UserProvider = ({ children }: iContextProps) => {
       const response = await API.post("users", data, {
         headers: { "Content-Type": "application/json" },
       });
-      Toash("Cadastro realizado com sucesso.", "sucess")
+      Toast("Cadastro realizado com sucesso.", "sucess")
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toash(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
     }
   };
 
@@ -65,13 +65,13 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toash("Frase editada com sucesso.", "sucess")
+      Toast("Frase editada com sucesso.", "sucess")
       console.log(response.data);
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toash(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
     }
   };
 
@@ -83,12 +83,12 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toash("Frase deletada com sucesso.", "sucess")
+      Toast("Frase deletada com sucesso.", "sucess")
       setUser(undefined);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toash(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
     }
   };
 
@@ -100,13 +100,13 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toash("Dados obtidos com sucesso.", "sucess")
+      Toast("Dados obtidos com sucesso.", "sucess")
       console.log(response.data);
       setUser(response.data)
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toash(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
     }
   };
 

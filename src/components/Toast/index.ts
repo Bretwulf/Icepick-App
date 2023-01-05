@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 type tTypeNotify = "sucess" | "error";
 
-export const Toash = (message: string, type: tTypeNotify) => {
+export const Toast = (message: string, type: tTypeNotify) => {
   if (type === "sucess") {
     toast.success(`${message}`, {
       position: toast.POSITION.TOP_RIGHT,
