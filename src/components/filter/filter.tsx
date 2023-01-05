@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { FaSearch } from 'react-icons/fa';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { StyledInputSearchBox } from "./styledComponents";
 
 const FilterFrases = () => {
@@ -7,7 +6,7 @@ const FilterFrases = () => {
     return(
         <StyledInputSearchBox>
             <input type="text" placeholder="Digitar Pesquisa"/>
-            <button><FaSearch/></button>
+            <button><AiOutlineSearch/></button>
         </StyledInputSearchBox>
     )
 }
