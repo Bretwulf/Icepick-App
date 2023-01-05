@@ -10,6 +10,8 @@ import Modal from "./components/modal/modal";
 import { GlobalStyle } from "./styles/globalStyles";
 import FilterFrases from "./components/filter/filter";
 
+
+
 function App() {
 
   const {stateModal, showModal} = useModal()
