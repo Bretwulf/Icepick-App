@@ -24,15 +24,6 @@ function App() {
       <DeletePage/>
       <GetPage/> */}
       {stateModal && <Modal />}
-      <button onClick={() => showModal(<LoginPage />)}>
-        Abrir Modal Login
-      </button>
-      <button onClick={() => showModal(<RegisterPage />)}>
-        Abrir Modal Cadastro
-      </button>
-      <button onClick={() => showModal(<EditPage />)}>
-        Abrir Modal de Editar
-      </button>
     </div>
   );
 }

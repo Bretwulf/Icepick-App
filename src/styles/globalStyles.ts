@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
         vertical-align: baseline;
         box-sizing: border-box;
         font-family: "Inter", sans-serif;
+        
     }
     button{
         cursor:pointer;

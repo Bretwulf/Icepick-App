@@ -1,28 +1,38 @@
-import React, { createContext} from 'react'
-import { iSentences } from '../../types/types'
-
+import axios from "axios";
+import React, { createContext, useEffect } from "react";
+import { iSentences } from "../../types/types";
 
 interface iContextProps {
-    children: React.ReactNode,
+  children: React.ReactNode;
 }
 
-
 interface iSentenceContext {
-    sentences: iSentences[],
-    add: (sentence:iSentences)=>void,
-    delete: (id:number)=>void,
-    like: ((id:number)=>void),
-    edit: ((id:number)=>void)
+  sentences: iSentences[];
+  add: (sentence: iSentences) => void;
+  delete: (id: number) => void;
+  like: (id: number) => void;
+  edit: (id: number) => void;
 }
 
 const sentenceContext = createContext({} as iSentenceContext);
 
-const SentenceProvider = ({children}:iContextProps) => {
-    return ( 
-        <sentenceContext.Provider value={{sentences:[],add:()=>{},delete:()=>{},like:()=>{},edit:()=>{}}}>
-            {children}
-        </sentenceContext.Provider>
-     );
-}
- 
+const SentenceProvider = ({ children }: iContextProps) => {
+  useEffect(() => {
+    axios.get("sentences").then((response) => console.log(response));
+  }, []);
+  return (
+    <sentenceContext.Provider
+      value={{
+        sentences: [],
+        add: () => {},
+        delete: () => {},
+        like: () => {},
+        edit: () => {},
+      }}
+    >
+      {children}
+    </sentenceContext.Provider>
+  );
+};
+
 export default SentenceProvider;
