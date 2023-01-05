@@ -2,10 +2,6 @@ import React from "react";
 import { useModal } from "../../contexts/modalContext/modalContext";
 import { StyledContainerModal } from "./styledComponents";
 
-/* interface iModalProps {
-  children: React.ReactNode;
-} */
-
 const Modal = () => {
   const { closeModal, childrenModal, animationModal } = useModal();
 

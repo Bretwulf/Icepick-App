@@ -7,6 +7,7 @@ import DeletePage from './components/delete/delete';
 import GetPage from "./components/get/getData";
 import { useModal } from "./contexts/modalContext/modalContext";
 import Modal from "./components/modal/modal";
+import { GlobalStyle } from "./styles/globalStyles";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div className="App">
+      <GlobalStyle/>
       {/* <LoginPage />
       <div></div>
       <RegisterPage/>

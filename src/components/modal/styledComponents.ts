@@ -92,21 +92,21 @@ export const StyledContainerModal = styled.div<iStyledContainerModalProps>`
   align-items: center;
   justify-content: center;
 
-  background-color: rgba(19, 1, 1, 0.5);
+  background-color: var(--Color-Opacity);
 
   .modal {
     max-height: 33.125rem;
     width: 100%;
     padding: 2.125rem 0.75rem;
     margin: 0 10px;
-    border-radius: 0.5rem;
+    border-radius: var(--Border-Radius-1);
 
-    background-color: #5458f0;
+    background-color: var(--Color-primary);
     color: #fff;
 
     position: relative;
 
-    ${({ animationModal }) => {
+    ${({ animationModal }: iStyledContainerModalProps) => {
       if (animationModal === true) {
         return css`
           animation: ${animationShowModal} 1.1s both;

@@ -21,12 +21,3 @@ export const Toash = (message: string, type: tTypeNotify) => {
     });
   }
 };
-
-/* 
-  variaveis a se colocar no root para estilizar os textos dos toash
-
-  --toastify-text-color-info: #fff;
-  --toastify-text-color-success: #fff;
-  --toastify-text-color-warning: #fff;
-  --toastify-text-color-error: #fff;
-*/
