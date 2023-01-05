@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledInputSearchBox = styled.fieldset`
     width: 90%;
-    max-width: 574px;
+    max-width: 35.875rem;
 
     margin: 0 auto;
 
@@ -12,27 +12,27 @@ export const StyledInputSearchBox = styled.fieldset`
     position: relative;
     input{
         width: 100%;
-        height: 40px;
+        height: 2.5rem;
 
-        padding: 9px;
+        padding: 0.563rem;
 
-        border-radius: 15px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+        border-radius: 0.938rem;
+        box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.10);
         outline-color: var(--Color-Blue);
     }
     input::placeholder{
-        font-size: 16px;
+        font-size: 1rem;
         color: var(--Grey-3);
     }
     button{
         position: absolute;
         top: 20%;
-        right: 16px;
+        right: 1rem;
         background: none;
         border: none;
     }
     svg{
-        font-size: 22px;
+        font-size: 1.375rem;
     }
     
     
