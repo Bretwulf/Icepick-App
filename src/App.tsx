@@ -8,7 +8,9 @@ import GetPage from "./components/get/getData";
 import { useModal } from "./contexts/modalContext/modalContext";
 import Modal from "./components/modal/modal";
 import { GlobalStyle } from "./styles/globalStyles";
-import FilterFrases from "./components/filter/filter";
+
+import SearchInput from "./components/search/search";
+import FilterSection from "./components/filter/filter";
 
 function App() {
 
@@ -29,7 +31,8 @@ function App() {
       <button onClick={() => showModal(<LoginPage/>)}>Abrir Modal Login</button>
       <button onClick={() => showModal(<RegisterPage/>)}>Abrir Modal Cadastro</button>
       <button onClick={() => showModal(<EditPage/>)}>Abrir Modal de Editar</button>
-      <FilterFrases/>
+      <SearchInput/>
+      <FilterSection/>
     </div>
   );
 }
