@@ -64,6 +64,7 @@ export interface iUserContext {
   deletet: (id: number, token: string) => void;
   edit: (id: number, token: string, data: iEditRequest) => void;
   login: (data: iLoginRequest) => Promise<void>;
+  logout: () => void;
   get: (id: number, token: string) => void;
 }
 

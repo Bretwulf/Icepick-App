@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from "react";
 import {
   iLoginRequest,
   iRegisterRequest,
@@ -35,6 +35,7 @@ const UserProvider = ({ children }: iContextProps) => {
       Toast("Login realizado com sucesso.", "sucess");
       setUser(response.data.user);
       setToken(response.data.accessToken);
+      localStorage.setItem("icePickToken", response.data.accessToken)
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
@@ -43,6 +44,13 @@ const UserProvider = ({ children }: iContextProps) => {
       toggleLoading(false);
     }
   };
+
+  function logout () {
+    setUser(undefined)
+    setToken("")
+    localStorage.removeItem("icePickToken")
+    Toast("Logout feito com sucesso.", "sucess")
+  }
 
   const register = async (data: iRegisterRequest): Promise<void> => {
     toggleLoading(true);
@@ -130,7 +138,8 @@ const UserProvider = ({ children }: iContextProps) => {
         deletet,
         edit,
         login,
-        get,
+        logout,
+        get
       }}
     >
       {children}
