@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+
 import { GlobalStyle } from "./styles/globalStyles";
 
 import { MainRoutes } from "./Routes/Routes";
