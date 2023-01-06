@@ -6,10 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { iRegisterRequest } from "../../types/types";
-import { useContext } from "react";
-import { userContext } from "../../contexts/userContext/userContext";
 import { Input } from "../input/input";
-import { loadingContext } from "../../contexts/loadingContext/loadingContext";
 import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
 import { useLoading } from "../../hooks/useLoading";
@@ -59,7 +56,7 @@ const RegisterForm = () => {
         event!.target!.reset();
       })}
     >
-      <h2>Register</h2>
+      <h2>Registrar</h2>
       <Controller
         control={control}
         name="username"

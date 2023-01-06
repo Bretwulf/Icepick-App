@@ -3,7 +3,7 @@ import { StyledButton } from "./styledComponents"
 interface IButtonProps{
     type?: "button" | "submit" | undefined
     text: string | React.ReactNode,
-    disabled: boolean,
+    disabled?: boolean,
     onClick?: () => void
     buttonSize: "default" | "big" | "medium" | "small"
     buttonStyle: 'bg-ColorBlue' | 'bg-ColorBlue2' | 'bg-ColorBlue3' | 'bg-ColorBlueSmall' | 'bg-ColorRed'

@@ -1,17 +1,14 @@
 import React from "react";
 
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useState } from "react";
+
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { iLoginRequest, iSentenceRequest } from "../../types/types";
+import { iSentenceRequest } from "../../types/types";
 import { Input, Select } from "../input/input";
 import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
 import { useLoading } from "../../hooks/useLoading";
-import { useUsers } from "../../hooks/useUsers";
 import { Button } from "../buttons/button";
 
 const EditSentenceForm = () => {

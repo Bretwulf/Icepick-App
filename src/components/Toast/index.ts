@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from 'react';
+
 
 type tTypeNotify = "sucess" | "error";
 

@@ -42,7 +42,7 @@ export const Form = styled.form`
     height:max-content;
     position:absolute;
     right: 15px;
-    top:10px;
+    top:13px;
   }
 
   input {

@@ -91,6 +91,7 @@ const LoginForm = () => {
           )}{" "}
         </button>
       </div>
+
       <Button
         text={loading ? <PulseLoader /> : "Logar"}
         buttonSize="default"

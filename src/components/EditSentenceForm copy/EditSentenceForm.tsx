@@ -1,20 +1,23 @@
 import React from "react";
 
 
+
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {iSentenceRequest } from "../../types/types";
+import { iSentenceRequest } from "../../types/types";
 import { Input, Select } from "../input/input";
 import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
 import { useLoading } from "../../hooks/useLoading";
+
 import { Button } from "../buttons/button";
 
-const AddSentenceForm = () => {
+const EditSentenceForm = () => {
+
   const { loading } = useLoading();
   const schema = yup.object().shape({
-    sentence: yup.string().required("Frase deve ter um corpo!").matches(/[\s\S]{20,}/, "frase deve ter pelo menos 20 caracteres!"),
+    sentence: yup.string().required("Frase deve ter um corpo!"),
     type: yup.string().required("Frase deve ter um tipo!"),
   });
 
@@ -27,12 +30,13 @@ const AddSentenceForm = () => {
     mode: "onChange",
   });
 
-
+  
   return (
-    <Form onSubmit={handleSubmit((data) => console.log(data))}>{/*Adicionar função de adicionar frase posteriormmente*/}
-      <h2>Adicionar Frase</h2>
+    <Form onSubmit={handleSubmit((data) => console.log(data))}>{/*Adicionar função de editar frase posteriormmente*/}
+      <h2>Editar Frase!</h2>
       <Controller
         control={control}
+        /*defaultValue={sentence.text}/*para que o input comece já com os dados de cada campo.*/
         name="sentence"
         render={({
           field: { onChange, onBlur, value, name, ref },
@@ -43,7 +47,7 @@ const AddSentenceForm = () => {
             isDirty={isDirty}
             isValid={error ? false : true}
             type="text"
-            placeholder="digite a sua frase aqui"
+            placeholder="digite seu e-mail aqui"
             onChange={onChange}
             value={value}
           />
@@ -54,6 +58,7 @@ const AddSentenceForm = () => {
 
       <Controller
         control={control}
+        /*defaultValue={sentence.text}/*para que o input comece já com os dados de cada campo.*/
         name="type"
         render={({
           field: { onChange, onBlur, value, name, ref },
@@ -63,7 +68,7 @@ const AddSentenceForm = () => {
           <Select
             isDirty={isDirty}
             isValid={error ? false : true}
-            placeholder="selecione o tipo de frase"
+            placeholder="digite sua senha"
             onChange={onChange}
             value={value}
           >
@@ -79,7 +84,7 @@ const AddSentenceForm = () => {
       {<p className="errorMessage">{errors.type?.message}</p>}
 
       <Button
-        text={loading ? <PulseLoader /> : "Adicionar"}
+        text={loading ? <PulseLoader /> : "Confirmar Alterações"}
         buttonSize="default"
         buttonStyle="bg-ColorBlue"
         disabled={!isValid || !isDirty || loading}
@@ -89,4 +94,4 @@ const AddSentenceForm = () => {
   );
 };
 
-export default AddSentenceForm;
+export default EditSentenceForm;
