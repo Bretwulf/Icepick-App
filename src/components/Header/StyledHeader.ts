@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledHeader = styled.header`
     display: flex;
@@ -6,6 +6,14 @@ export const StyledHeader = styled.header`
     align-items: center;
     background-color: var(--Color-Blue);
     box-shadow: var(--box-shadow);
+
+    .div-menu {
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+        align-items: center;
+        margin-right: 5%;
+    }
 
     figure {
         margin-left: 5%;
@@ -15,15 +23,25 @@ export const StyledHeader = styled.header`
         }
     }
 
+    .buttons-desktop {
+        display: none;
+        gap: 15px;
+        margin-right: 5%;
+    }
+
+    button {
+        width: auto;
+    }
+
     .menu {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         gap: 3px;
         cursor: pointer;
-        margin-right: 5%;
         width: 25px;
         height: 25px;
+        z-index: 2;
 
         img {
             border-radius: 255px;
@@ -43,6 +61,7 @@ export const StyledHeader = styled.header`
         width: 25px;
         height: 3px;
         background-color: #FFF5F5;
+        z-index: 1;
 
     }
 
@@ -84,5 +103,18 @@ export const StyledHeader = styled.header`
                 color: var(--Color-Blue);
             }
         }
+    }
+
+    @media (min-width: 500px) {
+
+        .buttons-desktop {
+            display: flex;
+            
+        }
+
+        .menu-line {
+            display: none;
+        }
+
     }
 `
