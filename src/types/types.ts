@@ -6,6 +6,11 @@ export interface iUser {
   id:number
 }
 
+export interface iSentenceRequest{
+  sentence:string,
+  type: string,
+}
+
 export interface iLoginRequest {
   email: string;
   password: string;
@@ -22,6 +27,7 @@ export interface iLoginResponse {
 export interface iRegisterRequest {
   email: string;
   password: string;
+  passwordConfirm?: string;
   username: string;
   avatar: string;
 }
@@ -30,6 +36,7 @@ export interface iEditRequest {
   email?: string;
   password?: string;
   username?: string;
+  passwordConfirm?:string;
   avatar?: string;
 }
 
@@ -45,6 +52,11 @@ export interface iContextProps {
   children: React.ReactNode;
 }
 
+export interface iLoadingContext{
+  loading: boolean,
+  toggleLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export interface iUserContext {
   user: iUser| undefined;
   token: string,
@@ -54,4 +66,9 @@ export interface iUserContext {
   login: (data: iLoginRequest) => Promise<void>;
   logout: () => void;
   get: (id: number, token: string) => void;
+}
+
+export interface iStyledInputProps {
+  isValid: boolean;
+  isDirty: boolean;
 }

@@ -12,7 +12,7 @@ interface iModalProviderProps {
   children: React.ReactNode;
 }
 
-const modalContext = createContext({} as iModalContextProps);
+export const modalContext = createContext({} as iModalContextProps);
 
 const ModalProvider = ({ children }: iModalProviderProps) => {
   const [stateModal, setStateModal] = useState(false);
@@ -40,4 +40,4 @@ const ModalProvider = ({ children }: iModalProviderProps) => {
 };
 
 export default ModalProvider;
-export const useModal = () => useContext(modalContext);
+

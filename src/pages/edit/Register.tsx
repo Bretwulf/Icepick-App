@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { userContext } from "../../contexts/userContext";
+import { userContext } from "../../contexts/userContext/userContext";
 import { iRegisterRequest } from "../../types/types";
 
 const RegisterPage = () => {
@@ -8,10 +8,6 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [avatar, setAvatar] = useState("");
   const { register } = useContext(userContext);
-
-  
-
- 
 
   const registerSubmitHandler = async (
     e: React.FormEvent<HTMLFormElement>
@@ -23,11 +19,11 @@ const RegisterPage = () => {
       username,
       avatar,
     };
-    register(data)
+    register(data);
   };
   return (
     <>
-    <h1>Registre-se</h1>
+      <h1>Registre-se</h1>
       <form
         onSubmit={(e) => {
           registerSubmitHandler(e);

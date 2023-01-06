@@ -95,7 +95,7 @@ export const StyledContainerModal = styled.div<iStyledContainerModalProps>`
   background-color: var(--Color-Opacity);
 
   .modal {
-    max-height: 33.125rem;
+    max-height: max-content;
     width: 100%;
     padding: 2.125rem 0.75rem;
     margin: 0 10px;

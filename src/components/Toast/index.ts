@@ -1,9 +1,12 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 type tTypeNotify = "sucess" | "error";
 
+
 export const Toast = (message: string, type: tTypeNotify) => {
+
   if (type === "sucess") {
     toast.success(`${message}`, {
       position: toast.POSITION.TOP_RIGHT,

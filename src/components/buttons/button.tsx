@@ -2,15 +2,16 @@ import { StyledButton } from "./styledComponents"
 
 interface IButtonProps{
     type?: "button" | "submit" | undefined
-    text: string
+    text: string | React.ReactNode,
+    disabled?: boolean,
     onClick?: () => void
-    buttonSize: string
-    buttonStyle: string
+    buttonSize: "default" | "big" | "medium" | "small"
+    buttonStyle: 'bg-ColorBlue' | 'bg-ColorBlue2' | 'bg-ColorBlue3' | 'bg-ColorBlueSmall' | 'bg-ColorRed'
     className?: string
 }
 
-export const Button= ({text, onClick, buttonSize, buttonStyle, type} : IButtonProps)=>{
+export const Button= ({disabled, text, onClick, buttonSize, buttonStyle, type} : IButtonProps)=>{
     return(
-        <StyledButton buttonSize={buttonSize} buttonStyle={buttonStyle} type={type} onClick={onClick}>{text}</StyledButton>
+        <StyledButton disabled={disabled} buttonSize={buttonSize} buttonStyle={buttonStyle} type={type} onClick={onClick}>{text}</StyledButton>
     )
 }

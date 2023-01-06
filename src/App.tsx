@@ -12,7 +12,9 @@ function App() {
       <GlobalStyle/>
       <MainRoutes/>
     </div>
-  );
+   );
 }
-
+ 
 export default App;
+  
+

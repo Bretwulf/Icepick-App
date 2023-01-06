@@ -13,7 +13,16 @@ export const GlobalStyle = createGlobalStyle`
     button{
         cursor:pointer;
     } 
-    
+    button:disabled{
+        cursor: not-allowed;
+    }
+    input:focus{
+        outline:none;
+        border:none;
+    }
+    body{
+        font-family: 'Inter', sans-serif; 
+    }
     :root{
         --Color-primary: #5458F0;
         --Color-primary-2: #52154E;

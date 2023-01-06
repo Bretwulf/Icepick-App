@@ -2,13 +2,13 @@ import React from "react"
 import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import logo from "../../Assets/Imgs/icepick_logo.png"
-import { useModal } from "../../contexts/modalContext/modalContext"
-import { userContext } from "../../contexts/userContext"
+import { userContext } from "../../contexts/userContext/userContext"
 import { Button } from "../buttons/button"
-import LoginPage from "../login/login"
 import Modal from "../modal/modal"
-import RegisterPage from "../register/Register"
 import { StyledHeader } from "./StyledHeader"
+import LoginForm from '../loginForm/loginForm';
+import RegisterForm from "../registerForm/registerForm"
+import { useModal } from '../../hooks/useModal';
 
 export function Header () {
     const { stateModal, showModal } = useModal()
@@ -47,8 +47,8 @@ export function Header () {
                     </>
                     :
                     <div className="buttons-desktop">
-                        <Button onClick={() => showModal(<LoginPage/>)} text="Login" buttonSize="small" buttonStyle="bg-ColorBlue3" type="button"/>
-                        <Button onClick={() => showModal(<RegisterPage/>)} className="register" text="Cadastrar" buttonSize="small" buttonStyle="bg-ColorBlue3" type="button"/>
+                        <Button onClick={() => showModal(<LoginForm/>)} text="Login" buttonSize="small" buttonStyle="bg-ColorBlue3" type="button"/>
+                        <Button onClick={() => showModal(<RegisterForm/>)} className="register" text="Cadastrar" buttonSize="small" buttonStyle="bg-ColorBlue3" type="button"/>
                     </div>
                 }
             <div className="menu" onClick={openDropDown}>
@@ -77,8 +77,8 @@ export function Header () {
                             </>
                             :
                             <>
-                                <p onClick={() => showModal(<LoginPage/>)}>Login</p>
-                                <p onClick={() => showModal(<RegisterPage/>)}>Cadastrar</p>
+                                <p onClick={() => showModal(<LoginForm/>)}>Login</p>
+                                <p onClick={() => showModal(<RegisterForm/>)}>Cadastrar</p>
                             </>
                         }
                     </div>

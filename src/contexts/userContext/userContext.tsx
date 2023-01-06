@@ -7,11 +7,12 @@ import {
   iEditRequest,
   iUserContext,
   iContextProps,
-} from "../types/types";
-import { API } from "../services/axios";
-import { ToastContent } from "react-toastify";
+} from "../../types/types";
+import { API } from "../../services/axios";
+
 import { AxiosError } from "axios";
-import { Toast } from "../components/Toast";
+import { Toast } from "../../components/Toast";
+import { useLoading } from '../../hooks/useLoading';
 
 interface iLoginError {
   error: string;
@@ -22,13 +23,15 @@ export const userContext = createContext({} as iUserContext);
 const UserProvider = ({ children }: iContextProps) => {
   const [user, setUser] = useState<iUser>();
   const [token, setToken] = useState<string>("");
+  const { toggleLoading } = useLoading();
 
   const login = async (data: iLoginRequest): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.post<iLoginResponse>("login", data, {
         headers: { "Content-Type": "application/json" },
       });
-      Toast("Login realizado com sucesso.", "sucess")
+      Toast("Login realizado com sucesso.", "sucess");
       setUser(response.data.user);
       setToken(response.data.accessToken);
       localStorage.setItem("icePickToken", response.data.accessToken)
@@ -36,7 +39,8 @@ const UserProvider = ({ children }: iContextProps) => {
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+    } finally{
+      toggleLoading(false);
     }
   };
 
@@ -48,16 +52,18 @@ const UserProvider = ({ children }: iContextProps) => {
   }
 
   const register = async (data: iRegisterRequest): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.post("users", data, {
         headers: { "Content-Type": "application/json" },
       });
-      Toast("Cadastro realizado com sucesso.", "sucess")
+      Toast("Cadastro realizado com sucesso.", "sucess");
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+    } finally{
+      toggleLoading(false);
     }
   };
 
@@ -66,6 +72,7 @@ const UserProvider = ({ children }: iContextProps) => {
     token: string,
     data: iEditRequest
   ): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.patch(`users/${id}`, data, {
         headers: {
@@ -73,17 +80,19 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toast("Frase editada com sucesso.", "sucess")
+      Toast("Frase editada com sucesso.", "sucess");
       console.log(response.data);
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+    } finally{
+      toggleLoading(false);
     }
   };
 
   const deletet = async (id: number, token: string): Promise<void> => {
+    toggleLoading(true);
     try {
       await API.delete(`users/${id}`, {
         headers: {
@@ -91,16 +100,18 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toast("Frase deletada com sucesso.", "sucess")
+      Toast("Frase deletada com sucesso.", "sucess");
       setUser(undefined);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
+    } finally{
+      toggleLoading(false);
     }
   };
 
   const get = async (id: number, token: string): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.get<iUser>(`users/${id}`, {
         headers: {
@@ -108,13 +119,12 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toast("Dados obtidos com sucesso.", "sucess")
+      Toast("Dados obtidos com sucesso.", "sucess");
       console.log(response.data);
-      setUser(response.data)
+      setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      Toast(`${typedError.response!.data as unknown as ToastContent<unknown>}`, "error")
     }
   };
 
