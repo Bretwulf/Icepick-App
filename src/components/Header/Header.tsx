@@ -1,4 +1,4 @@
-import React from "react"
+import React, { SyntheticEvent } from "react"
 import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import logo from "../../Assets/Imgs/icepick_logo.png"
@@ -15,23 +15,27 @@ export function Header () {
     const { user, logout } = useContext(userContext)
     const navigate = useNavigate()
 
-    function openDropDown (e: any) {
-        if (e.target.className === "menu-line") {
-            e.target.parentElement.nextSibling.classList.toggle("hidden")
-        } else if (e.target.nodeName === "IMG") {
-            e.target.nextSibling.classList.toggle("hidden")
+    function openDropDown (e: React.MouseEvent<HTMLElement, MouseEvent>) {
+        if (e.currentTarget instanceof HTMLElement)
+        if (e.currentTarget.className === "menu-line") {
+            
+            e.currentTarget.parentElement!.nextElementSibling!.classList.toggle("hidden")
+        } else if (e.currentTarget!.nodeName === "IMG") {
+            
+            e.currentTarget!.nextElementSibling!.classList.toggle("hidden")
         } else {
-            e.target.lastChild.classList.toggle("hidden")
+            
+            e.currentTarget!.lastElementChild!.classList.toggle("hidden")
         }
     }
 
     const element = document.querySelector(".menu")
-    document.addEventListener("click", (e: any) => {
-        if (element?.contains(e.target)) {
-        } else {
+    document.addEventListener("click", (e:MouseEvent) => {
+        console.log("bu")
+        if (!element?.contains(e.target as Element)) {
             element?.lastElementChild?.classList.add("hidden")
-        }
-    })
+       
+}})
 
     return (
         <StyledHeader>
