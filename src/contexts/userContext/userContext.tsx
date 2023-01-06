@@ -33,6 +33,7 @@ const UserProvider = ({ children }: iContextProps) => {
       const response = await API.post<iLoginResponse>("login", data, {
         headers: { "Content-Type": "application/json" },
       });
+      API.defaults.headers.common.authorization = `Bearer ${response.data.accessToken}`;
       Toast("Login realizado com sucesso.", "sucess");
       setUser(response.data.user);
       setToken(response.data.accessToken);

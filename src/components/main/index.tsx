@@ -45,7 +45,7 @@ const Main = () => {
         {/* {sentences[random].text} */} Gerar nova frase
       </button>
       <SearchInput/>
-      <FilterSection/>
+      <FilterSection page="home" />
     </MainStyled>
   );
 };

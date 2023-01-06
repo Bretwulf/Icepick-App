@@ -6,6 +6,7 @@ export function MainRoutes () {
     return (
         <Routes>
             <Route path="/" element={<HomePage/>}/>
+            <Route path="*" element={<HomePage/>}/>
             <Route path="/profile" element={<ProfilePage/>}/>
         </Routes>
     )

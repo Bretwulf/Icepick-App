@@ -1,19 +1,23 @@
 import React from "react";
-import { AiOutlineStar } from 'react-icons/ai';
+import { AiOutlineStar, AiTwotoneStar } from 'react-icons/ai';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { FiTrash2 } from 'react-icons/fi';
 import { iSentences } from "../../../types/types";
 import { StyledCard } from "./styledComponents";
 import EditSentenceForm from "../../editSentenceForm/EditSentenceForm";
 import { useModal } from "../../../hooks/useModal";
+import { useSentece } from "../../../hooks/useSentence";
 
 type tTypeCard= "created" | "favorite"
+
 interface iMiniCard{
     type:tTypeCard,
     sentence: iSentences
 }
-const MiniCard = ({type, sentence}:iMiniCard) => {
+const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()
+    const { likeSentence } = useSentece()
+    
     return(
         <StyledCard key={sentence.id}>
             <div>
@@ -27,8 +31,12 @@ const MiniCard = ({type, sentence}:iMiniCard) => {
                     </>
                 ):(
                     <>
-                        <AiOutlineStar/>
-                        <span>3</span>
+                        {sentence.liked?(
+                            <AiTwotoneStar onClick={/* addLiked? */ ()=>likeSentence(sentence)/* : ()=>{} */}/>
+                        ):(
+                            <AiOutlineStar onClick={/* addLiked? */ ()=>likeSentence(sentence)/* : ()=>{} */}/>
+                        )}
+                        <span>{sentence.like}</span>
                     </>
                 )}
             </div>

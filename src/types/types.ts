@@ -45,7 +45,8 @@ export interface iSentences {
   type: string;
   text: string;
   like: number;
-  id: string;
+  id: number;
+  liked:boolean;
 }
 
 export interface iContextProps {
