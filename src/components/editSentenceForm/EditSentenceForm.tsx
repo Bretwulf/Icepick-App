@@ -4,14 +4,18 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { iSentenceRequest } from "../../types/types";
+import { iSentenceRequest, iSentences } from "../../types/types";
 import { Input, Select } from "../input/input";
 import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
 import { useLoading } from "../../hooks/useLoading";
 import { Button } from "../buttons/button";
 
-const EditSentenceForm = () => {
+interface iEditSentenceForm{
+  sentence: iSentences
+}
+
+const EditSentenceForm = ({sentence}:iEditSentenceForm) => {
  
   const { loading } = useLoading();
   const schema = yup.object().shape({
@@ -34,7 +38,7 @@ const EditSentenceForm = () => {
       <h2>Editar Frase</h2>
       <Controller
         control={control}
-        /*defaultValue={sentence.text}/*para que o input comece já com os dados de cada campo.*/
+        defaultValue={sentence.text}
         name="sentence"
         render={({
           field: { onChange, onBlur, value, name, ref },
@@ -56,7 +60,7 @@ const EditSentenceForm = () => {
 
       <Controller
         control={control}
-        /*defaultValue={sentence.text}/*para que o input comece já com os dados de cada campo.*/
+        defaultValue={sentence.type}
         name="type"
         render={({
           field: { onChange, onBlur, value, name, ref },
@@ -69,6 +73,7 @@ const EditSentenceForm = () => {
             placeholder="selecione o novo tipo"
             onChange={onChange}
             value={value}
+
           >
             <option value="Formal">Formal</option>
             <option value="Engraçadas">Engraçadas</option>
