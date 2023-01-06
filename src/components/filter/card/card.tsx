@@ -2,7 +2,9 @@ import React from "react";
 import { AiOutlineStar } from 'react-icons/ai';
 import { StyledCard } from "./styledComponents";
 
-const MiniCard = (type:string) => {
+type tTypeCard= "created" | "favorite"
+
+const MiniCard = (type:tTypeCard) => {
     if(type === "created"){
         return(
             <StyledCard>
@@ -22,6 +24,7 @@ const MiniCard = (type:string) => {
                 <p>O que você faria se fosse passar 24h no corpo de alguém do sexo oposto?</p>
             </div>
             <div>
+                { }
                 <AiOutlineStar/>
                 <span>3</span>
             </div>

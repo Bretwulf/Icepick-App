@@ -21,27 +21,18 @@ interface iSentenceContext {
 export const sentenceContext = createContext({} as iSentenceContext);
 
 const SentenceProvider = ({children}:iContextProps) => {
-   /*  const [sentences, setSetences] = useState([] as iSentences[]);
+  const addSentence = () => {
     
-    const getAllSetences = async (): Promise<void> => {
-        try {
-          const response = await API.get(`sentences`, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          console.log(response.data);
-          setSetences(response.data);
-        } catch (error) {
-          const typedError = error as AxiosError;
-          console.log(typedError.response!.data);
-        }
-      };
+  };
+  const likeSentence = () =>{
 
-      useEffect(()=>{
-        getAllSetences()
-      }, []) */
-
+  };
+  const editSentence = () => {
+    
+  };
+  const deleteSentence = () => {
+    
+  };
       
 
     return ( 

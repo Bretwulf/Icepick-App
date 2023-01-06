@@ -4,7 +4,7 @@ import { StyledFilterSection } from "./styledComponents";
 import { sentenceContext } from '../../contexts/sentenceContext/sentenceContext';
 
 const FilterSection = () => {
-    const { sentences, setSetences } = useContext(sentenceContext)
+    const { sentences, /* setSetences  */} = useContext(sentenceContext)
     console.log(sentences)
     return(
         <StyledFilterSection>
