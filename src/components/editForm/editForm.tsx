@@ -18,7 +18,6 @@ import { Button } from "../buttons/button";
 const EditForm = () => {
   const { edit, user, token } = useUsers();
   const { loading } = useLoading();
-
   const schema = yup.object().shape({
     username: yup.string().required("Entre um nome"),
     password: yup.string(),

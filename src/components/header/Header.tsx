@@ -9,6 +9,7 @@ import { StyledHeader } from "./StyledHeader"
 import LoginForm from '../loginForm/loginForm';
 import RegisterForm from "../registerForm/registerForm"
 import { useModal } from '../../hooks/useModal';
+import AddSentenceForm from '../AddSentenceForm/AddSentenceForm';
 
 export function Header () {
     const { stateModal, showModal } = useModal()
@@ -45,7 +46,7 @@ export function Header () {
                 {
                     user ?
                     <>
-                        <Button text="Criar Frase" buttonSize="small" buttonStyle="bg-ColorBlue3" type="button"/>
+                        <Button onClick={() => showModal(<AddSentenceForm/>)} text="Criar Frase" buttonSize="small" buttonStyle="bg-ColorBlue3" type="button"/>
                     </>
                     :
                     <div className="buttons-desktop">

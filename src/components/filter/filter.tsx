@@ -1,13 +1,31 @@
-import { AiOutlineSearch } from 'react-icons/ai';
-import { StyledInputSearchBox } from "./styledComponents";
+import React, { useContext } from "react";
+import MiniCard from "./card/card";
+import { StyledFilterSection } from "./styledComponents";
+import { sentenceContext } from '../../contexts/sentenceContext/sentenceContext';
 
-const FilterFrases = () => {
-
+const FilterSection = () => {
+    const { sentences, /* setSetences  */} = useContext(sentenceContext)
+    console.log(sentences)
     return(
-        <StyledInputSearchBox>
-            <input type="text" placeholder="Digitar Pesquisa"/>
-            <button><AiOutlineSearch/></button>
-        </StyledInputSearchBox>
+        <StyledFilterSection>
+            <div>
+                <div>
+                    <button type="button" id="buttonLi">Formal</button>
+                    <button type="button" id="buttonLi">Engraçada</button>
+                    <button type="button" id="buttonLi">Paquera</button>
+                    <button type="button" id="buttonLi">Criativas</button>
+                    <button type="button" id="buttonLi">Pessoal</button>
+                    <button type="button" id="buttonLi">Curiosidade</button>
+                    <button type="button" id="buttonLi">Intimidade</button>
+                </div>
+                <ul>
+
+                    {/* <MiniCard/>
+                    <MiniCard/>
+                    <MiniCard/> */}
+                </ul>
+            </div>
+        </StyledFilterSection>
     )
 }
-export default FilterFrases;
+export default FilterSection;

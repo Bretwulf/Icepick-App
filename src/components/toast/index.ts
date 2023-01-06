@@ -1,15 +1,16 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { iLoginError } from "../../contexts/userContext/userContext";
 
 type tTypeNotify = "sucess" | "error";
 
-
-export const Toast = (message: string, type: tTypeNotify) => {
-
+export const Toast = (message: string | iLoginError, type: tTypeNotify) => {
+  const mobile = window.matchMedia("(max-width:600px)");
   if (type === "sucess") {
     toast.success(`${message}`, {
-      position: toast.POSITION.TOP_RIGHT,
+      position: mobile.matches
+        ? toast.POSITION.BOTTOM_RIGHT
+        : toast.POSITION.TOP_RIGHT,
       theme: "light",
       autoClose: 5000,
       icon: "🧊",
@@ -17,7 +18,9 @@ export const Toast = (message: string, type: tTypeNotify) => {
     });
   } else if (type === "error") {
     toast.error(`${message}`, {
-      position: toast.POSITION.TOP_RIGHT,
+      position: mobile.matches
+        ? toast.POSITION.BOTTOM_RIGHT
+        : toast.POSITION.TOP_RIGHT,
       theme: "light",
       autoClose: 5000,
       icon: "💧",

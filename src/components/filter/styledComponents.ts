@@ -1,39 +1,63 @@
 import styled from "styled-components";
 
-export const StyledInputSearchBox = styled.fieldset`
-    width: 90%;
-    max-width: 35.875rem;
+export const StyledFilterSection = styled.section`
+    width: 100%;
+    max-width: 60.625rem;
+    height: 100%;
 
     margin: 0 auto;
+    
+    background-color: var(--Grey-2);
+    border-radius: none;
 
-    border: none;
-
-    background-color: none;
-    position: relative;
-    input{
-        width: 100%;
-        height: 2.5rem;
-
-        padding: 0.563rem;
-
+    @media (min-width: 970px) {
         border-radius: 0.938rem;
-        box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.10);
-        outline-color: var(--Color-Blue);
     }
-    input::placeholder{
-        font-size: 1rem;
-        color: var(--Grey-3);
+
+    div{
+        width: 100%;
+        height: auto;
+        
+        display: flex;
+        flex-direction: column;
     }
-    button{
-        position: absolute;
-        top: 20%;
-        right: 1rem;
-        background: none;
-        border: none;
+    div > div{
+        display: flex;
+        flex-direction: row;
+        gap: 1.25rem;
+        justify-content: flex-start;
+        align-items: center;
+
+        margin-top: 2.25rem;
+        padding:0 0.938rem 1.5rem 0.938rem;
+        overflow-y: auto;
+
+        button{
+            cursor: pointer;
+            padding: 0.375rem 0.875rem;
+            border-radius: 1.563rem;
+            background-color: var(--Color-Blue-2);
+            color: var(--Grey-1);
+        }
+        button:hover{
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+        }
+        button:focus{
+            background-color: var(--Color-Blue-4);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+        }
+        @media (min-width: 831px) {
+            justify-content: center;
+        }
     }
-    svg{
-        font-size: 1.375rem;
+    div > ul{
+        width: 100%;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.125rem;
     }
-    
-    
 `
