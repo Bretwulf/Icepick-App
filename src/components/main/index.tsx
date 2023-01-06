@@ -11,10 +11,15 @@ import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext"
 import { random } from "lodash";
 const Main = () => {
   const { sentences } = useContext(sentenceContext);
+  /*  console.log(sentences[1].text); */
   const [random, setRandom] = useState(0);
+
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
+    console.log(newRandom);
     setRandom(newRandom);
+
+    console.log(random);
   };
 
   return (
@@ -32,10 +37,10 @@ const Main = () => {
         </div>
       ) : null}
       <div className="textBox">
-        <p className="pTextBox">frase aquiiii</p>
+        <p className="pTextBox">frase</p>
       </div>
-      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">
-        {sentences[random].text}
+      <button onClick={() => console.log("oi")} className="buttonNewPhrase">
+        Nova frase
       </button>
     </MainStyled>
   );
