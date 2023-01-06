@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import {
   iLoginRequest,
   iRegisterRequest,
@@ -11,6 +11,7 @@ import {
 import { API } from "../services/axios";
 import { toast, ToastContent } from "react-toastify";
 import { AxiosError } from "axios";
+import { loadingContext } from "./loadingContext";
 
 interface iLoginError {
   error: string;
@@ -21,8 +22,10 @@ export const userContext = createContext({} as iUserContext);
 const UserProvider = ({ children }: iContextProps) => {
   const [user, setUser] = useState<iUser>();
   const [token, setToken] = useState<string>("");
+  const {toggleLoading } = useContext(loadingContext);
 
   const login = async (data: iLoginRequest): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.post<iLoginResponse>("login", data, {
         headers: { "Content-Type": "application/json" },
@@ -59,10 +62,13 @@ const UserProvider = ({ children }: iContextProps) => {
           theme: "light",
         }
       );
+    } finally {
+      toggleLoading(false);
     }
   };
 
   const register = async (data: iRegisterRequest): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.post("users", data, {
         headers: { "Content-Type": "application/json" },
@@ -97,6 +103,8 @@ const UserProvider = ({ children }: iContextProps) => {
           theme: "light",
         }
       );
+    } finally {
+      toggleLoading(false);
     }
   };
 
@@ -105,6 +113,7 @@ const UserProvider = ({ children }: iContextProps) => {
     token: string,
     data: iEditRequest
   ): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.patch(`users/${id}`, data, {
         headers: {
@@ -143,10 +152,13 @@ const UserProvider = ({ children }: iContextProps) => {
           theme: "light",
         }
       );
+    } finally {
+      toggleLoading(false);
     }
   };
 
   const deletet = async (id: number, token: string): Promise<void> => {
+    toggleLoading(true);
     try {
       await API.delete(`users/${id}`, {
         headers: {
@@ -184,10 +196,13 @@ const UserProvider = ({ children }: iContextProps) => {
           theme: "light",
         }
       );
+    } finally {
+      toggleLoading(false);
     }
   };
 
   const get = async (id: number, token: string): Promise<void> => {
+    toggleLoading(true);
     try {
       const response = await API.get<iUser>(`users/${id}`, {
         headers: {
@@ -206,7 +221,7 @@ const UserProvider = ({ children }: iContextProps) => {
         theme: "light",
       });
       console.log(response.data);
-      setUser(response.data)
+      setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
@@ -223,6 +238,8 @@ const UserProvider = ({ children }: iContextProps) => {
           theme: "light",
         }
       );
+    } finally {
+      toggleLoading(false);
     }
   };
 
@@ -235,7 +252,7 @@ const UserProvider = ({ children }: iContextProps) => {
         deletet,
         edit,
         login,
-        get
+        get,
       }}
     >
       {children}
