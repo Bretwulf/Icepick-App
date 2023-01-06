@@ -29,7 +29,7 @@ const ModalProvider = ({ children }: iModalProviderProps) => {
     setAnimationModal(false);
     setTimeout(() => {
         setStateModal(false);
-    }, 1500);
+    }, 800);
   };
 
   return (

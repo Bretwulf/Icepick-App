@@ -113,7 +113,7 @@ export const StyledContainerModal = styled.div<iStyledContainerModalProps>`
         `;
       } else {
         return css`
-          animation: ${animationCloseModal} 1.5s both;
+          animation: ${animationCloseModal} 0.8s both;
         `;
       }
     }}

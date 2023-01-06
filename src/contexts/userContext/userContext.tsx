@@ -11,10 +11,11 @@ import {
 import { API } from "../../services/axios";
 
 import { AxiosError } from "axios";
-import { Toast } from "../../components/Toast";
+import { Toast } from "../../components/toast";
 import { useLoading } from '../../hooks/useLoading';
+import { useModal } from '../../hooks/useModal';
 
-interface iLoginError {
+export interface iLoginError {
   error: string;
 }
 
@@ -24,7 +25,8 @@ const UserProvider = ({ children }: iContextProps) => {
   const [user, setUser] = useState<iUser>();
   const [token, setToken] = useState<string>("");
   const { toggleLoading } = useLoading();
-
+  const {closeModal} = useModal()
+ 
   const login = async (data: iLoginRequest): Promise<void> => {
     toggleLoading(true);
     try {
@@ -36,8 +38,10 @@ const UserProvider = ({ children }: iContextProps) => {
       setToken(response.data.accessToken);
       localStorage.setItem("icePickToken", response.data.accessToken)
       console.log(response.data);
+      closeModal()
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
       console.log(typedError.response!.data);
     } finally{
       toggleLoading(false);
@@ -61,6 +65,7 @@ const UserProvider = ({ children }: iContextProps) => {
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
       console.log(typedError.response!.data);
     } finally{
       toggleLoading(false);
@@ -85,6 +90,7 @@ const UserProvider = ({ children }: iContextProps) => {
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
       console.log(typedError.response!.data);
     } finally{
       toggleLoading(false);
@@ -104,6 +110,7 @@ const UserProvider = ({ children }: iContextProps) => {
       setUser(undefined);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
       console.log(typedError.response!.data);
     } finally{
       toggleLoading(false);
@@ -124,6 +131,7 @@ const UserProvider = ({ children }: iContextProps) => {
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
       console.log(typedError.response!.data);
     }
   };
