@@ -1,4 +1,4 @@
-import MainStyled from "../../styles/mainStyled";
+import MainStyled from "./mainStyled";
 import { GlobalStyle } from "../../styles/globalStyles";
 import elipse1 from "../../Assets/Imgs/elipse1.svg";
 import elipse2 from "../../Assets/Imgs/elipse2.svg";
