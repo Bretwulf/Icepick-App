@@ -37,7 +37,7 @@ const Main = () => {
       </div>
       <button onClick={handleClickRandomPhrase} className="buttonNewPhrase"> Gerar nova frase</button>
       <SearchInput/>
-      <FilterSection/>
+      <FilterSection page="home" />
     </MainStyled>
   );
 };

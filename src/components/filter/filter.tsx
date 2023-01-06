@@ -1,14 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
+import { userContext } from "../../contexts/userContext/userContext";
+import { useUsers } from "../../hooks/useUsers";
 import { iSentences } from "../../types/types";
 import MiniCard from "./card/card";
 import { StyledFilterSection } from "./styledComponents";
 
-const FilterSection = () => {
+interface iFilterSection{
+    page: "home" | "profile"
+}
+
+
+const FilterSection = ({page}:iFilterSection) => {
     const { sentences } = useContext(sentenceContext)
+    const { user } = useUsers()
+    const [profileSentences, setProfileSentences] = useState<iSentences[]>([])
+    useEffect(() =>{
+        if(page === "profile"){
+
+            const sentencesCreated =  sentences.filter((sentence)=> sentence.userId === user?.id)
+            setProfileSentences([...sentencesCreated])
+        }
+    },[sentences])
+    
+    
     return(
         <StyledFilterSection>
-            <div>
+            {page === "home"? (
+                <div>
                 <div>
                     <button type="button" id="buttonLi">Formal</button>
                     <button type="button" id="buttonLi">Engraçada</button>
@@ -19,11 +38,28 @@ const FilterSection = () => {
                     <button type="button" id="buttonLi">Intimidade</button>
                 </div>
                 <ul>
-                    {sentences.map((sentence:iSentences, index)=>
-                        <MiniCard type="created" sentence={sentence} key={index}/>
+                    {sentences.map((sentence:iSentences)=>
+                        <MiniCard type="favorite" sentence={sentence}/>
                     ) }
                 </ul>
             </div>
+            ):(
+                <StyledFilterSection>
+                    <div>
+                        <div>
+                            <button type="button" id="buttonLi">Todas</button>
+                            <button type="button" id="buttonLi">Favoritas</button>
+                            <button type="button" id="buttonLi">Criadas</button>
+                        </div>
+                        <ul>
+                            {profileSentences.map((sentence:iSentences)=>
+                                <MiniCard type="created" sentence={sentence} />
+                            ) }
+                        </ul>
+                    </div>
+                </StyledFilterSection> 
+            )}
+            
         </StyledFilterSection>
     )
 }
