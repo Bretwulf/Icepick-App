@@ -10,9 +10,11 @@ import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
 import { useLoading } from "../../hooks/useLoading";
 import { Button } from "../buttons/button";
+import { useSentece } from "../../hooks/useSentence";
 
 const EditSentenceForm = () => {
- 
+  const { editSentence } = useSentece();
+
   const { loading } = useLoading();
   const schema = yup.object().shape({
     sentence: yup.string().required("Frase deve ter um corpo!").matches(/^[a-z]{20,366}$/, "frase deve ter pelo menos 20 e no máximo 366 caracteres!"),
@@ -30,11 +32,11 @@ const EditSentenceForm = () => {
 
 
   return (
-    <Form onSubmit={handleSubmit((data) => console.log(data))}>{/*Adicionar função de editar frase posteriormmente*/}
+    <Form onSubmit={handleSubmit((data) => editSentence(data, 2))}>
       <h2>Editar Frase</h2>
       <Controller
         control={control}
-        /*defaultValue={sentence.text}/*para que o input comece já com os dados de cada campo.*/
+        /* defaultValue={sentence.text} */
         name="sentence"
         render={({
           field: { onChange, onBlur, value, name, ref },
