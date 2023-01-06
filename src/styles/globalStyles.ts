@@ -14,7 +14,16 @@ export const GlobalStyle = createGlobalStyle`
     button{
         cursor:pointer;
     } 
-    
+    button:disabled{
+        cursor: not-allowed;
+    }
+    input:focus{
+        outline:none;
+        border:none;
+    }
+    body{
+        font-family: 'Inter', sans-serif; 
+    }
     :root{
         --Color-primary: #5458F0;
         --Color-primary-2: #52154E;
@@ -33,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
         --toastify-text-color-error: #E83F5B;
 
         --Border-Radius-1: .5rem;
+        --box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
 `;

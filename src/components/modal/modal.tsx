@@ -1,6 +1,6 @@
 import React from "react";
-import { useModal } from "../../contexts/modalContext/modalContext";
 import { StyledContainerModal } from "./styledComponents";
+import { useModal } from '../../hooks/useModal';
 
 const Modal = () => {
   const { closeModal, childrenModal, animationModal } = useModal();

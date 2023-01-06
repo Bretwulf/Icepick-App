@@ -1,12 +1,10 @@
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { createContext, useState, useEffect, useContext } from 'react'
-import { Toast } from '../../components/Toast';
 import { API } from '../../services/axios';
 import { iSentences } from '../../types/types'
-import { userContext } from '../userContext';
 
 interface iContextProps {
-    children: React.ReactNode,
+  children: React.ReactNode;
 }
 
 interface iSentenceContext {
@@ -21,6 +19,15 @@ interface iSentenceContext {
 export const sentenceContext = createContext({} as iSentenceContext);
 
 const SentenceProvider = ({children}:iContextProps) => {
+  const [sentences, setSentences] = useState<iSentences[]>([]);
+
+  useEffect(() => {
+    axios
+      .get("https://kenzie-icebreaker-api.onrender.com/sentences")
+      .then((response) => setSentences(response.data))
+      .catch((err) => console.log(err));
+  }, []);
+  
   const addSentence = () => {
     
   };
