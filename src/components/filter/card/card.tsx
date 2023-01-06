@@ -1,32 +1,37 @@
 import React from "react";
 import { AiOutlineStar } from 'react-icons/ai';
+import { MdOutlineModeEditOutline } from 'react-icons/md';
+import { FiTrash2 } from 'react-icons/fi';
+import { iSentences } from "../../../types/types";
 import { StyledCard } from "./styledComponents";
+import EditSentenceForm from "../../editSentenceForm/EditSentenceForm";
+import { useModal } from "../../../hooks/useModal";
 
 type tTypeCard= "created" | "favorite"
-
-const MiniCard = (type:tTypeCard) => {
-    if(type === "created"){
-        return(
-            <StyledCard>
-            <div>
-                <p>O que você faria se fosse passar 24h no corpo de alguém do sexo oposto?</p>
-            </div>
-            <div>
-                <AiOutlineStar/>
-                <span>3</span>
-            </div>
-        </StyledCard>
-        )
-    }
+interface iMiniCard{
+    type:tTypeCard,
+    sentence: iSentences
+}
+const MiniCard = ({type, sentence}:iMiniCard) => {
+    const { showModal } = useModal()
     return(
-        <StyledCard>
+        <StyledCard key={sentence.id}>
             <div>
-                <p>O que você faria se fosse passar 24h no corpo de alguém do sexo oposto?</p>
+                <p>{sentence.text}</p>
             </div>
             <div>
-                { }
-                <AiOutlineStar/>
-                <span>3</span>
+                {type === "created"? (
+                    <>
+                        <MdOutlineModeEditOutline onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
+                        {/* Faltando os content do modal de Delete */}
+                        <FiTrash2 onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
+                    </>
+                ):(
+                    <>
+                        <AiOutlineStar/>
+                        <span>3</span>
+                    </>
+                )}
             </div>
         </StyledCard>
     )

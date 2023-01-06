@@ -1,10 +1,8 @@
 import React from "react";
-
-
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { iSentenceRequest } from "../../types/types";
+import { iSentenceRequest, iSentences } from "../../types/types";
 import { Input, Select } from "../input/input";
 import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
@@ -12,12 +10,22 @@ import { useLoading } from "../../hooks/useLoading";
 import { Button } from "../buttons/button";
 import { useSentece } from "../../hooks/useSentence";
 
-const EditSentenceForm = () => {
-  const { editSentence } = useSentece();
+interface iEditSentenceForm {
+  sentence: iSentences;
+}
+
+const EditSentenceForm = ({ sentence }: iEditSentenceForm) => {
+  const { editSentence } = useSentece()
 
   const { loading } = useLoading();
   const schema = yup.object().shape({
-    sentence: yup.string().required("Frase deve ter um corpo!").matches(/^[a-z]{20,366}$/, "frase deve ter pelo menos 20 e no máximo 366 caracteres!"),
+    text: yup
+      .string()
+      .required("Frase deve ter um corpo!")
+      /* .matches(
+        /^[a-z]{20,366}$/,
+        "frase deve ter pelo menos 20 e no máximo 366 caracteres!"
+      ) */,
     type: yup.string().required("Frase deve ter um tipo!"),
   });
 
@@ -30,14 +38,14 @@ const EditSentenceForm = () => {
     mode: "onChange",
   });
 
-
   return (
-    <Form onSubmit={handleSubmit((data) => editSentence(data, 2))}>
+    <Form onSubmit={handleSubmit((data) => editSentence(data, sentence.id)
+    )}>
       <h2>Editar Frase</h2>
       <Controller
         control={control}
-        /* defaultValue={sentence.text} */
-        name="sentence"
+        defaultValue={sentence.text}
+        name="text"
         render={({
           field: { onChange, onBlur, value, name, ref },
           fieldState: { isTouched, isDirty, error },
@@ -54,11 +62,11 @@ const EditSentenceForm = () => {
         )}
       />
 
-      {<p className="errorMessage">{errors.sentence?.message}</p>}
+      {<p className="errorMessage">{errors.text?.message}</p>}
 
       <Controller
         control={control}
-        /*defaultValue={sentence.text}/*para que o input comece já com os dados de cada campo.*/
+        defaultValue={sentence.type}
         name="type"
         render={({
           field: { onChange, onBlur, value, name, ref },

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import {
   iLoginRequest,
   iRegisterRequest,
@@ -26,6 +26,29 @@ const UserProvider = ({ children }: iContextProps) => {
   const [token, setToken] = useState<string>("");
   const { toggleLoading } = useLoading();
   const {closeModal} = useModal()
+  const [loadingPage, setLoadingPage] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      const token = localStorage.getItem("icePickToken");
+      const id = localStorage.getItem("icePickId");
+
+      if (token) {
+        try {
+          API.defaults.headers.common.authorization = `Bearer ${token}`;
+          const response = await API.get(`users/${id}`)
+          setUser(response.data)
+
+        } catch (error) {
+          localStorage.removeItem("icePickToken");
+        }
+      }
+
+      setLoadingPage(false);
+    }
+
+    load();
+  }, []);
  
   const login = async (data: iLoginRequest): Promise<void> => {
     toggleLoading(true);
@@ -39,6 +62,7 @@ const UserProvider = ({ children }: iContextProps) => {
       setUser(response.data.user);
       setToken(response.data.accessToken);
       localStorage.setItem("icePickToken", response.data.accessToken)
+      localStorage.setItem("icePickId", response.data.user.id.toString())
       closeModal()
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
@@ -54,15 +78,14 @@ const UserProvider = ({ children }: iContextProps) => {
     setUser(undefined)
     setToken("")
     localStorage.removeItem("icePickToken")
+    localStorage.removeItem("icePickId")
     Toast("Logout feito com sucesso.", "sucess")
   }
 
   const register = async (data: iRegisterRequest): Promise<void> => {
     toggleLoading(true);
     try {
-      const response = await API.post("users", data, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await API.post("users", data);
       Toast("Cadastro realizado com sucesso.", "sucess");
       closeModal()
     } catch (error) {
@@ -76,17 +99,11 @@ const UserProvider = ({ children }: iContextProps) => {
 
   const edit = async (
     id: number,
-    token: string,
     data: iEditRequest
   ): Promise<void> => {
     toggleLoading(true);
     try {
-      const response = await API.patch(`users/${id}`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token} `,
-        },
-      });
+      const response = await API.patch(`users/${id}`, data);
       Toast("Frase editada com sucesso.", "sucess");
       closeModal();
       setUser(response.data);
@@ -99,15 +116,10 @@ const UserProvider = ({ children }: iContextProps) => {
     }
   };
 
-  const deletet = async (id: number, token: string): Promise<void> => {
+  const deletet = async (id: number): Promise<void> => {
     toggleLoading(true);
     try {
-      await API.delete(`users/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token} `,
-        },
-      });
+      await API.delete(`users/${id}`);
       Toast("Frase deletada com sucesso.", "sucess");
       closeModal()
       setUser(undefined);
@@ -120,15 +132,10 @@ const UserProvider = ({ children }: iContextProps) => {
     }
   };
 
-  const get = async (id: number, token: string): Promise<void> => {
+  const get = async (id: number): Promise<void> => {
     toggleLoading(true);
     try {
-      const response = await API.get<iUser>(`users/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token} `,
-        },
-      });
+      const response = await API.get<iUser>(`users/${id}`);
       Toast("Dados obtidos com sucesso.", "sucess");
       closeModal()
       setUser(response.data);
@@ -148,7 +155,9 @@ const UserProvider = ({ children }: iContextProps) => {
         edit,
         login,
         logout,
-        get
+        get,
+        loadingPage,
+        setUser
       }}
     >
       {children}

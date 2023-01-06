@@ -16,7 +16,7 @@ import { useUsers } from "../../hooks/useUsers";
 import { Button } from "../buttons/button";
 
 const EditForm = () => {
-  const { edit, user, token } = useUsers();
+  const { edit, user } = useUsers();
   const { loading } = useLoading();
   const schema = yup.object().shape({
     username: yup.string().required("Entre um nome"),
@@ -47,7 +47,7 @@ const EditForm = () => {
     <Form
       onSubmit={handleSubmit((data: iEditRequest, event) => {
         if (data.password) {
-          edit(user!.id, token, data);
+          edit(user!.id, data);
           reset();
           event!.target!.reset();
         } else {
@@ -55,7 +55,7 @@ const EditForm = () => {
             username: data.username,
             avatar: data.avatar,
           };
-          edit(user!.id, token, partialRequest);
+          edit(user!.id, partialRequest);
         }
       })}
     >

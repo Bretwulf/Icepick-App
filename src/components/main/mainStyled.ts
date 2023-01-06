@@ -15,17 +15,7 @@ const MainStyled = styled.main`
     display: flex;
     flex-direction: column;
   }
-  .warningDiv {
-    height: 4.875rem;
-    width: 25.375rem;
-    border-radius: 1.5rem 0rem 0rem 1.5rem;
-    background-color: var(--Grey-1);
-    margin-top: 1rem;
-    position: sticky;
-    left: 90%;
-    padding: 0.8rem 1rem 0.8rem 1rem;
-    box-shadow: 1px 1px 1px 1px rgba(11, 0, 0, 0.5);
-  }
+
   .pDivWarning {
     color: var(--Color-primary);
     font-size: 1.5rem;
@@ -52,7 +42,7 @@ const MainStyled = styled.main`
     overflow-y: scroll;
   }
   .buttonNewPhrase {
-    width: 22.688rem;
+    width: 85%;
     height: 3.438rem;
     border: none;
     background-color: var(--Color-Blue);
@@ -61,6 +51,9 @@ const MainStyled = styled.main`
     margin-top: 2.5rem;
     font-size: 1.25rem;
     font-weight: 600;
+  }
+  .warningDiv {
+    display: none;
   }
   @media (min-width: 500px) {
     .textBox {
@@ -73,6 +66,21 @@ const MainStyled = styled.main`
     .pTextBox {
       color: var(--Color-primary);
       font-size: 1.25rem;
+    }
+    .buttonNewPhrase {
+      width: 22.688rem;
+    }
+    .warningDiv {
+      display: flex;
+      height: 4.875rem;
+      width: 25.375rem;
+      border-radius: 1.5rem 0rem 0rem 1.5rem;
+      background-color: var(--Grey-1);
+      margin-top: 1rem;
+      position: sticky;
+      left: 90%;
+      padding: 0.8rem 1rem 0.8rem 1rem;
+      box-shadow: 1px 1px 1px 1px rgba(11, 0, 0, 0.5);
     }
   }
 `;
