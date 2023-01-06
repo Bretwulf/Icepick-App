@@ -4,9 +4,11 @@ import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { FiTrash2 } from 'react-icons/fi';
 import { iSentences } from "../../../types/types";
 import { StyledCard } from "./styledComponents";
-import EditSentenceForm from "../../editSentenceForm/EditSentenceForm";
+
 import { useModal } from "../../../hooks/useModal";
 import { useSentece } from "../../../hooks/useSentence";
+import EditSentenceForm from "../../editSentenceForm/EditSentenceForm";
+
 
 type tTypeCard= "created" | "favorite"
 
@@ -26,8 +28,9 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
             <div>
                 {type === "created"? (
                     <>
-                        <MdOutlineModeEditOutline onClick={(e) => showModal(<EditSentenceForm sentence={sentence} />)}/>
-                        <FiTrash2/>
+                        <MdOutlineModeEditOutline onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
+                        {/* Faltando os content do modal de Delete */}
+                        <FiTrash2 onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
                     </>
                 ):(
                     <>
