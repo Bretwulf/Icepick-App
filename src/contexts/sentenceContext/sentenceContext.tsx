@@ -28,6 +28,7 @@ const SentenceProvider = ({children}:iContextProps) => {
       .catch((err) => console.log(err));
   }, []);
   
+  console.log(sentences)
   const addSentence = () => {
     
   };
@@ -43,7 +44,7 @@ const SentenceProvider = ({children}:iContextProps) => {
       
 
     return ( 
-        <sentenceContext.Provider value={{sentences:[],add:()=>{},delete:()=>{},like:()=>{},edit:()=>{}}}>
+        <sentenceContext.Provider value={{sentences,add:()=>{},delete:()=>{},like:()=>{},edit:()=>{}}}>
             {children}
         </sentenceContext.Provider>
      );

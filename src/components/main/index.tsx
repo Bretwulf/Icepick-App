@@ -9,6 +9,8 @@ import imgDesktop from "../../Assets/Imgs/backgroundDesktop.png";
 import { useContext, useEffect, useState } from "react";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
 import { random } from "lodash";
+import SearchInput from "../search/search";
+import FilterSection from "../filter/filter";
 const Main = () => {
   const { sentences } = useContext(sentenceContext);
   /*  console.log(sentences[1].text); */
@@ -39,9 +41,11 @@ const Main = () => {
       <div className="textBox">
         <p className="pTextBox">frase</p>
       </div>
-      <button onClick={() => console.log("oi")} className="buttonNewPhrase">
-        Nova frase
+      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">
+        {/* {sentences[random].text} */} Gerar nova frase
       </button>
+      <SearchInput/>
+      <FilterSection/>
     </MainStyled>
   );
 };
