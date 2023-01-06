@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginFormComp } from "./styledcomponents";
+
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useState } from "react";
@@ -8,15 +8,17 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { iLoginRequest } from "../../types/types";
 import { useContext } from "react";
-import { userContext } from "../../contexts/userContext";
-import { Input } from "../input/styledComponents";
-import { loadingContext } from '../../contexts/loadingContext';
-import { CircleLoader, DotLoader, PulseLoader } from "react-spinners";
-
+import { userContext } from "../../contexts/userContext/userContext";
+import { Input } from "../input/input";
+import { PulseLoader } from "react-spinners";
+import { Form } from "../form/form";
+import { useLoading } from "../../hooks/useLoading";
+import { useUsers } from "../../hooks/useUsers";
+import { Button } from "../buttons/button";
 
 const LoginForm = () => {
-  const { login } = useContext(userContext);
-  const {loading, toggleLoading} =useContext(loadingContext)
+  const { login } = useUsers();
+  const { loading } = useLoading();
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -37,7 +39,7 @@ const LoginForm = () => {
 
   const [showPass, toggleShowPass] = useState<boolean>(false);
   return (
-    <LoginFormComp onSubmit={handleSubmit((data) => login(data))}>
+    <Form onSubmit={handleSubmit((data) => login(data))}>
       <h2>Login</h2>
       <Controller
         control={control}
@@ -47,23 +49,37 @@ const LoginForm = () => {
           fieldState: { isTouched, isDirty, error },
           formState,
         }) => (
-          <Input isDirty={isDirty} isValid={error?false:true} type="text" placeholder="digite seu e-mail aqui" onChange={onChange} value={value}/>
+          <Input
+            isDirty={isDirty}
+            isValid={error ? false : true}
+            type="text"
+            placeholder="digite seu e-mail aqui"
+            onChange={onChange}
+            value={value}
+          />
         )}
       />
 
       {<p className="errorMessage">{errors.email?.message}</p>}
       <div className="passwordWrapper">
-      <Controller
-        control={control}
-        name="password"
-        render={({
-          field: { onChange, onBlur, value, name, ref },
-          fieldState: { isTouched, isDirty, error },
-          formState,
-        }) => (
-          <Input isDirty={isDirty} isValid={error?false:true} type={showPass ? "text" : "password"} placeholder="digite sua senha" onChange={onChange} value={value}/>
-        )}
-      />
+        <Controller
+          control={control}
+          name="password"
+          render={({
+            field: { onChange, onBlur, value, name, ref },
+            fieldState: { isTouched, isDirty, error },
+            formState,
+          }) => (
+            <Input
+              isDirty={isDirty}
+              isValid={error ? false : true}
+              type={showPass ? "text" : "password"}
+              placeholder="digite sua senha"
+              onChange={onChange}
+              value={value}
+            />
+          )}
+        />
         {<p className="errorMessage">{errors.password?.message}</p>}
         <button
           type="button"
@@ -78,10 +94,14 @@ const LoginForm = () => {
         </button>
       </div>
 
-      <button disabled={!isValid || !isDirty || loading } type="submit">
-        {loading?<PulseLoader/>:"Logar"}
-      </button>
-    </LoginFormComp>
+      <Button
+        text={loading ? <PulseLoader /> : "Logar"}
+        buttonSize="default"
+        buttonStyle="bg-ColorBlue"
+        disabled={!isValid || !isDirty || loading}
+        type="submit"
+      />
+    </Form>
   );
 };
 

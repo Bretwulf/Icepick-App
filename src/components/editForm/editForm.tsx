@@ -1,22 +1,25 @@
 import React from "react";
-import { LoginFormComp } from "./styledcomponents";
+
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { iLoginRequest, iRegisterRequest, iEditRequest } from "../../types/types";
+import { iEditRequest } from "../../types/types";
 import { useContext } from "react";
-import { userContext } from "../../contexts/userContext";
-import { Input } from "../input/styledComponents";
-import { loadingContext } from "../../contexts/loadingContext";
-import { CircleLoader, DotLoader, PulseLoader } from "react-spinners";
-import { ResetTv } from "@mui/icons-material";
+import { userContext } from "../../contexts/userContext/userContext";
+import { Input } from "../input/input";
+import { PulseLoader } from "react-spinners";
+import {} from "@mui/icons-material";
+import { Form } from "../form/form";
+import { useLoading } from "../../hooks/useLoading";
+import { useUsers } from "../../hooks/useUsers";
+import { Button } from "../buttons/button";
 
 const EditForm = () => {
-  const { edit, user, token } = useContext(userContext);
-  const { loading, toggleLoading } = useContext(loadingContext);
+  const { edit, user, token } = useUsers();
+  const { loading } = useLoading();
 
   const schema = yup.object().shape({
     username: yup.string().required("Entre um nome"),
@@ -36,7 +39,7 @@ const EditForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isValid },
   } = useForm<iEditRequest>({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -44,19 +47,18 @@ const EditForm = () => {
 
   const [showPass, toggleShowPass] = useState<boolean>(false);
   return (
-    <LoginFormComp
-      onSubmit={handleSubmit((data:iEditRequest , event) => {
-        if(data.password){
+    <Form
+      onSubmit={handleSubmit((data: iEditRequest, event) => {
+        if (data.password) {
           edit(user!.id, token, data);
           reset();
           event!.target!.reset();
-        }
-        else{
-          const partialRequest:iEditRequest = {
+        } else {
+          const partialRequest: iEditRequest = {
             username: data.username,
-            avatar:data.avatar
-          }
-          edit(user!.id,token, partialRequest)
+            avatar: data.avatar,
+          };
+          edit(user!.id, token, partialRequest);
         }
       })}
     >
@@ -166,14 +168,14 @@ const EditForm = () => {
           )}{" "}
         </button>
       </div>
-
-      <button
-        disabled={!isValid || loading || user === undefined}
+      <Button
+        text={loading ? <PulseLoader /> : "Confirmar Alterações"}
+        buttonSize="default"
+        buttonStyle="bg-ColorBlue"
+        disabled={!isValid || loading}
         type="submit"
-      >
-        {loading ? <PulseLoader /> : "Cadastrar"}
-      </button>
-    </LoginFormComp>
+      />
+    </Form>
   );
 };
 

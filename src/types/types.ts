@@ -6,6 +6,11 @@ export interface iUser {
   id:number
 }
 
+export interface iSentenceRequest{
+  sentence:string,
+  type: string,
+}
+
 export interface iLoginRequest {
   email: string;
   password: string;

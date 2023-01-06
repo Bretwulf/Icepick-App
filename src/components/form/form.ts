@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const LoginFormComp = styled.form`
+export const Form = styled.form`
   width: 100%;
   background-color: var(--Color-primary);
   display: flex;
-  gap: 32px;
+  gap: 18px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@ export const LoginFormComp = styled.form`
     position:relative;
     top:0;
     display: flex;
-    gap: 32px;
+    gap: 18px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -41,8 +41,8 @@ export const LoginFormComp = styled.form`
     width: max-content;
     height:max-content;
     position:absolute;
-    right: 10px;
-    top:0px;
+    right: 15px;
+    top:10px;
   }
 
   input {
@@ -59,22 +59,6 @@ export const LoginFormComp = styled.form`
   }
   input:focus {
     outline:  var(--Color-primary-2) 1px solid;
-  }
-
-  button {
-    width: 100%;
-    padding: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 55px;
-    background: #56eaf6;
-    border-radius: 125px;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 27px;
-    color: #1e3c58;
-    font-family: "Inter", sans-serif;
   }
   button:disabled{
     opacity:50%;

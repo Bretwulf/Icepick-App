@@ -7,12 +7,13 @@ import {
   iEditRequest,
   iUserContext,
   iContextProps,
-} from "../types/types";
-import { API } from "../services/axios";
+} from "../../types/types";
+import { API } from "../../services/axios";
 
 import { AxiosError } from "axios";
-import { Toast } from "../components/Toast";
-import { loadingContext } from "./loadingContext";
+import { Toast } from "../../components/Toast";
+import { loadingContext } from "../loadingContext/loadingContext";
+import { useLoading } from '../../hooks/useLoading';
 
 interface iLoginError {
   error: string;
@@ -23,7 +24,7 @@ export const userContext = createContext({} as iUserContext);
 const UserProvider = ({ children }: iContextProps) => {
   const [user, setUser] = useState<iUser>();
   const [token, setToken] = useState<string>("");
-  const {toggleLoading } = useContext(loadingContext);
+  const { toggleLoading } = useLoading();
 
   const login = async (data: iLoginRequest): Promise<void> => {
     toggleLoading(true);
@@ -31,14 +32,15 @@ const UserProvider = ({ children }: iContextProps) => {
       const response = await API.post<iLoginResponse>("login", data, {
         headers: { "Content-Type": "application/json" },
       });
-      Toast("Login realizado com sucesso.", "sucess")
+      Toast("Login realizado com sucesso.", "sucess");
       setUser(response.data.user);
       setToken(response.data.accessToken);
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      
+    } finally{
+      toggleLoading(false);
     }
   };
 
@@ -48,12 +50,13 @@ const UserProvider = ({ children }: iContextProps) => {
       const response = await API.post("users", data, {
         headers: { "Content-Type": "application/json" },
       });
-      Toast("Cadastro realizado com sucesso.", "sucess")
+      Toast("Cadastro realizado com sucesso.", "sucess");
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-     
+    } finally{
+      toggleLoading(false);
     }
   };
 
@@ -70,13 +73,14 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toast("Frase editada com sucesso.", "sucess")
+      Toast("Frase editada com sucesso.", "sucess");
       console.log(response.data);
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-     
+    } finally{
+      toggleLoading(false);
     }
   };
 
@@ -89,12 +93,13 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toast("Frase deletada com sucesso.", "sucess")
+      Toast("Frase deletada com sucesso.", "sucess");
       setUser(undefined);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-     
+    } finally{
+      toggleLoading(false);
     }
   };
 
@@ -107,13 +112,12 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      Toast("Dados obtidos com sucesso.", "sucess")
+      Toast("Dados obtidos com sucesso.", "sucess");
       console.log(response.data);
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      
     }
   };
 

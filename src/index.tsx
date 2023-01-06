@@ -6,28 +6,30 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import SentenceProvider from "./contexts/sentenceContext/sentenceContext";
 import ModalProvider from "./contexts/modalContext/modalContext";
-import UserProvider from "./contexts/userContext";
+import UserProvider from "./contexts/userContext/userContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import LoadingProvider from './contexts/loadingContext';
-  
+import LoadingProvider from "./contexts/loadingContext/loadingContext";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ToastContainer/>
-    <LoadingProvider>
-      <UserProvider>
-        <SentenceProvider>
+    <ToastContainer />
+    <ModalProvider>
+      <LoadingProvider>
+        <UserProvider>
           <SentenceProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <SentenceProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </SentenceProvider>
           </SentenceProvider>
-        </SentenceProvider>
-      </UserProvider>
-    </LoadingProvider>
+        </UserProvider>
+      </LoadingProvider>
+    </ModalProvider>
   </React.StrictMode>
 );
 

@@ -1,22 +1,24 @@
 import React from "react";
-import { LoginFormComp } from "./styledcomponents";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { iLoginRequest, iRegisterRequest } from "../../types/types";
+import { iRegisterRequest } from "../../types/types";
 import { useContext } from "react";
-import { userContext } from "../../contexts/userContext";
-import { Input } from "../input/styledComponents";
-import { loadingContext } from "../../contexts/loadingContext";
-import { CircleLoader, DotLoader, PulseLoader } from "react-spinners";
-import { ResetTv } from "@mui/icons-material";
+import { userContext } from "../../contexts/userContext/userContext";
+import { Input } from "../input/input";
+import { loadingContext } from "../../contexts/loadingContext/loadingContext";
+import { PulseLoader } from "react-spinners";
+import { Form } from "../form/form";
+import { useLoading } from "../../hooks/useLoading";
+import { useUsers } from "../../hooks/useUsers";
+import { Button } from "../buttons/button";
 
 const RegisterForm = () => {
-  const { register } = useContext(userContext);
-  const { loading, toggleLoading } = useContext(loadingContext);
+  const { register } = useUsers();
+  const { loading } = useLoading();
 
   const schema = yup.object().shape({
     username: yup.string().required("Entre um nome"),
@@ -50,10 +52,13 @@ const RegisterForm = () => {
 
   const [showPass, toggleShowPass] = useState<boolean>(false);
   return (
-    <LoginFormComp onSubmit={handleSubmit((data:iRegisterRequest,event) => {
-      register(data)
-      reset()
-      event!.target!.reset()})}>
+    <Form
+      onSubmit={handleSubmit((data: iRegisterRequest, event) => {
+        register(data);
+        reset();
+        event!.target!.reset();
+      })}
+    >
       <h2>Register</h2>
       <Controller
         control={control}
@@ -177,11 +182,15 @@ const RegisterForm = () => {
           )}{" "}
         </button>
       </div>
-      
-      <button disabled={!isValid || !isDirty || loading} type="submit">
-        {loading ? <PulseLoader /> : "Cadastrar"}
-      </button>
-    </LoginFormComp>
+
+      <Button
+        text={loading ? <PulseLoader /> : "Cadastrar"}
+        buttonSize="default"
+        buttonStyle="bg-ColorBlue"
+        disabled={!isValid || !isDirty || loading}
+        type="submit"
+      />
+    </Form>
   );
 };
 

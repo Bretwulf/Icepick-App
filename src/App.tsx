@@ -1,46 +1,42 @@
 import React from "react";
 import "./App.css";
-import LoginPage from "./components/login/login";
-import { useModal } from "./contexts/modalContext/modalContext";
-import DeletePage from "./components/delete/delete";
 import Modal from "./components/modal/modal";
 import { GlobalStyle } from "./styles/globalStyles";
 import FilterFrases from "./components/filter/filter";
 import { RoutesMain as Routes } from "./Routes";
-import ModalProvider from "./contexts/modalContext/modalContext";
-import UserProvider from "./contexts/userContext";
-function App() {
-  const { stateModal, showModal } = useModal();
+import RegisterForm from './components/registerForm/registerForm';
+import EditForm from './components/editForm/editForm';
+import LoginForm from './components/loginForm/loginForm';
+import { useModal } from './hooks/useModal';
+import EditSentenceForm from './components/EditSentenceForm/EditSentenceForm';
+import AddSentenceForm from './components/AddSentenceForm/AddSentenceForm';
 
-  return (
+const App = () => {
+  const { stateModal, showModal } = useModal();
+  return ( 
     <div className="App">
-      <UserProvider>
-        <ModalProvider>
           <GlobalStyle />
-          <Routes />
-          {/* <LoginPage />
-      <div></div>
-      <RegisterPage/>
-      <div>
-        <EditPage/>
-      </div>
-      <DeletePage/>
-      <GetPage/> */}
           {stateModal && <Modal />}
-          <button onClick={() => showModal(<LoginPage />)}>
+          <button onClick={() => showModal(<LoginForm />)}>
             Abrir Modal Login
           </button>
-          <button onClick={() => showModal(<RegisterPage />)}>
+          <button onClick={() => showModal(<RegisterForm />)}>
             Abrir Modal Cadastro
           </button>
-          <button onClick={() => showModal(<EditPage />)}>
+          <button onClick={() => showModal(<EditForm />)}>
             Abrir Modal de Editar
           </button>
+          <button onClick={() => showModal(<EditSentenceForm />)}>
+            Abrir Modal de Editar Frase
+          </button>
+          <button onClick={() => showModal(<AddSentenceForm />)}>
+            Abrir Modal de Adicionar frase
+          </button>
           <FilterFrases />
-        </ModalProvider>
-      </UserProvider>
     </div>
-  );
+   );
 }
-
+ 
 export default App;
+  
+
