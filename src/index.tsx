@@ -4,26 +4,27 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import SentenceProvider from "./contexts/sentenceContext";
+import SentenceProvider from "./contexts/sentenceContext/sentenceContext";
+import ModalProvider from "./contexts/modalContext/modalContext";
 import UserProvider from "./contexts/userContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import { GlobalStyle } from "./styles/globalStyles";
 import LoadingProvider from './contexts/loadingContext';
-
+  
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <ToastContainer />
+    <ToastContainer/>
     <LoadingProvider>
       <UserProvider>
         <SentenceProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <SentenceProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SentenceProvider>
         </SentenceProvider>
       </UserProvider>
     </LoadingProvider>

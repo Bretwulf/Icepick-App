@@ -9,8 +9,9 @@ import {
   iContextProps,
 } from "../types/types";
 import { API } from "../services/axios";
-import { toast, ToastContent } from "react-toastify";
+
 import { AxiosError } from "axios";
+import { Toast } from "../components/Toast";
 import { loadingContext } from "./loadingContext";
 
 interface iLoginError {
@@ -30,40 +31,14 @@ const UserProvider = ({ children }: iContextProps) => {
       const response = await API.post<iLoginResponse>("login", data, {
         headers: { "Content-Type": "application/json" },
       });
-      toast.success(
-        "Login realizado com sucesso. Cheque o console para ver a resposta de requisição,",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
+      Toast("Login realizado com sucesso.", "sucess")
       setUser(response.data.user);
       setToken(response.data.accessToken);
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      toast.error(
-        typedError.response!.data as unknown as ToastContent<unknown>,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
-    } finally {
-      toggleLoading(false);
+      
     }
   };
 
@@ -73,38 +48,12 @@ const UserProvider = ({ children }: iContextProps) => {
       const response = await API.post("users", data, {
         headers: { "Content-Type": "application/json" },
       });
-      toast.success(
-        "Login realizado com sucesso. Cheque o console para ver a resposta de requisição,",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
+      Toast("Cadastro realizado com sucesso.", "sucess")
       console.log(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      toast.error(
-        typedError.response!.data as unknown as ToastContent<unknown>,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
-    } finally {
-      toggleLoading(false);
+     
     }
   };
 
@@ -121,39 +70,13 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      toast.success(
-        "Edição realizado com sucesso. Cheque o console para ver a resposta de requisição,",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
+      Toast("Frase editada com sucesso.", "sucess")
       console.log(response.data);
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      toast.error(
-        typedError.response!.data as unknown as ToastContent<unknown>,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
-    } finally {
-      toggleLoading(false);
+     
     }
   };
 
@@ -166,38 +89,12 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      toast.success(
-        "Deleção realizado com sucesso. Cheque o console para ver a resposta de requisição,",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
+      Toast("Frase deletada com sucesso.", "sucess")
       setUser(undefined);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      toast.error(
-        typedError.response!.data as unknown as ToastContent<unknown>,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
-    } finally {
-      toggleLoading(false);
+     
     }
   };
 
@@ -210,36 +107,13 @@ const UserProvider = ({ children }: iContextProps) => {
           Authorization: `Bearer ${token} `,
         },
       });
-      toast.success("Dados obtidos com sucesso.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      Toast("Dados obtidos com sucesso.", "sucess")
       console.log(response.data);
       setUser(response.data);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       console.log(typedError.response!.data);
-      toast.error(
-        typedError.response!.data as unknown as ToastContent<unknown>,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        }
-      );
-    } finally {
-      toggleLoading(false);
+      
     }
   };
 

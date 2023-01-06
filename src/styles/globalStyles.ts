@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
     *{
@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 100%;
         vertical-align: baseline;
         box-sizing: border-box;
+        font-family: "Inter", sans-serif;
     }
     button{
         cursor:pointer;
@@ -30,15 +31,16 @@ export const GlobalStyle = createGlobalStyle`
         --Color-Blue-3: #1E3C58;
         --Color-Blue-4: #195E94;
         --Color-Red: #E83F5B;
+        --Color-Opacity: rgba(19, 1, 1, 0.5);
 
         --Grey-3: #646C7A;
         --Grey-2: #ECEFF4;
         --Grey-1: #FFFDFD;
-
-        --toastify-text-color-info: #fff;
+  
         --toastify-text-color-success:#3FE864;
-        --toastify-text-color-warning: #E83F5B;
         --toastify-text-color-error: #E83F5B;
+
+        --Border-Radius-1: .5rem;
     }
 
-`
+`;
