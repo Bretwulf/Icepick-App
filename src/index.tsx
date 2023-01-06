@@ -21,11 +21,9 @@ root.render(
       <LoadingProvider>
         <UserProvider>
           <SentenceProvider>
-            <SentenceProvider>
               <BrowserRouter>
                 <App />
               </BrowserRouter>
-            </SentenceProvider>
           </SentenceProvider>
         </UserProvider>
       </LoadingProvider>
