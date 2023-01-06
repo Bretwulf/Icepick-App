@@ -1,19 +1,13 @@
 import MainStyled from "./mainStyled";
-import { GlobalStyle } from "../../styles/globalStyles";
-import elipse1 from "../../Assets/Imgs/elipse1.svg";
-import elipse2 from "../../Assets/Imgs/elipse2.svg";
-import elipse3 from "../../Assets/Imgs/elipse3.svg";
-import bgdecoration from "../../Assets/Imgs/bgdecoration.svg";
 import img from "../../Assets/Imgs/backgroundMobileAGORA.png";
 import imgDesktop from "../../Assets/Imgs/backgroundDesktop.png";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
-import { random } from "lodash";
 import SearchInput from "../search/search";
 import FilterSection from "../filter/filter";
+
 const Main = () => {
   const { sentences } = useContext(sentenceContext);
-  /*  console.log(sentences[1].text); */
   const [random, setRandom] = useState(0);
 
   const handleClickRandomPhrase = () => {
@@ -41,9 +35,7 @@ const Main = () => {
       <div className="textBox">
         <p className="pTextBox">frase</p>
       </div>
-      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">
-        {/* {sentences[random].text} */} Gerar nova frase
-      </button>
+      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase"> Gerar nova frase</button>
       <SearchInput/>
       <FilterSection/>
     </MainStyled>

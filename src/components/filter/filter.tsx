@@ -19,8 +19,8 @@ const FilterSection = () => {
                     <button type="button" id="buttonLi">Intimidade</button>
                 </div>
                 <ul>
-                    {sentences.map((sentence:iSentences)=>
-                        <MiniCard type="favorite" sentence={sentence} />
+                    {sentences.map((sentence:iSentences, index)=>
+                        <MiniCard type="created" sentence={sentence} key={index}/>
                     ) }
                 </ul>
             </div>

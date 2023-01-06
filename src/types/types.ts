@@ -7,7 +7,7 @@ export interface iUser {
 }
 
 export interface iSentenceRequest{
-  sentence:string,
+  text:string,
   type: string,
 }
 
@@ -61,11 +61,13 @@ export interface iUserContext {
   user: iUser| undefined;
   token: string,
   register: (data: iRegisterRequest) => void;
-  deletet: (id: number, token: string) => void;
-  edit: (id: number, token: string, data: iEditRequest) => void;
+  deletet: (id: number) => void;
+  edit: (id: number, data: iEditRequest) => void;
   login: (data: iLoginRequest) => Promise<void>;
   logout: () => void;
-  get: (id: number, token: string) => void;
+  get: (id: number) => void;
+  loadingPage: boolean;
+  setUser: React.Dispatch<React.SetStateAction<iUser | undefined>>
 }
 
 export interface iStyledInputProps {

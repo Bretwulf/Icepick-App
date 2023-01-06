@@ -22,8 +22,9 @@ const MiniCard = ({type, sentence}:iMiniCard) => {
             <div>
                 {type === "created"? (
                     <>
-                        <MdOutlineModeEditOutline onClick={(e) => showModal(<EditSentenceForm sentence={sentence} />)}/>
-                        <FiTrash2/>
+                        <MdOutlineModeEditOutline onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
+                        {/* Faltando os content do modal de Delete */}
+                        <FiTrash2 onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
                     </>
                 ):(
                     <>

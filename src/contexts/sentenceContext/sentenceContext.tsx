@@ -1,53 +1,85 @@
-import axios, { AxiosError } from 'axios';
-import React, { createContext, useState, useEffect, useContext } from 'react'
-import { API } from '../../services/axios';
-import { iSentences } from '../../types/types'
+import { AxiosError } from "axios";
+import React, { createContext, useState, useEffect } from "react";
+import { Toast } from "../../components/toast";
+import { useLoading } from "../../hooks/useLoading";
+import { useModal } from "../../hooks/useModal";
+import { API } from "../../services/axios";
+import { iSentences } from "../../types/types";
+import { iLoginError } from "../userContext/userContext";
 
 interface iContextProps {
   children: React.ReactNode;
 }
 
+interface idataEdit {
+  text: string,
+  type: string
+}
+
 interface iSentenceContext {
-    sentences: iSentences[],
-    /* setSetences: React.Dispatch<React.SetStateAction<iSentences[]>>, */
-    add: (sentence:iSentences)=>void,
-    delete: (id:number)=>void,
-    like: ((id:number)=>void),
-    edit: ((id:number)=>void)
+  sentences: iSentences[];
+  addSentence: (sentence: iSentences) => void;
+  deleteSentence: (id: number) => void;
+  likeSentence: (frase:iSentences) => void;
+  editSentence: (data: idataEdit, id: string) => void;
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
 
-const SentenceProvider = ({children}:iContextProps) => {
+const SentenceProvider = ({ children }: iContextProps) => {
+  const { toggleLoading } = useLoading();
+  const {closeModal} = useModal();
+
   const [sentences, setSentences] = useState<iSentences[]>([]);
 
+  async function getSentences () {
+    const allSentences =  await API.get("sentences")
+
+    setSentences(allSentences.data)
+  }
+  
   useEffect(() => {
-    axios
-      .get("https://kenzie-icebreaker-api.onrender.com/sentences")
-      .then((response) => setSentences(response.data))
-      .catch((err) => console.log(err));
+    
+    getSentences()
   }, []);
   
-  console.log(sentences)
-  const addSentence = () => {
-    
-  };
-  const likeSentence = () =>{
+  const addSentence = () => {};
+  
+  const likeSentence = () => {};
 
-  };
-  const editSentence = () => {
-    
-  };
-  const deleteSentence = () => {
-    
-  };
+  const editSentence = async (data: idataEdit, id: string) => {
+    try {
+      toggleLoading(true);
+      const response = await API.patch(`sentences/${id}`, data)
+      closeModal()
+      getSentences()
+      console.log(response)
       
+    } catch (error) {
+      const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+    } finally {
+      toggleLoading(false);
+    }
+    
 
-    return ( 
-        <sentenceContext.Provider value={{sentences,add:()=>{},delete:()=>{},like:()=>{},edit:()=>{}}}>
-            {children}
-        </sentenceContext.Provider>
-     );
-}
- 
+  };
+
+  const deleteSentence = () => {};
+
+  return (
+    <sentenceContext.Provider
+      value={{
+        sentences,
+        addSentence,
+        deleteSentence,
+        likeSentence,
+        editSentence,
+      }}
+    >
+      {children}
+    </sentenceContext.Provider>
+  );
+};
+
 export default SentenceProvider;

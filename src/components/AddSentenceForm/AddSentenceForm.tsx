@@ -14,7 +14,7 @@ import { Button } from "../buttons/button";
 const AddSentenceForm = () => {
   const { loading } = useLoading();
   const schema = yup.object().shape({
-    sentence: yup.string().required("Frase deve ter um corpo!").matches(/[\s\S]{20,}/, "frase deve ter pelo menos 20 caracteres!"),
+    text: yup.string().required("Frase deve ter um corpo!").matches(/[\s\S]{20,}/, "frase deve ter pelo menos 20 caracteres!"),
     type: yup.string().required("Frase deve ter um tipo!"),
   });
 
@@ -33,7 +33,7 @@ const AddSentenceForm = () => {
       <h2>Adicionar Frase</h2>
       <Controller
         control={control}
-        name="sentence"
+        name="text"
         render={({
           field: { onChange, onBlur, value, name, ref },
           fieldState: { isTouched, isDirty, error },
@@ -50,7 +50,7 @@ const AddSentenceForm = () => {
         )}
       />
 
-      {<p className="errorMessage">{errors.sentence?.message}</p>}
+      {<p className="errorMessage">{errors.text?.message}</p>}
 
       <Controller
         control={control}
