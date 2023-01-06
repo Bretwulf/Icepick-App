@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import MiniCard from "./card/card";
 import { StyledFilterSection } from "./styledComponents";
+import { sentenceContext } from '../../contexts/sentenceContext/sentenceContext';
 
 const FilterSection = () => {
-
+    const { sentences, setSetences } = useContext(sentenceContext)
+    console.log(sentences)
     return(
         <StyledFilterSection>
             <div>
@@ -17,6 +19,7 @@ const FilterSection = () => {
                     <button type="button" id="buttonLi">Intimidade</button>
                 </div>
                 <ul>
+
                     {/* <MiniCard/>
                     <MiniCard/>
                     <MiniCard/> */}
