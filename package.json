@@ -56,6 +56,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.26",
     "json-server-auth": "^2.1.0"
   }
 }
