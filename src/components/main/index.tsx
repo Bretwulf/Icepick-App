@@ -6,7 +6,17 @@ import elipse3 from "../../Assets/Imgs/elipse3.svg";
 import bgdecoration from "../../Assets/Imgs/bgdecoration.svg";
 import img from "../../Assets/Imgs/backgroundMobileAGORA.png";
 import imgDesktop from "../../Assets/Imgs/backgroundDesktop.png";
+import { useContext, useEffect, useState } from "react";
+import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
+import { random } from "lodash";
 const Main = () => {
+  const { sentences } = useContext(sentenceContext);
+  const [random, setRandom] = useState(0);
+  const handleClickRandomPhrase = () => {
+    const newRandom = Math.floor(Math.random() * sentences.length);
+    setRandom(newRandom);
+  };
+
   return (
     <MainStyled>
       {window.innerWidth < 500 ? (
@@ -24,7 +34,9 @@ const Main = () => {
       <div className="textBox">
         <p className="pTextBox">frase aquiiii</p>
       </div>
-      <button className="buttonNewPhrase">Gerar uma nova frase</button>
+      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">
+        {sentences[random].text}
+      </button>
     </MainStyled>
   );
 };
