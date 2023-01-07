@@ -2,20 +2,23 @@ import styled from "styled-components";
 
 const MainStyled = styled.main`
   width: 100%;
-  z-index: -1;
+  height: 100%;
   position: relative;
-  img {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
-    display: flex;
-    flex-direction: column;
-  }
 
+  /* img {
+    position: fixed;
+    z-index: -2;
+    top: 3.3125rem;
+    left: 0;
+    transform: scaleX(1.006);
+    
+    height: 100%;
+    width: 100%;
+    @media (min-width: 700px) {
+
+    }
+  } */
+/* 
   .pDivWarning {
     color: var(--Color-primary);
     font-size: 1.5rem;
@@ -82,6 +85,6 @@ const MainStyled = styled.main`
       padding: 0.8rem 1rem 0.8rem 1rem;
       box-shadow: 1px 1px 1px 1px rgba(11, 0, 0, 0.5);
     }
-  }
+  } */
 `;
 export default MainStyled;

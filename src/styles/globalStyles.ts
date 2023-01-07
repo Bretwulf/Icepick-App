@@ -11,19 +11,26 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Inter", sans-serif;
         list-style: none;
     }
+
     button{
         cursor:pointer;
     } 
+
     button:disabled{
         cursor: not-allowed;
     }
+
     input:focus{
         outline:none;
         border:none;
     }
+
     body{
-        font-family: 'Inter', sans-serif; 
+       width: 100%;
+       height: 100vh;
+       background-image: url("../Assets/Imgs/backgroundDesktop.png");
     }
+
     :root{
         --Color-primary: #5458F0;
         --Color-primary-2: #52154E;

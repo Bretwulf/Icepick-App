@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
 import SearchInput from "../search/search";
 import FilterSection from "../filter/filter";
+import { Button } from "../buttons/button";
 
 const Main = () => {
   const { sentences } = useContext(sentenceContext);
@@ -20,24 +21,29 @@ const Main = () => {
 
   return (
     <MainStyled>
-      {window.innerWidth < 500 ? (
+      {/* {window.innerWidth < 500 ? (
         <img src={img} alt="backgroundMobile" />
       ) : (
         <img src={imgDesktop} alt="bgDesktop" />
-      )}
-      {window.innerWidth > 500 ? (
+      )} */}
+      <picture>
+        <source srcSet={imgDesktop} media="(min-width: 768px)"/>
+        <img src={img} alt="background" />
+
+      </picture>
+      {/* {window.innerWidth > 500 ? (
         <div className="warningDiv">
           <p className="pDivWarning">
             Cadastre-se para ter acesso a mais funcionalidades
           </p>
         </div>
-      ) : null}
-      <div className="textBox">
+      ) : null} */}
+     {/*  <div className="textBox">
         <p className="pTextBox">frase</p>
-      </div>
-      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase"> Gerar nova frase</button>
-      <SearchInput/>
-      <FilterSection/>
+      </div> */}
+      {/* <Button text="Gerar nova frase" onClick={handleClickRandomPhrase} className="buttonNewPhrase" buttonSize="big" buttonStyle="bg-ColorBlue"/>  */}
+      {/* <SearchInput/> */}
+      {/* <FilterSection/> */}
     </MainStyled>
   );
 };
