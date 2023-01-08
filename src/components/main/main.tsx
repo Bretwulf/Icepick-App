@@ -1,21 +1,23 @@
 import MainStyled from "./mainStyled";
 import img from "../../Assets/Imgs/backgroundMobileAGORA.png";
 import imgDesktop from "../../Assets/Imgs/backgroundDesktop.png";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
 import SearchInput from "../search/search";
 import FilterSection from "../filter/filter";
 
 const Main = () => {
   const { sentences } = useContext(sentenceContext);
-  const [random, setRandom] = useState(0);
-
+  const [phrase, setPhrase] = useState("");
+  useEffect(() => {
+    if (sentences.length > 0) {
+      const newRandom = Math.floor(Math.random() * sentences.length);
+      setPhrase(sentences[newRandom].text);
+    }
+  }, [sentences]);
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
-    console.log(newRandom);
-    setRandom(newRandom);
-
-    console.log(random);
+    setPhrase(sentences[newRandom].text);
   };
 
   return (
@@ -33,10 +35,13 @@ const Main = () => {
         </div>
       ) : null}
       <div className="textBox">
-        <p className="pTextBox">frase</p>
+        <p className="pTextBox">{phrase}</p>
       </div>
-      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase"> Gerar nova frase</button>
-      <SearchInput/>
+      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">
+        {" "}
+        Gerar nova frase
+      </button>
+      <SearchInput />
       <FilterSection page="home" />
     </MainStyled>
   );
