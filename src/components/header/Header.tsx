@@ -9,7 +9,8 @@ import { StyledHeader } from "./StyledHeader"
 import LoginForm from '../loginForm/loginForm';
 import RegisterForm from "../registerForm/registerForm"
 import { useModal } from '../../hooks/useModal';
-import AddSentenceForm from '../addSentenceForm/AddSentenceForm';
+import AddSentenceForm from "../addSentenceForm/AddSentenceForm"
+
 
 export function Header () {
     const { stateModal, showModal } = useModal()
