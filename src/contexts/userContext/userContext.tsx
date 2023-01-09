@@ -59,6 +59,7 @@ const UserProvider = ({ children }: iContextProps) => {
       API.defaults.headers.common.authorization = `Bearer ${response.data.accessToken}`;
 
       Toast("Login realizado com sucesso.", "sucess");
+      console.log(response.data)
       setUser(response.data.user);
       setToken(response.data.accessToken);
       localStorage.setItem("icePickToken", response.data.accessToken)
@@ -85,8 +86,9 @@ const UserProvider = ({ children }: iContextProps) => {
   const register = async (data: iRegisterRequest): Promise<void> => {
     toggleLoading(true);
     try {
-      const response = await API.post("users", data);
+      const response = await API.post("users", {...data, favoriteSentences:[]});
       Toast("Cadastro realizado com sucesso.", "sucess");
+      console.log(response.data)
       closeModal()
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
@@ -104,7 +106,7 @@ const UserProvider = ({ children }: iContextProps) => {
     toggleLoading(true);
     try {
       const response = await API.patch(`users/${id}`, data);
-      Toast("Frase editada com sucesso.", "sucess");
+      Toast("Usuário editada com sucesso.", "sucess");
       closeModal();
       setUser(response.data);
     } catch (error) {
