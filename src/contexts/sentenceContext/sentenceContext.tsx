@@ -1,5 +1,4 @@
-import axios, { AxiosError } from 'axios';
-import { any } from 'prop-types';
+import { AxiosError } from 'axios';
 import React, { createContext, useState, useEffect, useContext } from 'react'
 import { Toast } from '../../components/toast';
 import { useLoading } from '../../hooks/useLoading';

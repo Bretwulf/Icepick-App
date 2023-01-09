@@ -1,12 +1,16 @@
 import MainStyled from "./mainStyled";
-import img from "../../Assets/Imgs/backgroundMobileAGORA.png";
-import imgDesktop from "../../Assets/Imgs/backgroundDesktop.png";
-import { useContext, useState, useEffect } from "react";
-import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
+
+import img from "../../Assets/Imgs/BgMoblie.jpg";
+import imgDesktop from "../../Assets/Imgs/BgDesktop.jpg";
+import { useState } from "react";
 import SearchInput from "../search/search";
 import FilterSection from "../filter/filter";
+import { Button } from "../buttons/button";
+import { useSentece } from "../../hooks/useSentence";
+import { useUsers } from "../../hooks/useUsers";
 
 const Main = () => {
+
   const { sentences } = useContext(sentenceContext);
   const [phrase, setPhrase] = useState("");
   useEffect(() => {
@@ -22,19 +26,24 @@ const Main = () => {
 
   return (
     <MainStyled>
-      {window.innerWidth < 500 ? (
-        <img src={img} alt="backgroundMobile" />
-      ) : (
-        <img src={imgDesktop} alt="bgDesktop" />
-      )}
-      {window.innerWidth > 500 ? (
+      <div className="containerBackground">
+        <picture>
+          {<source srcSet={imgDesktop} media="(min-width: 768px)" />}
+          <img src={img} alt="background" />
+        </picture>
+      </div>
+
+      {!user && (
         <div className="warningDiv">
           <p className="pDivWarning">
             Cadastre-se para ter acesso a mais funcionalidades
           </p>
         </div>
-      ) : null}
+      )}
+
       <div className="textBox">
+
+
         <p className="pTextBox">{phrase}</p>
       </div>
       <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">

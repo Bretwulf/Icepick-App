@@ -1,95 +1,142 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const animationWarning = keyframes`
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+`
 
 const MainStyled = styled.main`
   width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+
+  height: 100%;
+
   position: relative;
-  img {
-    position: fixed;
-    top: 0;
-    left: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+
+  padding: 1rem 0rem;
+  margin-top: 4.0625rem;
+
+  overflow: hidden;
+
+  .containerBackground {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
+    position: fixed;
+    top: 53px;
+    left: 0;
     z-index: -2;
-    display: flex;
-    flex-direction: column;
+
+    picture {
+      width: 100%;
+      height: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
-  .pDivWarning {
-    color: var(--Color-primary);
-    font-size: 1.2rem;
-  }
+
   .warningDiv {
     display: none;
+    height: 3.875rem;
+    width: 21.375rem;
+    padding: .8rem 1rem .8rem 1rem;
+    margin-right: 10px;
+
+    border-radius: 1.5rem;
+    background-color: var(--Grey-1);
+    box-shadow: 4px 4px 20px -6px rgba(11, 0, 0, 0.3);
+
+    animation: ${animationWarning} 0.9s both;
+
+    @media (min-width: 700px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      align-self: flex-end;
+    }
+
+    .pDivWarning {
+      color: var(--Color-primary);
+      font-size: 1rem;
+      width: 100%;
+    }
+
   }
+
   .textBox {
-    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 94%;
+    height: 10.9375rem;
     margin: 0 auto;
-    margin-top: 2rem;
-    width: 94vw;
-    height: 20vh;
-    border: none;
+    padding: 1rem;
+
     border-radius: 1.5rem;
     background-color: var(--Grey-1);
-    box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(11, 0, 0, 0.5);
-  }
-  .pTextBox {
-    color: var(--Color-primary);
-    font-size: 1.25rem;
-    max-height: 90%;
-    width: 100%;
-    overflow-y: scroll;
-    text-align: center;
-  }
-  .pTextBox::-webkit-scrollbar {
-    display: none;
-  }
-  .buttonNewPhrase {
-    width: 85%;
-    height: 3.438rem;
-    border: none;
-    background-color: var(--Color-Blue);
-    color: #1e3c58;
-    border-radius: 1.5rem;
-    margin-top: 2.5rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
 
-  @media (min-width: 500px) {
-    .textBox {
-      width: 31.375rem;
+    box-shadow: 4px 4px 20px -6px rgba(11, 0, 0, 0.5);
+
+    overflow-y: auto;
+
+    @media (min-width: 700px) {
+      max-width: 31.375rem;
+
+  
       height: 13.5rem;
-      border: none;
-      border-radius: 1.5rem;
-      background-color: var(--Grey-1);
+
     }
+
     .pTextBox {
       color: var(--Color-primary);
-      font-size: 1.5rem;
-      text-align: center;
-      text-justify: center;
+      font-size: 1.6rem;
+      height: 90%;
+      width: 100%;
+
     }
-    .buttonNewPhrase {
-      width: 22.688rem;
-    }
-    .warningDiv {
-      display: flex;
-      height: 4.875rem;
-      width: 25.375rem;
-      border-radius: 1.5rem 0rem 0rem 1.5rem;
-      background-color: var(--Grey-1);
-      margin-top: 1rem;
-      position: sticky;
-      left: 90%;
-      padding: 0.8rem 1rem 0.8rem 1rem;
-      box-shadow: 1px 1px 1px 1px rgba(11, 0, 0, 0.5);
+  }
+
+  .buttonNewPhrase {
+    margin: 0 auto;
+    
+    &:hover {
+      filter: brightness(0.8);
     }
   }
 `;

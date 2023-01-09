@@ -9,7 +9,9 @@ import { StyledHeader } from "./StyledHeader";
 import LoginForm from "../loginForm/loginForm";
 import RegisterForm from "../registerForm/registerForm";
 import { useModal } from "../../hooks/useModal";
-import AddSentenceForm from "../AddSentenceForm/AddSentenceForm";
+import AddSentenceForm from "../addSentenceForm/addSentenceForm";
+
+
 
 export function Header() {
   const { stateModal, showModal } = useModal();
@@ -27,15 +29,12 @@ export function Header() {
 
   function openDropDown(e: React.MouseEvent<HTMLElement, MouseEvent>) {
     if (e.currentTarget instanceof HTMLElement)
-      if (e.currentTarget.className === "menu-line") {
-        e.currentTarget.parentElement!.nextElementSibling!.classList.toggle(
+
+    if (e.currentTarget.className === "menu") {
+        e.currentTarget.parentElement?.children[1].children[1].classList.toggle(
           "hidden"
         );
-      } else if (e.currentTarget!.nodeName === "IMG") {
-        e.currentTarget!.nextElementSibling!.classList.toggle("hidden");
-      } else {
-        e.currentTarget!.lastElementChild!.classList.toggle("hidden");
-      }
+      } 
   }
 
   return (
@@ -76,7 +75,11 @@ export function Header() {
         )}
         <div className="menu" onClick={openDropDown}>
           {user ? (
-            <img src={user?.avatar} alt="user" />
+
+            <div className="containerImgUser">
+                <img src={user?.avatar} alt="user" />
+            </div>
+
           ) : (
             <div className="hamburger">
               <div className="menu-line"></div>
@@ -88,18 +91,23 @@ export function Header() {
             <div className="drop-down">
               {user && window.location.pathname === "/profile" ? (
                 <>
-                  <p onClick={() => navigate(-1)}>Voltar</p>
-                  <p onClick={logout}>Sair</p>
+
+                {/* P to Button */}
+                  <button className="btnDropDown" onClick={() => navigate(-1)}>Voltar</button>
+                  <button className="btnDropDown" onClick={logout}>Sair</button>
+
                 </>
               ) : user ? (
                 <>
                   <Link to="/profile">Perfil</Link>
-                  <p onClick={logout}>Sair</p>
+
+                  <button className="btnDropDown" onClick={logout}>Sair</button>
                 </>
               ) : (
                 <>
-                  <p onClick={() => showModal(<LoginForm />)}>Login</p>
-                  <p onClick={() => showModal(<RegisterForm />)}>Cadastrar</p>
+                  <button className="btnDropDown" onClick={() => showModal(<LoginForm />)}>Login</button>
+                  <button className="btnDropDown" onClick={() => showModal(<RegisterForm />)}>Cadastrar</button>
+
                 </>
               )}
             </div>
