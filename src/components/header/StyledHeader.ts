@@ -6,7 +6,14 @@ export const StyledHeader = styled.header`
   align-items: center;
   background-color: var(--Color-Blue);
   box-shadow: var(--box-shadow);
-  height: 8vh;
+  height: 60px;
+  width: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+
   .div-menu {
     display: flex;
     justify-content: space-between;
@@ -18,6 +25,7 @@ export const StyledHeader = styled.header`
   figure {
     margin-left: 5%;
     padding-top: 15px;
+    
     img {
       object-fit: cover;
     }
@@ -36,13 +44,20 @@ export const StyledHeader = styled.header`
     gap: 3px;
     cursor: pointer;
     width: 25px;
-    height: 25px;
     z-index: 2;
 
-    img {
-      border-radius: 255px;
-      width: 35px;
-      height: 35px;
+    .containerImgUser {
+      width: 45px;
+      height: 45px;
+      background-color: #fff5f5;
+      border-radius: 50%;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .hamburger {
@@ -81,19 +96,24 @@ export const StyledHeader = styled.header`
     border-radius: var(--Border-Radius-1);
     color: var(--Grey-1);
 
-    > p {
-      border-bottom: 2px solid var(--Grey-1);
-    }
-
-    p {
+    .btnDropDown {
+      background-color: transparent;
+      border-bottom: 1px solid var(--Grey-1);
       padding: 10px 0;
+      color: #fff;
+      
+      &:hover {
+        color: var(--Color-Blue);
+      }
     }
 
     a {
-      border-bottom: 2px solid var(--Grey-1);
+      border-bottom: 1px solid var(--Grey-1);
       text-decoration: none;
+      text-align: center;
       color: var(--Grey-1);
       padding: 10px 0;
+      
       :hover {
         color: var(--Color-Blue);
       }

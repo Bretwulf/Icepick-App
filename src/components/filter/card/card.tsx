@@ -35,9 +35,9 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
                 ):(
                     <>
                         {sentence.liked?(
-                            <AiTwotoneStar onClick={/* addLiked? */ ()=>likeSentence(sentence)/* : ()=>{} */}/>
+                            <AiTwotoneStar onClick={()=> likeSentence(sentence)}/>
                         ):(
-                            <AiOutlineStar onClick={/* addLiked? */ ()=>likeSentence(sentence)/* : ()=>{} */}/>
+                            <AiOutlineStar onClick={()=> likeSentence(sentence)}/>
                         )}
                         <span>{sentence.like}</span>
                     </>
