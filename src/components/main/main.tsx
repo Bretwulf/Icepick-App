@@ -14,17 +14,24 @@ const Main = () => {
   const { user } = useUsers();
   const { sentences } = useContext(sentenceContext);
   const [phrase, setPhrase] = useState("");
+  const [random, setRandom] = useState(0);
   useEffect(() => {
     if (sentences.length > 0) {
       const newRandom = Math.floor(Math.random() * sentences.length);
       setPhrase(sentences[newRandom].text);
+      setRandom(newRandom);
     }
   }, [sentences]);
 
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
-    setPhrase(sentences[newRandom].text);
-    console.log(newRandom)
+    if (newRandom !== random) {
+      setPhrase(sentences[newRandom].text);
+      setRandom(newRandom);
+    } else {
+      setPhrase(sentences[newRandom + 1].text);
+      setRandom(newRandom + 1);
+    }
   };
 
   return (

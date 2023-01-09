@@ -29,7 +29,7 @@ const animationWarning = keyframes`
     -webkit-transform: scale3d(1, 1, 1);
             transform: scale3d(1, 1, 1);
   }
-`
+`;
 
 const MainStyled = styled.main`
   width: 100%;
@@ -68,12 +68,11 @@ const MainStyled = styled.main`
     }
   }
 
-
   .warningDiv {
     display: none;
     height: 3.875rem;
     width: 21.375rem;
-    padding: .8rem 1rem .8rem 1rem;
+    padding: 0.8rem 1rem 0.8rem 1rem;
     margin-right: 10px;
 
     border-radius: 1.5rem;
@@ -95,7 +94,6 @@ const MainStyled = styled.main`
       font-size: 1rem;
       width: 100%;
     }
-
   }
 
   .textBox {
@@ -114,27 +112,29 @@ const MainStyled = styled.main`
     box-shadow: 4px 4px 20px -6px rgba(11, 0, 0, 0.5);
 
     overflow-y: auto;
+    .pTextBox {
+      width: 100%;
+      max-height: 90%;
+      text-align: center;
+    }
 
     @media (min-width: 700px) {
       max-width: 31.375rem;
 
-  
       height: 13.5rem;
-
     }
 
     .pTextBox {
       color: var(--Color-primary);
       font-size: 1.6rem;
-      height: 90%;
+      max-height: 90%;
       width: 100%;
-
     }
   }
 
   .buttonNewPhrase {
     margin: 0 auto;
-    
+
     &:hover {
       filter: brightness(0.8);
     }
