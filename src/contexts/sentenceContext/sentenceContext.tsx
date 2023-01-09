@@ -22,6 +22,7 @@ interface iSentenceContext {
   deleteSentence: (id: number) => void;
   likeSentence: (frase:iSentences) => void;
   editSentence: (data: idataEdit, id: number) => void;
+  filterSentences: (buttonType:string) => void;
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
@@ -29,6 +30,7 @@ export const sentenceContext = createContext({} as iSentenceContext);
 const SentenceProvider = ({children}:iContextProps) => {
   const { user } = useContext(userContext)
   const [sentences, setSentences] = useState<iSentences[]>([]);
+  const [filteredSentences, setFilteredSentences] = useState<iSentences[]>([])
   const { toggleLoading } = useLoading();
   const {closeModal} = useModal();
 
@@ -94,18 +96,34 @@ const SentenceProvider = ({children}:iContextProps) => {
           } */
         }
         return sentence
+       
       }) 
-    console.log(newSentence)
     setSentences(newSentence)
   };
-
+  const filterSentences = (buttonCliked:string)=>{
+    if(buttonCliked === "Formal"){
+     return  setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Formal"))
+    }else if(buttonCliked === "Engraçada"){
+      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Engraçada"))
+    }else if(buttonCliked === "Paquera"){
+      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Paquera"))
+    }else if(buttonCliked === "Criativas"){
+      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Criativas"))
+    }else if(buttonCliked === "Pessoal"){
+      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Pessoal"))
+    }else if(buttonCliked === "Curiosidade"){
+      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Curiosidade"))
+    }else if(buttonCliked === "Intimidade"){
+      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Intimidade"))
+    }
+  }
     return ( 
         <sentenceContext.Provider 
         value={{sentences, 
           addSentence,
           deleteSentence,
           likeSentence,
-          editSentence }}>
+          editSentence, filterSentences }}>
             {children}
         </sentenceContext.Provider>
      );

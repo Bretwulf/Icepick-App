@@ -1,11 +1,12 @@
 import FilterSection from "../components/filter/filter";
-import { Header } from "../components/header/header";
+import { Header } from "../components/header/Header";
+
 
 export function ProfilePage() {
   
   return (
     <>
-      <Header />
+      <Header/>
       <FilterSection page="profile"/>
     </>
   );

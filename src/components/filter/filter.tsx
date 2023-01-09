@@ -12,7 +12,7 @@ interface iFilterSection{
 
 
 const FilterSection = ({page}:iFilterSection) => {
-    const { sentences } = useContext(sentenceContext)
+    const { sentences, filterSentences } = useContext(sentenceContext)
     const { user } = useUsers()
     const [profileSentences, setProfileSentences] = useState<iSentences[]>([])
     useEffect(() =>{
@@ -29,19 +29,26 @@ const FilterSection = ({page}:iFilterSection) => {
             {page === "home"? (
                 <div>
                 <div>
-                    <button type="button" id="buttonLi">Formal</button>
-                    <button type="button" id="buttonLi">Engraçada</button>
-                    <button type="button" id="buttonLi">Paquera</button>
-                    <button type="button" id="buttonLi">Criativas</button>
-                    <button type="button" id="buttonLi">Pessoal</button>
-                    <button type="button" id="buttonLi">Curiosidade</button>
-                    <button type="button" id="buttonLi">Intimidade</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>filterSentences(e.currentTarget.innerHTML)}>Formal</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>filterSentences(e.currentTarget.innerHTML)}>Engraçada</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>filterSentences(e.currentTarget.innerHTML)}>Paquera</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>filterSentences(e.currentTarget.innerHTML)}>Criativas</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>filterSentences(e.currentTarget.innerHTML)}>Pessoal</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>filterSentences(e.currentTarget.innerHTML)}>Curiosidade</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>filterSentences(e.currentTarget.innerHTML)}>Intimidade</button>
                 </div>
-                <ul>
-                    {sentences.map((sentence:iSentences)=>
-                        <MiniCard type="favorite" sentence={sentence}/>
-                    ) }
-                </ul>
+                {sentences.length > 0? (
+                    <ul>
+                        {sentences.map((sentence:iSentences)=>
+                            <MiniCard type="favorite" sentence={sentence} key={sentence.id}/>
+                        ) }
+                    </ul>
+                ):(
+                    <div>
+                        <h2>Ainda não existem frases cadastradas nesta categoria</h2>
+                    </div>
+                )}
+                
             </div>
             ):(
                 <StyledFilterSection>
