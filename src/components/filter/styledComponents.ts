@@ -60,4 +60,10 @@ export const StyledFilterSection = styled.section`
         align-items: center;
         gap: 1.125rem;
     }
+    div > div{
+        h2{
+            color: var(--Color-Blue-4);
+        }
+        min-height: 150px;
+    }
 `

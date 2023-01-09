@@ -1,3 +1,4 @@
+import { stepContentClasses } from '@mui/material';
 import axios, { AxiosError } from 'axios';
 import { any } from 'prop-types';
 import React, { createContext, useState, useEffect, useContext } from 'react'
@@ -22,7 +23,9 @@ interface iSentenceContext {
   deleteSentence: (id: number) => void;
   likeSentence: (frase:iSentences) => void;
   editSentence: (data: idataEdit, id: number) => void;
-  filterSentences: (buttonType:string) => void;
+  renderFilterAndSearchSentences: (searchValue:string, clickedButton?:string) => void;
+  search:string;
+  filtradedSentences: iSentences[];
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
@@ -30,7 +33,8 @@ export const sentenceContext = createContext({} as iSentenceContext);
 const SentenceProvider = ({children}:iContextProps) => {
   const { user } = useContext(userContext)
   const [sentences, setSentences] = useState<iSentences[]>([]);
-  const [filteredSentences, setFilteredSentences] = useState<iSentences[]>([])
+  const [search, setSearch] = useState("")
+  const [filtradedSentences, setFilteredSentences] = useState<iSentences[]>([])
   const { toggleLoading } = useLoading();
   const {closeModal} = useModal();
 
@@ -38,14 +42,14 @@ const SentenceProvider = ({children}:iContextProps) => {
   async function getSentences () {
     const allSentences =  await API.get<iSentences[]>("sentences")
     const newSentence = allSentences.data.map((sentence)=>{
-    
       return {...sentence,  liked: false}
   })
     setSentences(newSentence)
+    setFilteredSentences(newSentence)    
   }
   useEffect(() => {
     getSentences()
-
+ 
   }, []);
 
   const addSentence = () => {
@@ -65,7 +69,6 @@ const SentenceProvider = ({children}:iContextProps) => {
     } finally {
       toggleLoading(false);
     }
-  
   };
 
   const deleteSentence = () => {};
@@ -96,34 +99,38 @@ const SentenceProvider = ({children}:iContextProps) => {
           } */
         }
         return sentence
-       
       }) 
+      console.log(newSentence)
     setSentences(newSentence)
   };
-  const filterSentences = (buttonCliked:string)=>{
-    if(buttonCliked === "Formal"){
-     return  setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Formal"))
-    }else if(buttonCliked === "Engraçada"){
-      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Engraçada"))
-    }else if(buttonCliked === "Paquera"){
-      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Paquera"))
-    }else if(buttonCliked === "Criativas"){
-      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Criativas"))
-    }else if(buttonCliked === "Pessoal"){
-      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Pessoal"))
-    }else if(buttonCliked === "Curiosidade"){
-      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Curiosidade"))
-    }else if(buttonCliked === "Intimidade"){
-      return setFilteredSentences(sentences.filter((sentence)=> sentence.type === "Intimidade"))
+
+  const  renderFilterAndSearchSentences = (searchValue:string, clickedButton?:string)=>{
+    if(searchValue !== ""){
+        setSearch(searchValue)
+        const sentencesSearched = sentences.filter((sentence)=> sentence.text.toLocaleLowerCase().includes(search.toLocaleLowerCase())) || 
+        sentences.filter((sentence)=> sentence.type.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+        setFilteredSentences(sentencesSearched)
+        
     }
-  }
+    else if(searchValue === ""){
+      setFilteredSentences(sentences)
+    }
+    else if(clickedButton){
+        if(clickedButton === "Todas"){
+          setFilteredSentences(sentences)
+        }else{
+          const sentencesFiltred = sentences.filter((sentence)=> sentence.type === clickedButton)
+          setFilteredSentences(sentencesFiltred)
+        }
+    }    
+   }  
     return ( 
         <sentenceContext.Provider 
         value={{sentences, 
           addSentence,
           deleteSentence,
           likeSentence,
-          editSentence, filterSentences }}>
+          editSentence,  renderFilterAndSearchSentences, search, filtradedSentences}}>
             {children}
         </sentenceContext.Provider>
      );
