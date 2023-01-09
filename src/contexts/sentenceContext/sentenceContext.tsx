@@ -4,7 +4,7 @@ import { Toast } from '../../components/toast';
 import { useLoading } from '../../hooks/useLoading';
 import { useModal } from '../../hooks/useModal';
 import { API } from '../../services/axios';
-import { iSentences } from '../../types/types'
+import { iSentences, iSentencesAdd } from '../../types/types'
 import { iLoginError, userContext } from '../userContext/userContext';
 
 interface iContextProps {
@@ -17,7 +17,7 @@ interface idataEdit {
 
 interface iSentenceContext {
   sentences: iSentences[];
-  addSentence: (sentence: iSentences) => void;
+  addSentence: (data:iSentencesAdd, id:number) => void;
   deleteSentence: (id: number) => void;
   likeSentence: (frase:iSentences) => void;
   editSentence: (data: idataEdit, id: number) => void;
@@ -45,7 +45,24 @@ const SentenceProvider = ({children}:iContextProps) => {
 
   }, []);
 
-  const addSentence = () => {
+  const addSentence = async (data:iSentencesAdd, id:number) => {
+    try {
+      toggleLoading(true);
+      const fullData = {
+        userId: id,
+        like: 0,
+        liked: false,
+      }
+      const response = await API.post(`sentences/`, {...data,...fullData})
+      closeModal()
+      getSentences()
+      
+    } catch (error) {
+      const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+    } finally {
+      toggleLoading(false);
+    }
     
   }; 
 
@@ -65,7 +82,20 @@ const SentenceProvider = ({children}:iContextProps) => {
   
   };
 
-  const deleteSentence = () => {};
+  const deleteSentence = async(id:number) => {
+    toggleLoading(true);
+    try {
+      await API.delete(`users/${id}`);
+      Toast("Frase deletada com sucesso.", "sucess");
+      closeModal()
+    } catch (error) {
+      const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+      
+    } finally{
+      toggleLoading(false);
+    }
+  };
 
   const responseLike = async (sentence:iSentences)=>{
     const data={
