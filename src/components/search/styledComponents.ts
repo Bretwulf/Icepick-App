@@ -5,6 +5,7 @@ export const StyledInputSearchBox = styled.fieldset`
     max-width: 450px;
     margin: 0 auto;
     margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
 
     border: none;
     background-color: none;
