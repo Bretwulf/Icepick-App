@@ -1,4 +1,5 @@
 import MainStyled from "./mainStyled";
+
 import img from "../../Assets/Imgs/BgMoblie.jpg";
 import imgDesktop from "../../Assets/Imgs/BgDesktop.jpg";
 import { useState } from "react";
@@ -9,18 +10,18 @@ import { useSentece } from "../../hooks/useSentence";
 import { useUsers } from "../../hooks/useUsers";
 
 const Main = () => {
-  const { sentences } = useSentece();
-  const { user } = useUsers();
-  const [random, setRandom] = useState(0);
 
+  const { sentences } = useContext(sentenceContext);
+  const [phrase, setPhrase] = useState("");
+  useEffect(() => {
+    if (sentences.length > 0) {
+      const newRandom = Math.floor(Math.random() * sentences.length);
+      setPhrase(sentences[newRandom].text);
+    }
+  }, [sentences]);
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
-    if (newRandom === random) {
-      setRandom(newRandom + 1);
-    } else {
-      setRandom(newRandom);
-    }
-    console.log(sentences[random]?.text && sentences[random].text);
+    setPhrase(sentences[newRandom].text);
   };
 
   return (
@@ -41,23 +42,16 @@ const Main = () => {
       )}
 
       <div className="textBox">
-        <p className="pTextBox">{"asdadasd"}</p>
+
+
+        <p className="pTextBox">{phrase}</p>
       </div>
-
-      <Button
-        text="Gerar nova frase"
-        onClick={handleClickRandomPhrase}
-        className="buttonNewPhrase"
-        buttonSize="big"
-        buttonStyle="bg-ColorBlue"
-      />
-
-      {user && (
-        <>
-          <SearchInput />
-          <FilterSection page="home" />
-        </>
-      )}
+      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">
+        {" "}
+        Gerar nova frase
+      </button>
+      <SearchInput />
+      <FilterSection page="home" />
     </MainStyled>
   );
 };

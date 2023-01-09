@@ -3,11 +3,11 @@ import { Header } from "../components/header/Header";
 
 
 export function ProfilePage() {
-  
   return (
     <>
       <Header />
-      <FilterSection page="profile"/>
+      <MainProfile />
+      <FilterSection page="profile" />
     </>
   );
 }

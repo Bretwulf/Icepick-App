@@ -22,8 +22,7 @@ export function HomePage() {
           API.defaults.headers.common.authorization = `Bearer ${token}`;
           const response = await API.get(`users/${id}`);
           setUser(response.data);
-          navigate("/home")
-
+          navigate("/home");
         } catch (error) {
           console.log(error);
         }
@@ -33,7 +32,6 @@ export function HomePage() {
     }
 
     redirectLogin();
-
   }, []);
 
   if (loading) {

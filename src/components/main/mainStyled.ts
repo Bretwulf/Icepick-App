@@ -33,7 +33,9 @@ const animationWarning = keyframes`
 
 const MainStyled = styled.main`
   width: 100%;
+
   height: 100%;
+
   position: relative;
 
   display: flex;
@@ -66,6 +68,7 @@ const MainStyled = styled.main`
     }
   }
 
+
   .warningDiv {
     display: none;
     height: 3.875rem;
@@ -92,6 +95,7 @@ const MainStyled = styled.main`
       font-size: 1rem;
       width: 100%;
     }
+
   }
 
   .textBox {
@@ -106,12 +110,15 @@ const MainStyled = styled.main`
 
     border-radius: 1.5rem;
     background-color: var(--Grey-1);
+
     box-shadow: 4px 4px 20px -6px rgba(11, 0, 0, 0.5);
 
     overflow-y: auto;
 
     @media (min-width: 700px) {
       max-width: 31.375rem;
+
+  
       height: 13.5rem;
 
     }
@@ -121,6 +128,7 @@ const MainStyled = styled.main`
       font-size: 1.6rem;
       height: 90%;
       width: 100%;
+
     }
   }
 
