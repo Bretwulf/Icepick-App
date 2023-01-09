@@ -3,7 +3,8 @@ export interface iUser {
   username:string,
   avatar:string,
   password?:string,
-  id:number
+  id:number,
+  favoriteSentences: iSentences[]
 }
 
 export interface iSentenceRequest{
@@ -38,6 +39,7 @@ export interface iEditRequest {
   username?: string;
   passwordConfirm?:string;
   avatar?: string;
+  favoriteSentence?:iSentences[]
 }
 
 export interface iSentences {
