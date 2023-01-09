@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../components/header/header";
+import { Header } from "../components/header/Header";
 import Main from "../components/main/main";
 import { useUsers } from "../hooks/useUsers";
 import { API } from "../services/axios";
@@ -22,8 +22,7 @@ export function HomePage() {
           API.defaults.headers.common.authorization = `Bearer ${token}`;
           const response = await API.get(`users/${id}`);
           setUser(response.data);
-          navigate("/home")
-
+          navigate("/home");
         } catch (error) {
           console.log(error);
         }
@@ -33,7 +32,6 @@ export function HomePage() {
     }
 
     redirectLogin();
-
   }, []);
 
   if (loading) {

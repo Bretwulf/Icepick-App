@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 const MainStyled = styled.main`
   width: 100%;
-/*   z-index: -1; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   position: relative;
   img {
     position: fixed;
@@ -18,7 +20,10 @@ const MainStyled = styled.main`
 
   .pDivWarning {
     color: var(--Color-primary);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+  }
+  .warningDiv {
+    display: none;
   }
   .textBox {
     padding: 1rem;
@@ -36,10 +41,14 @@ const MainStyled = styled.main`
   }
   .pTextBox {
     color: var(--Color-primary);
-    font-size: 1.6rem;
-    height: 90%;
+    font-size: 1.25rem;
+    max-height: 90%;
     width: 100%;
     overflow-y: scroll;
+    text-align: center;
+  }
+  .pTextBox::-webkit-scrollbar {
+    display: none;
   }
   .buttonNewPhrase {
     width: 85%;
@@ -52,9 +61,7 @@ const MainStyled = styled.main`
     font-size: 1.25rem;
     font-weight: 600;
   }
-  .warningDiv {
-    display: none;
-  }
+
   @media (min-width: 500px) {
     .textBox {
       width: 31.375rem;
@@ -65,7 +72,9 @@ const MainStyled = styled.main`
     }
     .pTextBox {
       color: var(--Color-primary);
-      font-size: 1.25rem;
+      font-size: 1.5rem;
+      text-align: center;
+      text-justify: center;
     }
     .buttonNewPhrase {
       width: 22.688rem;
