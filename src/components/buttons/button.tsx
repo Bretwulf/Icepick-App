@@ -10,8 +10,8 @@ interface IButtonProps{
     className?: string
 }
 
-export const Button= ({disabled, text, onClick, buttonSize, buttonStyle, type} : IButtonProps)=>{
+export const Button= ({disabled, text, onClick, buttonSize, buttonStyle, type, className} : IButtonProps)=>{
     return(
-        <StyledButton disabled={disabled} buttonSize={buttonSize} buttonStyle={buttonStyle} type={type} onClick={onClick}>{text}</StyledButton>
+        <StyledButton disabled={disabled} buttonSize={buttonSize} buttonStyle={buttonStyle} type={type} onClick={onClick} className={className}>{text}</StyledButton>
     )
 }

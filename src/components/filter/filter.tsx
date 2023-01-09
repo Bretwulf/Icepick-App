@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
-import { userContext } from "../../contexts/userContext/userContext";
 import { useUsers } from "../../hooks/useUsers";
 import { iSentences } from "../../types/types";
 import MiniCard from "./card/card";
@@ -23,7 +22,6 @@ const FilterSection = ({page}:iFilterSection) => {
         }
     },[sentences])
     
-    const sentencesFiltered = renderFilterAndSearchSentences
     
     return(
         <StyledFilterSection>
@@ -56,9 +54,9 @@ const FilterSection = ({page}:iFilterSection) => {
                 <StyledFilterSection>
                     <div>
                         <div>
-                            <button type="button" id="buttonLi">Todas</button>
-                            <button type="button" id="buttonLi">Favoritas</button>
-                            <button type="button" id="buttonLi">Criadas</button>
+                            <button type="button" id="buttonLi" onClick={(e)=>console.log(e.currentTarget.innerHTML)}>Todas</button>
+                            <button type="button" id="buttonLi" onClick={(e)=>console.log(e.currentTarget.innerHTML)}>Favoritas</button>
+                            <button type="button" id="buttonLi" onClick={(e)=>console.log(e.currentTarget.innerHTML)}>Criadas</button>
                         </div>
                         <ul>
                             {profileSentences.map((sentence:iSentences)=>
