@@ -5,25 +5,30 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         border: 0;
+        box-sizing: border-box;
         font-size: 100%;
         vertical-align: baseline;
-        box-sizing: border-box;
         font-family: "Inter", sans-serif;
         list-style: none;
     }
+
     button{
         cursor:pointer;
     } 
+
     button:disabled{
         cursor: not-allowed;
     }
+
     input:focus{
         outline:none;
         border:none;
     }
+
     body{
-        font-family: 'Inter', sans-serif; 
+       max-width: 100%;
     }
+
     :root{
         --Color-primary: #5458F0;
         --Color-primary-2: #52154E;
@@ -43,6 +48,30 @@ export const GlobalStyle = createGlobalStyle`
 
         --Border-Radius-1: .5rem;
         --box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    ::-webkit-scrollbar {
+        width: .25rem;
+        height: 4px;
+
+        @media (min-width: 1024px) {
+            width: .375rem;
+        }
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-grey-400);
+        margin-top: 60px;
+        border-radius: 1.6rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--Color-primary);
+        border-radius: 1.6rem;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--Color-primary-2);
     }
 
 `;

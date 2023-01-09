@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
-import { userContext } from "../../contexts/userContext/userContext";
 import { useUsers } from "../../hooks/useUsers";
 import { iSentences } from "../../types/types";
 import MiniCard from "./card/card";

@@ -1,12 +1,12 @@
-import axios, { AxiosError } from 'axios';
-import { any } from 'prop-types';
+import { AxiosError } from 'axios';
 import React, { createContext, useState, useEffect, useContext } from 'react'
 import { Toast } from '../../components/toast';
 import { useLoading } from '../../hooks/useLoading';
 import { useModal } from '../../hooks/useModal';
 import { API } from '../../services/axios';
-import { iSentences } from '../../types/types'
+import { iSentences, iSentencesAdd } from '../../types/types'
 import { iLoginError, userContext } from '../userContext/userContext';
+import { cloneDeep } from 'lodash';
 
 interface iContextProps {
   children: React.ReactNode;
@@ -18,10 +18,11 @@ interface idataEdit {
 
 interface iSentenceContext {
   sentences: iSentences[];
-  addSentence: (sentence: iSentences) => void;
+  addSentence: (data:iSentencesAdd, id:number) => void;
   deleteSentence: (id: number) => void;
   likeSentence: (frase:iSentences) => void;
   editSentence: (data: idataEdit, id: number) => void;
+  favoriteSentence: (sentence:iSentences, id:number) =>void;
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
@@ -46,14 +47,31 @@ const SentenceProvider = ({children}:iContextProps) => {
 
   }, []);
 
-  const addSentence = () => {
+  const addSentence = async (data:iSentencesAdd, id:number) => {
+    try {
+      toggleLoading(true);
+      const fullData = {
+        userId: id,
+        like: 0,
+        liked: false,
+      }
+      await API.post(`sentences/`, {...data,...fullData})
+      closeModal()
+      getSentences()
+      
+    } catch (error) {
+      const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+    } finally {
+      toggleLoading(false);
+    }
     
   }; 
 
   const editSentence = async (data: idataEdit, id: number) => {
     try {
       toggleLoading(true);
-      const response = await API.patch(`sentences/${id}`, data)
+      await API.patch(`sentences/${id}`, data)
       closeModal()
       getSentences()
       
@@ -66,7 +84,20 @@ const SentenceProvider = ({children}:iContextProps) => {
   
   };
 
-  const deleteSentence = () => {};
+  const deleteSentence = async(id:number) => {
+    toggleLoading(true);
+    try {
+      await API.delete(`users/${id}`);
+      Toast("Frase deletada com sucesso.", "sucess");
+      closeModal()
+    } catch (error) {
+      const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+      
+    } finally{
+      toggleLoading(false);
+    }
+  };
 
   const responseLike = async (sentence:iSentences)=>{
     const data={
@@ -98,14 +129,48 @@ const SentenceProvider = ({children}:iContextProps) => {
     console.log(newSentence)
     setSentences(newSentence)
   };
-  
+
+  const favoriteSentence = async (sentence:iSentences, id:number) =>{
+  const newFavorites = [...user!.favoriteSentences,sentence]
+  try {
+    toggleLoading(true);
+    await API.patch(`users/${id}`, {favoriteSentences:newFavorites})
+    closeModal()
+    getSentences()
+    
+  } catch (error) {
+    const typedError = error as AxiosError<iLoginError>;
+    typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+  } finally {
+    toggleLoading(false);
+  }
+};
+
+const unfavoriteSentence = async (sentence:iSentences, id:number) =>{
+  const cloneFavorites = cloneDeep(user!.favoriteSentences)
+  const newFavorites = cloneFavorites.filter((sentenceParam)=>sentenceParam.id!==sentence.id)
+  try {
+    toggleLoading(true);
+    await API.patch(`users/${id}`, {favoriteSentences:newFavorites})
+    closeModal()
+    getSentences()
+    
+  } catch (error) {
+    const typedError = error as AxiosError<iLoginError>;
+    typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+  } finally {
+    toggleLoading(false);
+  }
+};
+
     return ( 
         <sentenceContext.Provider 
         value={{sentences, 
           addSentence,
           deleteSentence,
           likeSentence,
-          editSentence }}>
+          editSentence,
+          favoriteSentence}}>
             {children}
         </sentenceContext.Provider>
      );
