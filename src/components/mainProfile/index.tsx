@@ -1,6 +1,6 @@
 import MainProfileStyled from "./mainProfileStyled";
-import img from "../../Assets/Imgs/backgroundMobileAGORA.png";
-import imgDesktop from "../../Assets/Imgs/backgroundDesktop.png";
+import img from "../../Assets/Imgs/BgMoblie.jpg";
+import imgDesktop from "../../Assets/Imgs/BgDesktop.jpg";
 import { Button } from "../buttons/button";
 import pessoa from "../../Assets/Imgs/pessoa.jpeg";
 import SearchInput from "../search/search";

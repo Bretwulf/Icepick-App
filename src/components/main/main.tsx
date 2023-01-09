@@ -2,15 +2,16 @@ import MainStyled from "./mainStyled";
 
 import img from "../../Assets/Imgs/BgMoblie.jpg";
 import imgDesktop from "../../Assets/Imgs/BgDesktop.jpg";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchInput from "../search/search";
 import FilterSection from "../filter/filter";
 import { Button } from "../buttons/button";
 import { useSentece } from "../../hooks/useSentence";
 import { useUsers } from "../../hooks/useUsers";
+import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
 
 const Main = () => {
-
+  const { user } = useUsers();
   const { sentences } = useContext(sentenceContext);
   const [phrase, setPhrase] = useState("");
   useEffect(() => {
@@ -19,9 +20,11 @@ const Main = () => {
       setPhrase(sentences[newRandom].text);
     }
   }, [sentences]);
+
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
     setPhrase(sentences[newRandom].text);
+    console.log(newRandom)
   };
 
   return (
@@ -42,16 +45,23 @@ const Main = () => {
       )}
 
       <div className="textBox">
-
-
         <p className="pTextBox">{phrase}</p>
       </div>
-      <button onClick={handleClickRandomPhrase} className="buttonNewPhrase">
-        {" "}
-        Gerar nova frase
-      </button>
-      <SearchInput />
-      <FilterSection page="home" />
+      <Button
+        buttonSize="big"
+        buttonStyle="bg-ColorBlue"
+        text="Gerar nova frase
+"
+        onClick={handleClickRandomPhrase}
+        className="buttonNewPhrase"
+      />
+
+      {user && (
+        <>
+          <SearchInput />
+          <FilterSection page="home" />
+        </>
+      )}
     </MainStyled>
   );
 };
