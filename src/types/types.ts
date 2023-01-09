@@ -49,6 +49,14 @@ export interface iSentences {
   liked:boolean;
 }
 
+export interface iSentencesAdd {
+  userId: number;
+  type: string;
+  text: string;
+  like: number;
+  liked:boolean;
+}
+
 export interface iContextProps {
   children: React.ReactNode;
 }

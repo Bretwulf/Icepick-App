@@ -120,7 +120,7 @@ const UserProvider = ({ children }: iContextProps) => {
     toggleLoading(true);
     try {
       await API.delete(`users/${id}`);
-      Toast("Frase deletada com sucesso.", "sucess");
+      Toast("Usuário deletado com sucesso.", "sucess");
       closeModal()
       setUser(undefined);
     } catch (error) {
