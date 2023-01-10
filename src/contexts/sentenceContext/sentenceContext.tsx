@@ -157,20 +157,20 @@ const SentenceProvider = ({children}:iContextProps) => {
     }    
    }  
   const favoriteSentence = async (sentence:iSentences, id:number) =>{
-  const newFavorites = [...user!.favoriteSentences,sentence]
-  try {
-    toggleLoading(true);
-    await API.patch(`users/${id}`, {favoriteSentences:newFavorites})
-    closeModal()
-    getSentences()
-    
-  } catch (error) {
-    const typedError = error as AxiosError<iLoginError>;
-    typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
-  } finally {
-    toggleLoading(false);
-  }
-};
+    const newFavorites = [...user!.favoriteSentences,sentence]
+    try {
+      toggleLoading(true);
+      await API.patch(`users/${id}`, {favoriteSentences:newFavorites})
+      closeModal()
+      getSentences()
+      
+    } catch (error) {
+      const typedError = error as AxiosError<iLoginError>;
+      typedError.response?Toast(typedError.response!.data, "error"):Toast("Oops, tivemos um problema", "error")
+    } finally {
+      toggleLoading(false);
+    }
+  };
 
 const unfavoriteSentence = async (sentence:iSentences, id:number) =>{
   const cloneFavorites = cloneDeep(user!.favoriteSentences)
