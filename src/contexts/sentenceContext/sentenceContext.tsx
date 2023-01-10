@@ -157,10 +157,19 @@ const SentenceProvider = ({children}:iContextProps) => {
     }    
    }  
   const favoriteSentence = async (sentence:iSentences, id:number) =>{
-  const newFavorites = [...user!.favoriteSentences,sentence]
+    let newFavorites: iSentences[] = []
+  if (user?.favoriteSentences){
+    newFavorites = [...user!.favoriteSentences, sentence]
+    console.log(newFavorites)
+  } else {
+    console.log(newFavorites, "+")
+    newFavorites = [sentence]
+  }
+
   try {
     toggleLoading(true);
     await API.patch(`users/${id}`, {favoriteSentences:newFavorites})
+    
     closeModal()
     getSentences()
     
@@ -170,6 +179,8 @@ const SentenceProvider = ({children}:iContextProps) => {
   } finally {
     toggleLoading(false);
   }
+
+  
 };
 
 const unfavoriteSentence = async (sentence:iSentences, id:number) =>{
