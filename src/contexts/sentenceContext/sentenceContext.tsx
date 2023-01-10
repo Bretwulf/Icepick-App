@@ -39,7 +39,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
   const [sentences, setSentences] = useState<iSentences[]>([]);
   const [search, setSearch] = useState("")
   const [ favoritedUserSentences, setFavoriteduserSentences ] = useState<iSentences[]>([])
-  const [filtradedSentences, setFilteredSentences] = useState<iSentences[]>([])
+  const [ filtradedSentences, setFilteredSentences ] = useState<iSentences[]>([])
   const { toggleLoading } = useLoading();
   const { closeModal } = useModal();
 
