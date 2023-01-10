@@ -2,13 +2,14 @@ import MainProfileStyled from "./mainProfileStyled";
 import img from "../../Assets/Imgs/BgMoblie.jpg";
 import imgDesktop from "../../Assets/Imgs/BgDesktop.jpg";
 import { Button } from "../buttons/button";
-import pessoa from "../../Assets/Imgs/pessoa.jpeg";
 import SearchInput from "../search/search";
 import { userContext } from "../../contexts/userContext/userContext";
 import { useContext } from "react";
 import { modalContext } from "../../contexts/modalContext/modalContext";
 import Modal from "../modal/modal";
 import EditForm from "../editForm/editForm";
+import FilterSection from "../filter/filter";
+
 const MainProfile = () => {
   const { user } = useContext(userContext);
   const { showModal, closeModal, stateModal } = useContext(modalContext);
@@ -21,13 +22,7 @@ const MainProfile = () => {
         ) : (
           <img className="bg" src={imgDesktop} alt="bgDesktop" />
         )}
-        {window.innerWidth > 500 ? (
-          <div className="warningDiv">
-            <p className="pDivWarning">
-              Cadastre-se para ter acesso a mais funcionalidades
-            </p>
-          </div>
-        ) : null}
+
         <div className="containerProfileData">
           <img
             className="profilePicture"
@@ -48,6 +43,7 @@ const MainProfile = () => {
         </div>
       </MainProfileStyled>
       <SearchInput />
+      <FilterSection page="profile" />
     </>
   );
 };
