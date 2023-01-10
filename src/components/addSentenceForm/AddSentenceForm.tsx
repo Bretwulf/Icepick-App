@@ -4,15 +4,19 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {iSentenceRequest } from "../../types/types";
+import {iSentenceRequest, iSentencesAdd } from "../../types/types";
 import { Input, Select } from "../input/input";
 import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
 import { useLoading } from "../../hooks/useLoading";
 import { Button } from "../buttons/button";
+import { useUsers } from "../../hooks/useUsers";
+import { useSentece } from "../../hooks/useSentence";
 
 const AddSentenceForm = () => {
   const { loading } = useLoading();
+  const { user } = useUsers();
+  const { addSentence } = useSentece();
   const schema = yup.object().shape({
     text: yup.string().required("Frase deve ter um corpo!").matches(/[\s\S]{20,}/, "frase deve ter pelo menos 20 caracteres!"),
     type: yup.string().required("Frase deve ter um tipo!"),
@@ -22,14 +26,14 @@ const AddSentenceForm = () => {
     control,
     handleSubmit,
     formState: { errors, isDirty, isValid },
-  } = useForm<iSentenceRequest>({
+  } = useForm<iSentencesAdd>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
 
   return (
-    <Form onSubmit={handleSubmit((data) => console.log(data))}>{/*Adicionar função de adicionar frase posteriormmente*/}
+    <Form onSubmit={handleSubmit((data) => addSentence(data, user!.id))}>{/*Adicionar função de adicionar frase posteriormmente*/}
       <h2>Adicionar Frase</h2>
       <Controller
         control={control}

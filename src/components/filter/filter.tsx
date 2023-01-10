@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
+import { useSentece } from "../../hooks/useSentence";
 import { useUsers } from "../../hooks/useUsers";
 import { iSentences } from "../../types/types";
+import { RenderSentence } from "../render/renderHome";
+import { RenderProfile } from "../render/renderProfile";
+import { StyledInputSearchBox } from "../search/styledComponents";
 import MiniCard from "./card/card";
 import { StyledFilterSection } from "./styledComponents";
 
@@ -11,9 +16,12 @@ interface iFilterSection{
 
 
 const FilterSection = ({page}:iFilterSection) => {
-    const { sentences, renderFilterAndSearchSentences, filtradedSentences } = useContext(sentenceContext)
+    const { sentences, renderFilterAndSearchSentences, filtradedSentences, getSentences } = useSentece()
     const { user } = useUsers()
     const [profileSentences, setProfileSentences] = useState<iSentences[]>([])
+    const [categories, setCategories] = useState<string>("Todas")
+    const [searchValue, setSearchValue] = useState("")
+    
     useEffect(() =>{
         if(page === "profile"){
 
@@ -21,23 +29,36 @@ const FilterSection = ({page}:iFilterSection) => {
             setProfileSentences([...sentencesCreated])
         }
     },[sentences])
-    
-    console.log(filtradedSentences)
+
+    const buttonFilter = (buttonName:string) => {
+        setCategories(buttonName);
+        
+        getSentences();
+    };
     return(
+    <>
+        <StyledInputSearchBox>
+            <input type="text" placeholder="Digitar Pesquisa" onChange={(e)=>{
+                setSearchValue(e.target.value)
+                getSentences()
+                }}/>
+            <button><AiOutlineSearch/></button>
+        </StyledInputSearchBox>
         <StyledFilterSection>
             {page === "home"? (
                 <div>
                 <div>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Todas</button>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Formal</button>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Engraçada</button>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Paquera</button>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Criativas</button>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Pessoal</button>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Curiosidade</button>
-                    <button type="button" id="buttonLi" onClick={(e)=>renderFilterAndSearchSentences("",e.currentTarget.innerHTML)}>Intimidade</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Todas</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Formal</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Engraçada</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Paquera</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Criativas</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Pessoal</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Curiosidade</button>
+                    <button type="button" id="buttonLi" onClick={(e)=>{buttonFilter(e.currentTarget.innerHTML)}}>Intimidade</button>
                 </div>
-                {filtradedSentences.length > 0? (
+                <RenderProfile filterButton={categories} searchValue={searchValue}/>
+                {/* {filtradedSentences.length > 0? (
                     <ul>
                         {filtradedSentences.map((sentence:iSentences)=>
                             <MiniCard type="favorite" sentence={sentence} key={sentence.id}/>
@@ -47,27 +68,30 @@ const FilterSection = ({page}:iFilterSection) => {
                     <div>
                         <h2>Ainda não existem frases cadastradas nesta categoria</h2>
                     </div>
-                )}
+                )} */}
                 
             </div>
             ):(
                 <StyledFilterSection>
                     <div>
                         <div>
-                            <button type="button" id="buttonLi" onClick={(e)=>console.log(e.currentTarget.innerHTML)}>Todas</button>
-                            <button type="button" id="buttonLi" onClick={(e)=>console.log(e.currentTarget.innerHTML)}>Favoritas</button>
-                            <button type="button" id="buttonLi" onClick={(e)=>console.log(e.currentTarget.innerHTML)}>Criadas</button>
+                            <button type="button" id="buttonLi" onClick={(e)=>buttonFilter(e.currentTarget.innerHTML)}>Todas</button>
+                            <button type="button" id="buttonLi" onClick={(e)=>buttonFilter(e.currentTarget.innerHTML)}>Favoritas</button>
+                            <button type="button" id="buttonLi" onClick={(e)=>buttonFilter(e.currentTarget.innerHTML)}>Criadas</button>
                         </div>
-                        <ul>
+                        <RenderProfile filterButton={categories} searchValue={searchValue}/>
+                        {/* <ul> 
                             {profileSentences.map((sentence:iSentences)=>
                                 <MiniCard type="created" sentence={sentence} />
                             ) }
-                        </ul>
+                        </ul> */}
                     </div>
                 </StyledFilterSection> 
             )}
             
         </StyledFilterSection>
+    </>
     )
+    
 }
 export default FilterSection;

@@ -30,6 +30,7 @@ interface iSentenceContext {
   favoriteSentence: (sentence: iSentences, id: number) => void;
   unfavoriteSentence: (sentence: iSentences, id: number) => Promise<void>;
   favoritedUserSentences: iSentences[];
+  getSentences:()=>void;
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
@@ -55,7 +56,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
       
     })
     console.log(newSentece) */
-  const newSentence = allSentences.data.map((sentence)=>{
+  /* const newSentence = allSentences.data.map((sentence)=>{
     let favoriteArray:iSentences = {} as iSentences
     favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
         if(favoriteSentence.id === sentence.id){
@@ -65,9 +66,9 @@ const SentenceProvider = ({ children }: iContextProps) => {
         }
       }) 
       return favoriteArray
-  }) 
-    setSentences(newSentence)
-    setFilteredSentences(newSentence)  
+  })  */
+  setSentences(allSentences.data)
+   /*  setFilteredSentences(newSentence)   */
     
   }
   useEffect(() => {
@@ -275,7 +276,8 @@ const SentenceProvider = ({ children }: iContextProps) => {
         filtradedSentences,
         favoriteSentence,
         unfavoriteSentence,
-        favoritedUserSentences
+        favoritedUserSentences,
+        getSentences
       }}
     >
       {children}

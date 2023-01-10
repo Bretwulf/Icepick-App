@@ -49,7 +49,6 @@ const MainProfile = () => {
           />
         </div>
       </MainProfileStyled>
-      <SearchInput />
       <FilterSection page="profile" />
     </>
   );

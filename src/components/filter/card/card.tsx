@@ -16,7 +16,7 @@ type tTypeCard= "created" | "favorite"
 
 interface iMiniCard{
     type:tTypeCard,
-    sentence: iSentences
+    sentence: iSentences,
 }
 const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()

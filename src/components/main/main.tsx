@@ -19,12 +19,11 @@ const Main = () => {
       const newRandom = Math.floor(Math.random() * sentences.length);
       setPhrase(sentences[newRandom].text);
     }
-  }, [sentences]);
+  }, []);
 
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
     setPhrase(sentences[newRandom].text);
-    console.log(newRandom)
   };
 
   return (
@@ -58,7 +57,6 @@ const Main = () => {
 
       {user && (
         <>
-          <SearchInput />
           <FilterSection page="home" />
         </>
       )}
