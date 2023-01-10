@@ -8,6 +8,7 @@ import { StyledCard } from "./styledComponents";
 import { useModal } from "../../../hooks/useModal";
 import { useSentece } from "../../../hooks/useSentence";
 import EditSentenceForm from "../../editSentenceForm/EditSentenceForm";
+import { useUsers } from "../../../hooks/useUsers";
 
 
 type tTypeCard= "created" | "favorite"
@@ -20,6 +21,7 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()
     const { likeSentence } = useSentece()
     const { favoriteSentence, unfavoriteSentence } = useSentece()
+    const { user } = useUsers()
     
     return(
         <StyledCard key={sentence.id}>
@@ -36,9 +38,9 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
                 ):(
                     <>
                         {sentence.liked?(
-                            <AiTwotoneStar onClick={()=> favoriteSentence(sentence, sentence.id)}/>
+                            <AiTwotoneStar onClick={()=> unfavoriteSentence(sentence, sentence.id)}/>
                         ):(
-                            <AiOutlineStar onClick={()=> unfavoriteSentence(sentence, sentence.id)}/>
+                            <AiOutlineStar onClick={()=> favoriteSentence(sentence, user!.id)}/>
                         )}
                         <span>{sentence.like}</span>
                     </>
