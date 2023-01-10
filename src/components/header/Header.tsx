@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/Imgs/icepick_logo.png";
