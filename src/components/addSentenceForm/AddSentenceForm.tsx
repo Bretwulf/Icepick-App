@@ -67,6 +67,7 @@ const AddSentenceForm = () => {
             onChange={onChange}
             value={value}
           >
+            <option value="" disabled selected>escolha uma categoria</option>
             <option value="Formal">Formal</option>
             <option value="Engraçadas">Engraçadas</option>
             <option value="Criativas">Criativas</option>
