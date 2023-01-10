@@ -28,6 +28,7 @@ interface iSentenceContext {
   filtradedSentences: iSentences[];
   favoriteSentence: (sentence:iSentences, id:number) =>void;
   unfavoriteSentence: (sentence: iSentences, id: number) => Promise<void>;
+  favoritedUserSentences: iSentences[];
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
@@ -36,6 +37,7 @@ const SentenceProvider = ({children}:iContextProps) => {
   const { user } = useContext(userContext)
   const [sentences, setSentences] = useState<iSentences[]>([]);
   const [search, setSearch] = useState("")
+  const [ favoritedUserSentences, setFavoriteduserSentences ] = useState<iSentences[]>([])
   const [filtradedSentences, setFilteredSentences] = useState<iSentences[]>([])
   const { toggleLoading } = useLoading();
   const {closeModal} = useModal();
@@ -44,14 +46,20 @@ const SentenceProvider = ({children}:iContextProps) => {
   async function getSentences () {
     const allSentences =  await API.get<iSentences[]>("sentences")
     const newSentence = allSentences.data.map((sentence)=>{
+      favoritedUserSentences.map((favoriteSentence:iSentences)=>{
+        if(favoriteSentence.id === sentence.id){
+          return {...sentence,  liked: true}
+        }
+      })
       return {...sentence,  liked: false}
   })
     setSentences(newSentence)
     setFilteredSentences(newSentence)    
+    
   }
   useEffect(() => {
     getSentences()
- 
+    setFavoriteduserSentences(user!.favoriteSentences)
   }, []);
 
   const addSentence = async (data:iSentencesAdd, id:number) => {
@@ -121,7 +129,6 @@ const SentenceProvider = ({children}:iContextProps) => {
   
       const newSentence =  sentences.map((sentence)=>{
         if(sentence.id === frase.id){
-          console.log(sentence)
           if(!sentence.liked){
             let newSentences = responseLike(sentence)
             
@@ -132,7 +139,6 @@ const SentenceProvider = ({children}:iContextProps) => {
         }
         return sentence
       }) 
-      console.log(newSentence)
     setSentences(newSentence)
   };
 
@@ -157,11 +163,17 @@ const SentenceProvider = ({children}:iContextProps) => {
     }    
    }  
   const favoriteSentence = async (sentence:iSentences, id:number) =>{
-    const newFavorites = [...user!.favoriteSentences,sentence]
+    let newFavorites: iSentences[] = []
+    if (user?.favoriteSentences){
+      newFavorites = [...user!.favoriteSentences, sentence]
+    } else {
+      newFavorites = [sentence]
+    }
     try {
       toggleLoading(true);
       await API.patch(`users/${id}`, {favoriteSentences:newFavorites})
       closeModal()
+      likeSentence(sentence)
       getSentences()
       
     } catch (error) {
@@ -187,7 +199,6 @@ const unfavoriteSentence = async (sentence:iSentences, id:number) =>{
   } finally {
     toggleLoading(false);
   }
-    
 };
 
     return ( 
@@ -201,7 +212,8 @@ const unfavoriteSentence = async (sentence:iSentences, id:number) =>{
           search, 
           filtradedSentences, 
           favoriteSentence,
-          unfavoriteSentence}}>
+          unfavoriteSentence,
+          favoritedUserSentences}}>
             {children}
         </sentenceContext.Provider>
      );
