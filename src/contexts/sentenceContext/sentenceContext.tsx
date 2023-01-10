@@ -149,8 +149,8 @@ const SentenceProvider = ({children}:iContextProps) => {
 };
 
 const unfavoriteSentence = async (sentence:iSentences, id:number) =>{
-  const cloneFavorites = cloneDeep(user!.favoriteSentences)
-  const newFavorites = cloneFavorites.filter((sentenceParam)=>sentenceParam.id!==sentence.id)
+  
+  const newFavorites = user!.favoriteSentences.filter((sentenceParam)=>sentenceParam.id!==sentence.id)
   try {
     toggleLoading(true);
     await API.patch(`users/${id}`, {favoriteSentences:newFavorites})
