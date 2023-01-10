@@ -21,6 +21,7 @@ const MainProfileStyled = styled.main`
   }
 
   .containerProfileData {
+    margin-top: 5rem;
     height: 18rem;
     display: flex;
     align-items: center;
@@ -29,8 +30,10 @@ const MainProfileStyled = styled.main`
   }
   .profilePicture {
     height: 6.25rem;
+    width: 6.25rem;
     margin-bottom: 1rem;
-    border-radius: 100%;
+    border-radius: 50%;
+    object-fit: cover;
   }
   .profileParagraph {
     font-weight: 400;
@@ -44,6 +47,13 @@ const MainProfileStyled = styled.main`
   }
 
   @media (min-width: 500px) {
+    .profilePicture {
+      height: 9.125rem;
+      width: 9.125rem;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
     .warningDiv {
       display: flex;
       height: 4.875rem;
