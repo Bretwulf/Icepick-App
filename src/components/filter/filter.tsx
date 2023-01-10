@@ -22,7 +22,7 @@ const FilterSection = ({page}:iFilterSection) => {
         }
     },[sentences])
     
-    
+    console.log(filtradedSentences)
     return(
         <StyledFilterSection>
             {page === "home"? (
@@ -41,7 +41,7 @@ const FilterSection = ({page}:iFilterSection) => {
                     <ul>
                         {filtradedSentences.map((sentence:iSentences)=>
                             <MiniCard type="favorite" sentence={sentence} key={sentence.id}/>
-                        ) }
+                        )}
                     </ul>
                 ):(
                     <div>

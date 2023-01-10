@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React from "react";
 import { AiOutlineStar, AiTwotoneStar } from 'react-icons/ai';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
@@ -21,7 +22,6 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()
     const { favoriteSentence, unfavoriteSentence, favoritedUserSentences } = useSentece()
     const { user } = useUsers()
-    
     return(
         <StyledCard key={sentence.id}>
             <div>
@@ -35,13 +35,11 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
                     </>
                 ):(
                     <>
-                        {favoritedUserSentences.map((favorite)=>{
-                            {favorite.liked?(
+                        {sentence.liked?(
                                 <AiTwotoneStar onClick={()=>unfavoriteSentence(sentence, user!.id)}/>
                             ):(
                                 <AiOutlineStar onClick={()=>favoriteSentence(sentence, user!.id)}/>
                             )}
-                        })}
                         <span>{sentence.like}</span>
                     </>
                 )}
