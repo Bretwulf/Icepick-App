@@ -31,6 +31,7 @@ export interface iRegisterRequest {
   passwordConfirm?: string;
   username: string;
   avatar: string;
+  favoriteSentences: iSentences[];
 }
 
 export interface iEditRequest {
