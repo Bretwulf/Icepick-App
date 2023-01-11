@@ -23,7 +23,7 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()
     const { favoriteSentence, unfavoriteSentence } = useSentece()
     const { user } = useUsers()
-    console.log(user!.favoriteSentences.some(favoriteSentence=> sentence.id === favoriteSentence.id))
+
     return(
         <StyledCard key={sentence.id}>
             <div>
