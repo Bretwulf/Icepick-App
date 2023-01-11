@@ -104,7 +104,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
       toggleLoading(true);
       await API.patch(`sentences/${id}`, data);
       closeModal();
-      getSentences();
+      await getSentences();
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       typedError.response

@@ -28,7 +28,7 @@ export const RenderProfile = ({
               .filter((sentence) => sentence.text.includes(searchValue!))
               .map((sentence: iSentences) => (
                 <MiniCard
-                  type="favorite"
+                  type="created"
                   sentence={sentence}
                   key={sentence.id}
                 />
@@ -39,7 +39,7 @@ export const RenderProfile = ({
             .filter((sentence) => sentence.text.includes(searchValue!))
             .map((sentence: iSentences) => (
               <MiniCard
-                type="created"
+                type="favorite"
                 sentence={sentence}
                 key={sentence.id}
               />
