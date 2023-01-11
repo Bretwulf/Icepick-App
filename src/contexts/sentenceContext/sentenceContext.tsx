@@ -189,19 +189,9 @@ const SentenceProvider = ({ children }: iContextProps) => {
   };
   const favoriteSentence = async (sentence: iSentences, id: number) => {
     
-    let newFavorites: iSentences[] = [];
-    if (user!.favoriteSentences && user!.favoriteSentences.includes(sentence)) {
-      unfavoriteSentence(sentence, id);
-      return;
-    } else if (
-      user!.favoriteSentences &&
-      !user!.favoriteSentences.includes(sentence)
-    ) {
-      newFavorites = [...user!.favoriteSentences, sentence];
-      
-    } else {
-      newFavorites = [sentence];
-    }
+    const newFavorites = cloneDeep(user!.favoriteSentences);
+    newFavorites.push(sentence)
+   
     try {
       toggleLoading(true);
       await API.patch(`users/${id}`, { favoriteSentences: newFavorites });
@@ -232,13 +222,13 @@ const SentenceProvider = ({ children }: iContextProps) => {
   };
 
   const unfavoriteSentence = async (sentence: iSentences, id: number) => {
-    let newSentence = {...sentence,  like: sentence.like - 1}
-    const newFavorites = user!.favoriteSentences.filter(
+    const newFavorites = cloneDeep(user!.favoriteSentences)
+    const newFavoritesFiltered = user!.favoriteSentences.filter(
       (sentenceParam) => sentenceParam.id !== sentence.id
     );
     try {
       toggleLoading(true);
-      await API.patch(`users/${id}`, { favoriteSentences: newFavorites });
+      await API.patch(`users/${id}`, { favoriteSentences: newFavoritesFiltered });
       closeModal();
       getSentences();
       get(id);
