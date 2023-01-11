@@ -19,52 +19,33 @@ export const RenderProfile = ({
   const { pathname } = useLocation();
 
   if (pathname === "/profile") {
-   
     return (
       <ul>
         {filterButton === "Todas" &&
-            sentences
-              .filter((sentence) => sentence.userId === user!.id)
-              .filter((sentence) => sentence.text.includes(searchValue!))
-              .map((sentence: iSentences) => (
-                <MiniCard
-                  type="created"
-                  sentence={sentence}
-                  key={sentence.id}
-                />
-              ))
-        }
-        {filterButton === "Todas" &&
-            user!.favoriteSentences
-            .filter((sentence) => sentence.text.includes(searchValue!))
-            .map((sentence: iSentences) => (
-              <MiniCard
-                type="favorite"
-                sentence={sentence}
-                key={sentence.id}
-              />
-            ))
-        }
-        {filterButton === "Criadas"  &&
           sentences
             .filter((sentence) => sentence.userId === user!.id)
             .filter((sentence) => sentence.text.includes(searchValue!))
             .map((sentence: iSentences) => (
-              <MiniCard
-                type="created"
-                sentence={sentence}
-                key={sentence.id}
-              />
+              <MiniCard type="created" sentence={sentence} key={sentence.id} />
             ))}
-        {filterButton === "Favoritas"  &&
+        {filterButton === "Todas" &&
           user!.favoriteSentences
             .filter((sentence) => sentence.text.includes(searchValue!))
             .map((sentence: iSentences) => (
-              <MiniCard
-                type="favorite"
-                sentence={sentence}
-                key={sentence.id}
-              />
+              <MiniCard type="favorite" sentence={sentence} key={sentence.id} />
+            ))}
+        {filterButton === "Criadas" &&
+          sentences
+            .filter((sentence) => sentence.userId === user!.id)
+            .filter((sentence) => sentence.text.includes(searchValue!))
+            .map((sentence: iSentences) => (
+              <MiniCard type="created" sentence={sentence} key={sentence.id} />
+            ))}
+        {filterButton === "Favoritas" &&
+          user!.favoriteSentences
+            .filter((sentence) => sentence.text.includes(searchValue!))
+            .map((sentence: iSentences) => (
+              <MiniCard type="favorite" sentence={sentence} key={sentence.id} />
             ))}
       </ul>
     );

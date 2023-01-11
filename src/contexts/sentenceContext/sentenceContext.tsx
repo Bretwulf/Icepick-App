@@ -25,9 +25,9 @@ interface iSentenceContext {
   filtradedSentences: iSentences[];
   favoriteSentence: (sentence: iSentences, id: number) => void;
   unfavoriteSentence: (sentence: iSentences, id: number) => Promise<void>;
-
   favoritedUserSentences: iSentences[];
   getSentences:()=>void;
+  ghostState:iSentences[];
 
 }
 
@@ -41,7 +41,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
   const [ filtradedSentences, setFilteredSentences ] = useState<iSentences[]>([])
   const { toggleLoading } = useLoading();
   const { closeModal } = useModal();
-
+  const [ghostState, setGhostState] = useState<iSentences[]>([])
 
   async function getSentences () {
     const allSentences =  await API.get<iSentences[]>("sentences")
@@ -50,11 +50,15 @@ const SentenceProvider = ({ children }: iContextProps) => {
     
   }
   useEffect(() => {
-    if(user?.favoriteSentences){
-      setFavoriteduserSentences(user!.favoriteSentences)
-    }
     getSentences()
+    ghostRender()
   }, [user]);
+
+  const ghostRender:()=>void = async () =>{
+    const allSentences =  await API.get<iSentences[]>("sentences")
+
+    setGhostState(allSentences.data)
+   };
 
   const addSentence = async (data: iSentencesAdd, id: number) => {
     try {
@@ -182,20 +186,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
       await API.patch(`users/${id}`, { favoriteSentences: newFavorites });
       closeModal();
       await responseLike(sentence, "+")
-      /* await getSentences(); */
-      await get(id);
-      const newSentence = sentences.map((sentence)=>{
-        let favoriteArray:iSentences = {} as iSentences
-        favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
-            if(favoriteSentence.id === sentence.id){
-              favoriteArray = {...sentence,  liked: true}
-            }else{
-              favoriteArray = {...sentence,  liked: false}
-            }
-          }) 
-          return favoriteArray
-      }) 
-      setSentences(newSentence)
+       get(id)      
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       typedError.response
@@ -217,19 +208,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
       closeModal();
       await responseLike(sentence, "-")
       /* await getSentences(); */
-      await get(id);
-      const newSentence = sentences.map((sentence)=>{
-        let favoriteArray:iSentences = {} as iSentences
-        favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
-            if(favoriteSentence.id === sentence.id){
-              favoriteArray = {...sentence,  liked: true}
-            }else{
-              favoriteArray = {...sentence,  liked: false}
-            }
-          }) 
-          return favoriteArray
-      }) 
-      setSentences(newSentence)
+      get(id);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       typedError.response
@@ -251,9 +230,9 @@ const SentenceProvider = ({ children }: iContextProps) => {
         filtradedSentences,
         favoriteSentence,
         unfavoriteSentence,
-
         favoritedUserSentences,
-        getSentences
+        getSentences,
+        ghostState,
 
       }}
     >
@@ -261,5 +240,6 @@ const SentenceProvider = ({ children }: iContextProps) => {
     </sentenceContext.Provider>
   );
 };
+
 
 export default SentenceProvider;

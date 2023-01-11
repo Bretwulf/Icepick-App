@@ -12,18 +12,27 @@ import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext"
 
 const Main = () => {
   const { user } = useUsers();
-  const { sentences } = useContext(sentenceContext);
+  const { sentences, ghostState } = useContext(sentenceContext);
   const [phrase, setPhrase] = useState("");
+  const [mounted, setMount] = useState(false)
+  const [random, setRandom] = useState<number>(0)
+   
   useEffect(() => {
-    if (sentences.length > 0) {
-      const newRandom = Math.floor(Math.random() * sentences.length);
-      setPhrase(sentences[newRandom].text);
-    }
-  }, []);
+      if (ghostState.length > 0) {
+        const newRandom = Math.floor(Math.random() * ghostState.length);
+        setPhrase(ghostState[newRandom].text);
+      }
+  }, [ghostState]);
 
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
-    setPhrase(sentences[newRandom].text);
+    if (newRandom !== random) {
+      setPhrase(sentences[newRandom].text);
+      setRandom(newRandom);
+    } else {
+      setPhrase(sentences[newRandom + 1].text);
+      setRandom(newRandom + 1);
+    }
   };
 
   return (

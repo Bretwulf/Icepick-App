@@ -24,17 +24,23 @@ const RegisterForm = () => {
       .required("Entre um e-mail!")
       .email("Entre um e-mail válido")
       .lowercase(),
-    password: yup.string().required("Entre uma senha!"),
-    /*.matches(
+    password: yup
+      .string()
+      .required("Entre uma senha!")
+      .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,50}$/,
         "Senha deve conter 1 caractere maísculo, 1 minusculo, 1 caractere especial, 1 número e mínimo de 6 caracteres. "
-      )*/ passwordConfirm: yup
+      ),
+    passwordConfirm: yup
       .string()
       .required("você precisa confirmar a senha!")
       .test("passwords-match", "Senhas devem corresponder!", function (value) {
         return this.parent.password === value;
       }),
-    avatar: yup.string().required("você precisa entrar um avatar válido!"),
+    avatar: yup
+      .string()
+      .required("você precisa entrar um avatar válido!")
+      .url("precisa entrar uma url válida!"),
   });
 
   const {
