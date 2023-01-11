@@ -1,20 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import React from "react";
+import { GlobalStyle } from "./styles/globalStyles";
+import { MainRoutes } from "./Routes/Routes";
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route/>
-        <Route/>
-        <Route/>
-        <Route/>
-        <Route/>
-      </Routes>
-    </div>
-  );
-}
 
+  return (
+    <>
+      <GlobalStyle/>
+      <MainRoutes/>
+    </>
+   );
+}
+ 
 export default App;
+  
+
