@@ -120,7 +120,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
       console.log(error);
     }
   };
-
+  /* */
   const likeSentence = async (frase: iSentences) => {
     const newSentence = sentences.map((sentence) => {
       if (sentence.id === frase.id) {
