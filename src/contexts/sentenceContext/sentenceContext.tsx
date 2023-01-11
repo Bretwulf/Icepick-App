@@ -100,6 +100,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
       await API.delete(`sentences/${id}`);
       Toast("Frase deletada com sucesso.", "sucess");
       closeModal();
+      await getSentences();
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       typedError.response

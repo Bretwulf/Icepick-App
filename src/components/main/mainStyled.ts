@@ -95,16 +95,16 @@ const MainStyled = styled.main`
       font-size: 1rem;
       width: 100%;
     }
-
   }
 
   .textBox {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     width: 94%;
-    height: 10.9375rem;
+    height: auto;
     margin: 0 auto;
     padding: 1rem;
 
@@ -128,7 +128,9 @@ const MainStyled = styled.main`
       font-size: 1.6rem;
       height: 90%;
       width: 100%;
-
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

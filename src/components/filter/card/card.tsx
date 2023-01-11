@@ -10,6 +10,7 @@ import { useModal } from "../../../hooks/useModal";
 import { useSentece } from "../../../hooks/useSentence";
 import EditSentenceForm from "../../editSentenceForm/EditSentenceForm";
 import { useUsers } from "../../../hooks/useUsers";
+import ModalDelete from "../../deleteModal";
 
 
 type tTypeCard= "created" | "favorite"
@@ -32,7 +33,7 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
                 {type === "created"? (
                     <>
                         <MdOutlineModeEditOutline onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
-                        <FiTrash2 onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
+                        <FiTrash2 onClick={() => showModal(<ModalDelete sentence={sentence} />)}/>
                     </>
                 ):(
                     <>
