@@ -105,6 +105,7 @@ const MainStyled = styled.main`
 
     width: 94%;
     height: auto;
+    min-height: 10rem;
     margin: 0 auto;
     padding: 1rem;
 
