@@ -21,10 +21,6 @@ interface iSentenceContext {
   addSentence: (data: iSentencesAdd, id: number) => void;
   deleteSentence: (id: number) => void;
   editSentence: (data: idataEdit, id: number) => void;
-  renderFilterAndSearchSentences: (
-    searchValue: string,
-    clickedButton?: string
-  ) => void;
   search: string;
   filtradedSentences: iSentences[];
   favoriteSentence: (sentence: iSentences, id: number) => void;
@@ -47,28 +43,8 @@ const SentenceProvider = ({ children }: iContextProps) => {
 
   async function getSentences () {
     const allSentences =  await API.get<iSentences[]>("sentences")
-  /*   const newSentece = allSentences.data.filter((sentence)=>{
-     return favoritedUserSentences.map((favoriteSentence)=>{
-        if(sentence === favoriteSentence){
-          return favoriteSentence
-        }
-      })
-      
-    })
-    console.log(newSentece) */
-  /* const newSentence = allSentences.data.map((sentence)=>{
-    let favoriteArray:iSentences = {} as iSentences
-    favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
-        if(favoriteSentence.id === sentence.id){
-          favoriteArray = {...sentence,  liked: true}
-        }else{
-          favoriteArray = {...sentence,  liked: false}
-        }
-      }) 
-      return favoriteArray
-  })  */
+
   setSentences(allSentences.data)
-   /*  setFilteredSentences(newSentence)   */
     
   }
   useEffect(() => {
@@ -131,10 +107,16 @@ const SentenceProvider = ({ children }: iContextProps) => {
     }
   };
 
-  const responseLike = async (sentence: iSentences) => {
-    const data = {
-      like: sentence.like + 1,
-    };
+  const responseLike = async (sentence: iSentences, type:string) => {
+    let data={
+      like: sentence.like
+    }
+    if(type === "+"){
+      data.like = sentence.like + 1
+    } else{
+      data.like = sentence.like - 1
+    }
+    
     try {
       const response = await API.patch(`sentences/${sentence.id}`, data);
       return response.data;
@@ -160,7 +142,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
     setSentences(newSentence);
   }; */
 
-  const renderFilterAndSearchSentences = (
+  /* const renderFilterAndSearchSentences = (
     searchValue: string,
     clickedButton?: string
   ) => {
@@ -186,7 +168,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
         setFilteredSentences(sentencesFiltred);
       }
     }
-  };
+  }; */
   const favoriteSentence = async (sentence: iSentences, id: number) => {
     
     const newFavorites = cloneDeep(user!.favoriteSentences);
@@ -196,8 +178,9 @@ const SentenceProvider = ({ children }: iContextProps) => {
       toggleLoading(true);
       await API.patch(`users/${id}`, { favoriteSentences: newFavorites });
       closeModal();
-      getSentences();
-      get(id);
+      await responseLike(sentence, "+")
+      /* await getSentences(); */
+      await get(id);
       const newSentence = sentences.map((sentence)=>{
         let favoriteArray:iSentences = {} as iSentences
         favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
@@ -210,7 +193,6 @@ const SentenceProvider = ({ children }: iContextProps) => {
           return favoriteArray
       }) 
       setSentences(newSentence)
-      /* setFilteredSentences(newSentence) */
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       typedError.response
@@ -230,8 +212,9 @@ const SentenceProvider = ({ children }: iContextProps) => {
       toggleLoading(true);
       await API.patch(`users/${id}`, { favoriteSentences: newFavoritesFiltered });
       closeModal();
-      getSentences();
-      get(id);
+      await responseLike(sentence, "-")
+      /* await getSentences(); */
+      await get(id);
       const newSentence = sentences.map((sentence)=>{
         let favoriteArray:iSentences = {} as iSentences
         favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
@@ -261,7 +244,6 @@ const SentenceProvider = ({ children }: iContextProps) => {
         addSentence,
         deleteSentence,
         editSentence,
-        renderFilterAndSearchSentences,
         search,
         filtradedSentences,
         favoriteSentence,

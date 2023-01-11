@@ -20,9 +20,9 @@ interface iMiniCard{
 }
 const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()
-    const { favoriteSentence, unfavoriteSentence, favoritedUserSentences } = useSentece()
+    const { favoriteSentence, unfavoriteSentence } = useSentece()
     const { user } = useUsers()
-    console.log(user)
+    console.log(user!.favoriteSentences.some(favoriteSentence=> sentence.id === favoriteSentence.id))
     return(
         <StyledCard key={sentence.id}>
             <div>
@@ -36,7 +36,7 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
                     </>
                 ):(
                     <>
-                        {user!.favoriteSentences.includes(sentence)?(
+                        {user!.favoriteSentences.some(favoriteSentence=> sentence.id === favoriteSentence.id)?(
                                 <AiTwotoneStar onClick={()=>unfavoriteSentence(sentence, user!.id)}/>
                             ):(
                                 <AiOutlineStar onClick={()=>favoriteSentence(sentence, user!.id)}/>

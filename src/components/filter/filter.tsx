@@ -16,19 +16,19 @@ interface iFilterSection{
 
 
 const FilterSection = ({page}:iFilterSection) => {
-    const { sentences, renderFilterAndSearchSentences, filtradedSentences, getSentences } = useSentece()
+    const { sentences, filtradedSentences, getSentences } = useSentece()
     const { user } = useUsers()
     const [profileSentences, setProfileSentences] = useState<iSentences[]>([])
     const [categories, setCategories] = useState<string>("Todas")
     const [searchValue, setSearchValue] = useState("")
     
-    useEffect(() =>{
+    /* useEffect(() =>{
         if(page === "profile"){
 
             const sentencesCreated =  sentences.filter((sentence)=> sentence.userId === user?.id)
             setProfileSentences([...sentencesCreated])
         }
-    },[sentences])
+    },[sentences]) */
 
     const buttonFilter = (buttonName:string) => {
         setCategories(buttonName);
@@ -38,7 +38,7 @@ const FilterSection = ({page}:iFilterSection) => {
     return(
     <>
         <StyledInputSearchBox>
-            <input type="text" placeholder="Digitar Pesquisa" onChange={(e)=>{
+            <input type="text" placeholder="Digitar Pesquisa" defaultValue={""} onChange={(e)=>{
                 setSearchValue(e.target.value)
                 getSentences()
                 }}/>
