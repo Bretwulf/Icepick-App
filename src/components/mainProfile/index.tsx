@@ -23,13 +23,6 @@ const MainProfile = () => {
         ) : (
           <img className="bg" src={imgDesktop} alt="bgDesktop" />
         )}
-        {window.innerWidth > 500 ? (
-          <div className="warningDiv">
-            <p className="pDivWarning">
-              Cadastre-se para ter acesso a mais funcionalidades
-            </p>
-          </div>
-        ) : null}
         <div className="containerProfileData">
           <img
             className="profilePicture"
@@ -49,7 +42,6 @@ const MainProfile = () => {
           />
         </div>
       </MainProfileStyled>
-      <SearchInput />
       <FilterSection page="profile" />
     </>
   );

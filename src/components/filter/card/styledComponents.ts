@@ -11,6 +11,7 @@ export const StyledCard = styled.li`
 
     background-color: var(--Grey-1);
     border-radius: 0.625rem;
+    text-align: center;
     
     div:nth-child(1){
         width: 100%;

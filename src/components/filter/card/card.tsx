@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React from "react";
 import { AiOutlineStar, AiTwotoneStar } from 'react-icons/ai';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
@@ -9,20 +10,20 @@ import { useModal } from "../../../hooks/useModal";
 import { useSentece } from "../../../hooks/useSentence";
 import EditSentenceForm from "../../editSentenceForm/EditSentenceForm";
 import { useUsers } from "../../../hooks/useUsers";
+import ModalDelete from "../../deleteModal";
 
 
 type tTypeCard= "created" | "favorite"
 
 interface iMiniCard{
     type:tTypeCard,
-    sentence: iSentences
+    sentence: iSentences,
 }
 const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()
-    const { likeSentence } = useSentece()
     const { favoriteSentence, unfavoriteSentence } = useSentece()
     const { user } = useUsers()
-    
+    console.log(user!.favoriteSentences.some(favoriteSentence=> sentence.id === favoriteSentence.id))
     return(
         <StyledCard key={sentence.id}>
             <div>
@@ -32,16 +33,15 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
                 {type === "created"? (
                     <>
                         <MdOutlineModeEditOutline onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
-                        {/* Faltando os content do modal de Delete */}
-                        <FiTrash2 onClick={() => showModal(<EditSentenceForm sentence={sentence} />)}/>
+                        <FiTrash2 onClick={() => showModal(<ModalDelete sentence={sentence} />)}/>
                     </>
                 ):(
                     <>
-                        {sentence.liked?(
-                            <AiTwotoneStar onClick={()=> unfavoriteSentence(sentence, sentence.id)}/>
-                        ):(
-                            <AiOutlineStar onClick={()=> favoriteSentence(sentence, user!.id)}/>
-                        )}
+                        {user!.favoriteSentences.some(favoriteSentence=> sentence.id === favoriteSentence.id)?(
+                                <AiTwotoneStar onClick={()=>unfavoriteSentence(sentence, user!.id)}/>
+                            ):(
+                                <AiOutlineStar onClick={()=>favoriteSentence(sentence, user!.id)}/>
+                            )}
                         <span>{sentence.like}</span>
                     </>
                 )}
