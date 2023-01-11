@@ -129,15 +129,6 @@ const FilterSection = ({ page }: iFilterSection) => {
                   buttonFilter(e.currentTarget.innerHTML);
                 }}
               >
-                Curiosidade
-              </button>
-              <button
-                type="button"
-                id="buttonLi"
-                onClick={(e) => {
-                  buttonFilter(e.currentTarget.innerHTML);
-                }}
-              >
                 Intimidade
               </button>
             </div>

@@ -5,6 +5,7 @@ const MainProfileStyled = styled.main`
   align-items: center;
   flex-direction: column;
   position: relative;
+  margin-top: 3.125rem;
   .bg {
     position: fixed;
     top: 0;

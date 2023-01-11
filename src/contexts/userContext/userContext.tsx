@@ -106,7 +106,7 @@ const UserProvider = ({ children }: iContextProps) => {
     toggleLoading(true);
     try {
       const response = await API.patch(`users/${id}`, data);
-      Toast("Usuário editada com sucesso.", "sucess");
+      Toast("Usuário editado com sucesso.", "sucess");
       closeModal();
       setUser(response.data);
     } catch (error) {
@@ -138,7 +138,7 @@ const UserProvider = ({ children }: iContextProps) => {
     toggleLoading(true);
     try {
       const response = await API.get<iUser>(`users/${id}`);
-      Toast("Dados obtidos com sucesso.", "sucess");
+     /*  Toast("Dados obtidos com sucesso.", "sucess"); */
       closeModal()
       setUser(response.data);
     } catch (error) {
