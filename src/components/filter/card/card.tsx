@@ -22,6 +22,7 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
     const { showModal } = useModal()
     const { favoriteSentence, unfavoriteSentence, favoritedUserSentences } = useSentece()
     const { user } = useUsers()
+    console.log(user)
     return(
         <StyledCard key={sentence.id}>
             <div>
@@ -35,7 +36,7 @@ const MiniCard = ({type, sentence }:iMiniCard) => {
                     </>
                 ):(
                     <>
-                        {sentence.liked?(
+                        {user!.favoriteSentences.includes(sentence)?(
                                 <AiTwotoneStar onClick={()=>unfavoriteSentence(sentence, user!.id)}/>
                             ):(
                                 <AiOutlineStar onClick={()=>favoriteSentence(sentence, user!.id)}/>

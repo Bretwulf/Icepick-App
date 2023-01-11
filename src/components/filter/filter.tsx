@@ -80,11 +80,7 @@ const FilterSection = ({page}:iFilterSection) => {
                             <button type="button" id="buttonLi" onClick={(e)=>buttonFilter(e.currentTarget.innerHTML)}>Criadas</button>
                         </div>
                         <RenderProfile filterButton={categories} searchValue={searchValue}/>
-                        {/* <ul> 
-                            {profileSentences.map((sentence:iSentences)=>
-                                <MiniCard type="created" sentence={sentence} />
-                            ) }
-                        </ul> */}
+
                     </div>
                 </StyledFilterSection> 
             )}
