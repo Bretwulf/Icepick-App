@@ -1,14 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
 import { useSentece } from "../../hooks/useSentence";
-import { useUsers } from "../../hooks/useUsers";
-import { iSentences } from "../../types/types";
-import { RenderSentence } from "../render/renderHome";
-import { RenderProfile } from "../render/renderProfile";
 import { StyledInputSearchBox } from "../search/styledComponents";
-import MiniCard from "./card/card";
 import { StyledFilterSection } from "./styledComponents";
+import { RenderProfile } from '../render/renderProfile';
 
 interface iFilterSection {
   page: "home" | "profile";
@@ -29,9 +24,8 @@ interface iFilterSection {
   }, [sentences, profileSentences]); */
 
 const FilterSection = ({ page }: iFilterSection) => {
-  const { sentences, filtradedSentences, getSentences } = useSentece();
-  const { user } = useUsers();
-  const [profileSentences, setProfileSentences] = useState<iSentences[]>([]);
+  const { getSentences } = useSentece();
+  
   const [categories, setCategories] = useState<string>("Todas");
   const [searchValue, setSearchValue] = useState("");
 
