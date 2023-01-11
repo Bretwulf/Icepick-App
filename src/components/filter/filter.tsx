@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSentece } from "../../hooks/useSentence";
 import { StyledInputSearchBox } from "../search/styledComponents";
-import { StyledFilterSection } from "./styledComponents";
+import { StyledFilterSection, StyledFilterSectionProfile } from "./styledComponents";
 import { RenderProfile } from '../render/renderProfile';
 
 interface iFilterSection {
@@ -28,14 +28,6 @@ const FilterSection = ({ page }: iFilterSection) => {
   
   const [categories, setCategories] = useState<string>("Todas");
   const [searchValue, setSearchValue] = useState("");
-
-  /* useEffect(() =>{
-        if(page === "profile"){
-
-            const sentencesCreated =  sentences.filter((sentence)=> sentence.userId === user?.id)
-            setProfileSentences([...sentencesCreated])
-        }
-    },[sentences]) */
 
   const buttonFilter = (buttonName: string) => {
     setCategories(buttonName);
@@ -143,7 +135,7 @@ const FilterSection = ({ page }: iFilterSection) => {
                 )} */}
           </div>
         ) : (
-          <StyledFilterSection>
+          <StyledFilterSectionProfile>
             <div>
               <div>
                 <button
@@ -173,7 +165,7 @@ const FilterSection = ({ page }: iFilterSection) => {
                 searchValue={searchValue}
               />
             </div>
-          </StyledFilterSection>
+          </StyledFilterSectionProfile>
         )}
       </StyledFilterSection>
     </>

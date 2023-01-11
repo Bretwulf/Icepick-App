@@ -34,7 +34,6 @@ interface iSentenceContext {
 export const sentenceContext = createContext({} as iSentenceContext);
 
 const SentenceProvider = ({ children }: iContextProps) => {
-  const [profileSentences, setProfileSentences] = useState<iSentences[]>([]);
   const { user, get } = useContext(userContext);
   const [sentences, setSentences] = useState<iSentences[]>([]);
   const [search, setSearch] = useState("")
