@@ -58,6 +58,7 @@ const UserProvider = ({ children }: iContextProps) => {
       API.defaults.headers.common.authorization = `Bearer ${response.data.accessToken}`;
 
       Toast("Login realizado com sucesso.", "sucess");
+      
       setUser(response.data.user);
       setToken(response.data.accessToken);
       localStorage.setItem("icePickToken", response.data.accessToken);
@@ -82,8 +83,14 @@ const UserProvider = ({ children }: iContextProps) => {
   }
 
   const register = async (data: iRegisterRequest): Promise<void> => {
+   
     toggleLoading(true);
     try {
+      const response = await API.post<iLoginResponse>("users", {...data, favoriteSentences:[]}, {
+        headers: { "Content-Type": "application/json" },
+      });
+     
+      console.log(response.data)
       Toast("Cadastro realizado com sucesso.", "sucess");
       closeModal();
     } catch (error) {
