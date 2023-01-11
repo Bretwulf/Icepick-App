@@ -25,13 +25,16 @@ interface iSentenceContext {
   filtradedSentences: iSentences[];
   favoriteSentence: (sentence: iSentences, id: number) => void;
   unfavoriteSentence: (sentence: iSentences, id: number) => Promise<void>;
+
   favoritedUserSentences: iSentences[];
   getSentences:()=>void;
+
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
 
 const SentenceProvider = ({ children }: iContextProps) => {
+  const [profileSentences, setProfileSentences] = useState<iSentences[]>([]);
   const { user, get } = useContext(userContext);
   const [sentences, setSentences] = useState<iSentences[]>([]);
   const [search, setSearch] = useState("")
@@ -94,7 +97,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
   const deleteSentence = async (id: number) => {
     toggleLoading(true);
     try {
-      await API.delete(`users/${id}`);
+      await API.delete(`sentences/${id}`);
       Toast("Frase deletada com sucesso.", "sucess");
       closeModal();
     } catch (error) {
@@ -248,8 +251,10 @@ const SentenceProvider = ({ children }: iContextProps) => {
         filtradedSentences,
         favoriteSentence,
         unfavoriteSentence,
+
         favoritedUserSentences,
         getSentences
+
       }}
     >
       {children}

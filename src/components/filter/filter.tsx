@@ -10,9 +10,23 @@ import { StyledInputSearchBox } from "../search/styledComponents";
 import MiniCard from "./card/card";
 import { StyledFilterSection } from "./styledComponents";
 
-interface iFilterSection{
-    page: "home" | "profile"
+interface iFilterSection {
+  page: "home" | "profile";
 }
+
+const FilterSection = ({ page }: iFilterSection) => {
+  const { sentences, renderFilterAndSearchSentences, filtradedSentences } =
+    useContext(sentenceContext);
+  const { user } = useUsers();
+  const { profileSentences, setProfileSentences } = useContext(sentenceContext);
+  useEffect(() => {
+    if (page === "profile") {
+      const sentencesCreated = sentences.filter(
+        (sentence) => sentence.userId === user?.id
+      );
+      setProfileSentences([...sentencesCreated]);
+    }
+  }, [sentences, profileSentences]);
 
 
 const FilterSection = ({page}:iFilterSection) => {
@@ -91,3 +105,4 @@ const FilterSection = ({page}:iFilterSection) => {
     
 }
 export default FilterSection;
+
