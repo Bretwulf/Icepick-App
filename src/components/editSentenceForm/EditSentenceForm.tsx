@@ -15,18 +15,15 @@ interface iEditSentenceForm {
 }
 
 const EditSentenceForm = ({ sentence }: iEditSentenceForm) => {
-  const { editSentence } = useSentece()
+  const { editSentence } = useSentece();
 
   const { loading } = useLoading();
   const schema = yup.object().shape({
-    text: yup
-      .string()
-      .required("Frase deve ter um corpo!")
-      /* .matches(
+    text: yup.string().required("Frase deve ter um corpo!"),
+    /* .matches(
         /^[a-z]{20,366}$/,
         "frase deve ter pelo menos 20 e no máximo 366 caracteres!"
-      ) */,
-    type: yup.string().required("Frase deve ter um tipo!"),
+      ) */ type: yup.string().required("Frase deve ter um tipo!"),
   });
 
   const {
@@ -39,8 +36,7 @@ const EditSentenceForm = ({ sentence }: iEditSentenceForm) => {
   });
 
   return (
-    <Form onSubmit={handleSubmit((data) => editSentence(data, sentence.id)
-    )}>
+    <Form onSubmit={handleSubmit((data) => editSentence(data, sentence.id))}>
       <h2>Editar Frase</h2>
       <Controller
         control={control}

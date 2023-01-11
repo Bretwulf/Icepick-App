@@ -19,11 +19,11 @@ export const Form = styled.form`
     color: #fdf7f7;
   }
 
-  .passwordWrapper{
-    width:100%;
-    height:max-content;
-    position:relative;
-    top:0;
+  .passwordWrapper {
+    width: 100%;
+    height: max-content;
+    position: relative;
+    top: 0;
     display: flex;
     gap: 18px;
     justify-content: center;
@@ -31,18 +31,17 @@ export const Form = styled.form`
     align-items: center;
   }
 
-  .errorMessage{
+  .errorMessage {
     color: white;
-    
   }
 
-  .passToggle{
+  .passToggle {
     background: none;
     width: max-content;
-    height:max-content;
-    position:absolute;
+    height: max-content;
+    position: absolute;
     right: 15px;
-    top:13px;
+    top: 13px;
   }
 
   input {
@@ -58,9 +57,9 @@ export const Form = styled.form`
     line-height: 22px;
   }
   input:focus {
-    outline:  var(--Color-primary-2) 1px solid;
+    outline: var(--Color-primary-2) 1px solid;
   }
-  button:disabled{
-    opacity:50%;
+  button:disabled {
+    opacity: 50%;
   }
 `;

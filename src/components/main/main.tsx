@@ -3,27 +3,36 @@ import MainStyled from "./mainStyled";
 import img from "../../Assets/Imgs/BgMoblie.jpg";
 import imgDesktop from "../../Assets/Imgs/BgDesktop.jpg";
 import { useContext, useEffect, useState } from "react";
-import SearchInput from "../search/search";
+
 import FilterSection from "../filter/filter";
 import { Button } from "../buttons/button";
-import { useSentece } from "../../hooks/useSentence";
+
 import { useUsers } from "../../hooks/useUsers";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
 
 const Main = () => {
   const { user } = useUsers();
-  const { sentences } = useContext(sentenceContext);
+  const { sentences, ghostState } = useContext(sentenceContext);
   const [phrase, setPhrase] = useState("");
+
+  const [random, setRandom] = useState<number>(0);
+
   useEffect(() => {
-    if (sentences.length > 0) {
-      const newRandom = Math.floor(Math.random() * sentences.length);
-      setPhrase(sentences[newRandom].text);
+    if (ghostState.length > 0) {
+      const newRandom = Math.floor(Math.random() * ghostState.length);
+      setPhrase(ghostState[newRandom].text);
     }
-  }, []);
+  }, [ghostState]);
 
   const handleClickRandomPhrase = () => {
     const newRandom = Math.floor(Math.random() * sentences.length);
-    setPhrase(sentences[newRandom].text);
+    if (newRandom !== random) {
+      setPhrase(sentences[newRandom].text);
+      setRandom(newRandom);
+    } else {
+      setPhrase(sentences[newRandom + 1].text);
+      setRandom(newRandom + 1);
+    }
   };
 
   return (

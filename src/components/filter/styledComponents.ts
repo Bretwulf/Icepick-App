@@ -4,7 +4,7 @@ export const StyledFilterSection = styled.section`
   width: 100%;
   max-width: 60.625rem;
   height: 100%;
-    
+
   margin: 0 auto;
 
   background-color: var(--Grey-2);
@@ -50,11 +50,11 @@ export const StyledFilterSection = styled.section`
     button:hover {
       box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
     }
-    div > div{
-        h2{
-            color: var(--Color-Blue-4);
-        }
-        min-height: 150px;
+    div > div {
+      h2 {
+        color: var(--Color-Blue-4);
+      }
+      min-height: 150px;
     }
 
     button:focus {
@@ -81,7 +81,7 @@ export const StyledFilterSectionProfile = styled.section`
   width: 100%;
   max-width: 60.625rem;
   height: 100%;
-    
+
   margin: 0 auto;
 
   background-color: var(--Grey-2);
@@ -127,11 +127,11 @@ export const StyledFilterSectionProfile = styled.section`
     button:hover {
       box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
     }
-    div > div{
-        h2{
-            color: var(--Color-Blue-4);
-        }
-        min-height: 150px;
+    div > div {
+      h2 {
+        color: var(--Color-Blue-4);
+      }
+      min-height: 150px;
     }
 
     button:focus {

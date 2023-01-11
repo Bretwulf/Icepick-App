@@ -15,13 +15,12 @@ export const Input = styled.input<iStyledInputProps>`
       `;
     } else if (isValid) {
       return css`
-      border: #9ff5b2 2.5px solid;
-      `
-    }
-    else if(!isValid){
+        border: #9ff5b2 2.5px solid;
+      `;
+    } else if (!isValid) {
       return css`
-      border: #eb7185 2.5px solid;
-      `
+        border: #eb7185 2.5px solid;
+      `;
     }
   }}
 
@@ -32,21 +31,20 @@ export const Input = styled.input<iStyledInputProps>`
   line-height: 22px;
   &:focus {
     ${({ isDirty, isValid }) => {
-    if (!isDirty) {
-      return css`
-        border: black 2.5px solid;
-      `;
-    } else if (isValid) {
-      return css`
-      border: var(--toastify-text-color-success) 2.5px solid;
-      `
-    }
-    else if(!isValid){
-      return css`
-      border: var(--toastify-text-color-error) 2.5px solid;
-      `
-    }
-  }}
+      if (!isDirty) {
+        return css`
+          border: black 2.5px solid;
+        `;
+      } else if (isValid) {
+        return css`
+          border: var(--toastify-text-color-success) 2.5px solid;
+        `;
+      } else if (!isValid) {
+        return css`
+          border: var(--toastify-text-color-error) 2.5px solid;
+        `;
+      }
+    }}
   }
 `;
 
@@ -63,13 +61,12 @@ export const Select = styled.select<iStyledInputProps>`
       `;
     } else if (isValid) {
       return css`
-      border: #9ff5b2 2.5px solid;
-      `
-    }
-    else if(!isValid){
+        border: #9ff5b2 2.5px solid;
+      `;
+    } else if (!isValid) {
       return css`
-      border: #eb7185 2.5px solid;
-      `
+        border: #eb7185 2.5px solid;
+      `;
     }
   }}
 
@@ -80,22 +77,19 @@ export const Select = styled.select<iStyledInputProps>`
   line-height: 22px;
   &:focus {
     ${({ isDirty, isValid }) => {
-    if (!isDirty) {
-      return css`
-        border: black 2.5px solid;
-      `;
-    } else if (isValid) {
-      return css`
-      border: var(--toastify-text-color-success) 2.5px solid;
-      `
-    }
-    else if(!isValid){
-      return css`
-      border: var(--toastify-text-color-error) 2.5px solid;
-      `
-    }
-  }}
+      if (!isDirty) {
+        return css`
+          border: black 2.5px solid;
+        `;
+      } else if (isValid) {
+        return css`
+          border: var(--toastify-text-color-success) 2.5px solid;
+        `;
+      } else if (!isValid) {
+        return css`
+          border: var(--toastify-text-color-error) 2.5px solid;
+        `;
+      }
+    }}
   }
 `;
-
-

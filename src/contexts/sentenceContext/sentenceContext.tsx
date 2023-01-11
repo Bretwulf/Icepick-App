@@ -25,10 +25,9 @@ interface iSentenceContext {
   filtradedSentences: iSentences[];
   favoriteSentence: (sentence: iSentences, id: number) => void;
   unfavoriteSentence: (sentence: iSentences, id: number) => Promise<void>;
-
   favoritedUserSentences: iSentences[];
-  getSentences:()=>void;
-
+  getSentences: () => void;
+  ghostState: iSentences[];
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
@@ -36,25 +35,28 @@ export const sentenceContext = createContext({} as iSentenceContext);
 const SentenceProvider = ({ children }: iContextProps) => {
   const { user, get } = useContext(userContext);
   const [sentences, setSentences] = useState<iSentences[]>([]);
-  const [search, setSearch] = useState("")
-  const [ favoritedUserSentences, setFavoriteduserSentences ] = useState<iSentences[]>([])
-  const [ filtradedSentences, setFilteredSentences ] = useState<iSentences[]>([])
+  const [search] = useState("");
+  const [favoritedUserSentences] = useState<iSentences[]>([]);
+  const [filtradedSentences] = useState<iSentences[]>([]);
   const { toggleLoading } = useLoading();
   const { closeModal } = useModal();
+  const [ghostState, setGhostState] = useState<iSentences[]>([]);
 
+  async function getSentences() {
+    const allSentences = await API.get<iSentences[]>("sentences");
 
-  async function getSentences () {
-    const allSentences =  await API.get<iSentences[]>("sentences")
-
-  setSentences(allSentences.data)
-    
+    setSentences(allSentences.data);
   }
   useEffect(() => {
-    if(user?.favoriteSentences){
-      setFavoriteduserSentences(user!.favoriteSentences)
-    }
-    getSentences()
+    getSentences();
+    ghostRender();
   }, [user]);
+
+  const ghostRender: () => void = async () => {
+    const allSentences = await API.get<iSentences[]>("sentences");
+
+    setGhostState(allSentences.data);
+  };
 
   const addSentence = async (data: iSentencesAdd, id: number) => {
     try {
@@ -110,92 +112,32 @@ const SentenceProvider = ({ children }: iContextProps) => {
     }
   };
 
-  const responseLike = async (sentence: iSentences, type:string) => {
-    let data={
-      like: sentence.like
+  const responseLike = async (sentence: iSentences, type: string) => {
+    let data = {
+      like: sentence.like,
+    };
+    if (type === "+") {
+      data.like = sentence.like + 1;
+    } else {
+      data.like = sentence.like - 1;
     }
-    if(type === "+"){
-      data.like = sentence.like + 1
-    } else{
-      data.like = sentence.like - 1
-    }
-    
+
     try {
       const response = await API.patch(`sentences/${sentence.id}`, data);
       return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
-  /* const likeSentence = async (frase: iSentences) => {
-    const newSentence = filtradedSentences.map((sentence) => {
-      if (sentence.id === frase.id) {
-        if (!sentence.liked) {
-          let newSentences = responseLike(sentence);
-          
-          return { ...newSentences, ...sentence, liked: true };
-        } /* else{
-            return {...newSentences,/*  like: sentence.like - 1,  liked: false}
-          } 
-      }
-      return sentence;
-    });
-    console.log(newSentence);
-    setSentences(newSentence);
-  }; */
-
-  /* const renderFilterAndSearchSentences = (
-    searchValue: string,
-    clickedButton?: string
-  ) => {
-    if (searchValue !== "") {
-      setSearch(searchValue);
-      const sentencesSearched =
-        sentences.filter((sentence) =>
-          sentence.text.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-        ) ||
-        sentences.filter((sentence) =>
-          sentence.type.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-        );
-      setFilteredSentences(sentencesSearched);
-    } else if (searchValue === "") {
-      setFilteredSentences(sentences);
-    } else if (clickedButton) {
-      if (clickedButton === "Todas") {
-        setFilteredSentences(sentences);
-      } else {
-        const sentencesFiltred = sentences.filter(
-          (sentence) => sentence.type === clickedButton
-        );
-        setFilteredSentences(sentencesFiltred);
-      }
-    }
-  }; */
   const favoriteSentence = async (sentence: iSentences, id: number) => {
-    
     const newFavorites = cloneDeep(user!.favoriteSentences);
-    newFavorites.push(sentence)
-   
+    newFavorites.push(sentence);
+
     try {
       toggleLoading(true);
       await API.patch(`users/${id}`, { favoriteSentences: newFavorites });
       closeModal();
-      await responseLike(sentence, "+")
-      /* await getSentences(); */
-      await get(id);
-      const newSentence = sentences.map((sentence)=>{
-        let favoriteArray:iSentences = {} as iSentences
-        favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
-            if(favoriteSentence.id === sentence.id){
-              favoriteArray = {...sentence,  liked: true}
-            }else{
-              favoriteArray = {...sentence,  liked: false}
-            }
-          }) 
-          return favoriteArray
-      }) 
-      setSentences(newSentence)
+      await responseLike(sentence, "+");
+      get(id);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       typedError.response
@@ -207,29 +149,18 @@ const SentenceProvider = ({ children }: iContextProps) => {
   };
 
   const unfavoriteSentence = async (sentence: iSentences, id: number) => {
-    const newFavorites = cloneDeep(user!.favoriteSentences)
     const newFavoritesFiltered = user!.favoriteSentences.filter(
       (sentenceParam) => sentenceParam.id !== sentence.id
     );
     try {
       toggleLoading(true);
-      await API.patch(`users/${id}`, { favoriteSentences: newFavoritesFiltered });
+      await API.patch(`users/${id}`, {
+        favoriteSentences: newFavoritesFiltered,
+      });
       closeModal();
-      await responseLike(sentence, "-")
+      await responseLike(sentence, "-");
       /* await getSentences(); */
-      await get(id);
-      const newSentence = sentences.map((sentence)=>{
-        let favoriteArray:iSentences = {} as iSentences
-        favoritedUserSentences.forEach((favoriteSentence:iSentences)=>{
-            if(favoriteSentence.id === sentence.id){
-              favoriteArray = {...sentence,  liked: true}
-            }else{
-              favoriteArray = {...sentence,  liked: false}
-            }
-          }) 
-          return favoriteArray
-      }) 
-      setSentences(newSentence)
+      get(id);
     } catch (error) {
       const typedError = error as AxiosError<iLoginError>;
       typedError.response
@@ -251,10 +182,9 @@ const SentenceProvider = ({ children }: iContextProps) => {
         filtradedSentences,
         favoriteSentence,
         unfavoriteSentence,
-
         favoritedUserSentences,
-        getSentences
-
+        getSentences,
+        ghostState,
       }}
     >
       {children}
