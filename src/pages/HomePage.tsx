@@ -23,9 +23,7 @@ export function HomePage() {
           const response = await API.get(`users/${id}`);
           setUser(response.data);
           navigate("/home");
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }
 
       setLoading(false);

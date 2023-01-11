@@ -1,4 +1,4 @@
-import React, { createContext,  useState } from "react";
+import React, { createContext, useState } from "react";
 
 interface iModalContextProps {
   stateModal: boolean;
@@ -17,27 +17,34 @@ export const modalContext = createContext({} as iModalContextProps);
 const ModalProvider = ({ children }: iModalProviderProps) => {
   const [stateModal, setStateModal] = useState(false);
   const [animationModal, setAnimationModal] = useState(false);
-  const [childrenModal, setChildrenModal] = useState<React.ReactNode>()
+  const [childrenModal, setChildrenModal] = useState<React.ReactNode>();
 
   const showModal = (children: React.ReactNode) => {
     setStateModal(true);
     setAnimationModal(true);
-    setChildrenModal(children)
+    setChildrenModal(children);
   };
 
   const closeModal = () => {
     setAnimationModal(false);
     setTimeout(() => {
-        setStateModal(false);
+      setStateModal(false);
     }, 800);
   };
 
   return (
-    <modalContext.Provider value={{ stateModal, showModal, closeModal, childrenModal, animationModal }}>
+    <modalContext.Provider
+      value={{
+        stateModal,
+        showModal,
+        closeModal,
+        childrenModal,
+        animationModal,
+      }}
+    >
       {children}
     </modalContext.Provider>
   );
 };
 
 export default ModalProvider;
-

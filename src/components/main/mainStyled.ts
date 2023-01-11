@@ -29,7 +29,7 @@ const animationWarning = keyframes`
     -webkit-transform: scale3d(1, 1, 1);
             transform: scale3d(1, 1, 1);
   }
-`
+`;
 
 const MainStyled = styled.main`
   width: 100%;
@@ -68,12 +68,11 @@ const MainStyled = styled.main`
     }
   }
 
-
   .warningDiv {
     display: none;
     height: 3.875rem;
     width: 21.375rem;
-    padding: .8rem 1rem .8rem 1rem;
+    padding: 0.8rem 1rem 0.8rem 1rem;
     margin-right: 10px;
 
     border-radius: 1.5rem;
@@ -119,9 +118,7 @@ const MainStyled = styled.main`
     @media (min-width: 700px) {
       max-width: 31.375rem;
 
-  
       height: 13.5rem;
-
     }
 
     .pTextBox {
@@ -137,7 +134,7 @@ const MainStyled = styled.main`
 
   .buttonNewPhrase {
     margin: 0 auto;
-    
+
     &:hover {
       filter: brightness(0.8);
     }

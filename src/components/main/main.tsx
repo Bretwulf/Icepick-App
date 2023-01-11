@@ -3,10 +3,10 @@ import MainStyled from "./mainStyled";
 import img from "../../Assets/Imgs/BgMoblie.jpg";
 import imgDesktop from "../../Assets/Imgs/BgDesktop.jpg";
 import { useContext, useEffect, useState } from "react";
-import SearchInput from "../search/search";
+
 import FilterSection from "../filter/filter";
 import { Button } from "../buttons/button";
-import { useSentece } from "../../hooks/useSentence";
+
 import { useUsers } from "../../hooks/useUsers";
 import { sentenceContext } from "../../contexts/sentenceContext/sentenceContext";
 
@@ -14,14 +14,14 @@ const Main = () => {
   const { user } = useUsers();
   const { sentences, ghostState } = useContext(sentenceContext);
   const [phrase, setPhrase] = useState("");
-  const [mounted, setMount] = useState(false)
-  const [random, setRandom] = useState<number>(0)
-   
+
+  const [random, setRandom] = useState<number>(0);
+
   useEffect(() => {
-      if (ghostState.length > 0) {
-        const newRandom = Math.floor(Math.random() * ghostState.length);
-        setPhrase(ghostState[newRandom].text);
-      }
+    if (ghostState.length > 0) {
+      const newRandom = Math.floor(Math.random() * ghostState.length);
+      setPhrase(ghostState[newRandom].text);
+    }
   }, [ghostState]);
 
   const handleClickRandomPhrase = () => {

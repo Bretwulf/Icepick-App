@@ -1,4 +1,4 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/Imgs/icepick_logo.png";
@@ -10,8 +10,6 @@ import LoginForm from "../loginForm/loginForm";
 import RegisterForm from "../registerForm/registerForm";
 import { useModal } from "../../hooks/useModal";
 import AddSentenceForm from "../addSentenceForm/AddSentenceForm";
-
-
 
 export function Header() {
   const { stateModal, showModal } = useModal();
@@ -29,12 +27,11 @@ export function Header() {
 
   function openDropDown(e: React.MouseEvent<HTMLElement, MouseEvent>) {
     if (e.currentTarget instanceof HTMLElement)
-
-    if (e.currentTarget.className === "menu") {
+      if (e.currentTarget.className === "menu") {
         e.currentTarget.parentElement?.children[1].children[1].classList.toggle(
           "hidden"
         );
-      } 
+      }
   }
 
   return (
@@ -75,11 +72,9 @@ export function Header() {
         )}
         <div className="menu" onClick={openDropDown}>
           {user ? (
-
             <div className="containerImgUser">
-                <img src={user?.avatar} alt="user" />
+              <img src={user?.avatar} alt="user" />
             </div>
-
           ) : (
             <div className="hamburger">
               <div className="menu-line"></div>
@@ -91,23 +86,36 @@ export function Header() {
             <div className="drop-down">
               {user && window.location.pathname === "/profile" ? (
                 <>
-
-                {/* P to Button */}
-                  <button className="btnDropDown" onClick={() => navigate(-1)}>Voltar</button>
-                  <button className="btnDropDown" onClick={logout}>Sair</button>
-
+                  {/* P to Button */}
+                  <button className="btnDropDown" onClick={() => navigate(-1)}>
+                    Voltar
+                  </button>
+                  <button className="btnDropDown" onClick={logout}>
+                    Sair
+                  </button>
                 </>
               ) : user ? (
                 <>
                   <Link to="/profile">Perfil</Link>
 
-                  <button className="btnDropDown" onClick={logout}>Sair</button>
+                  <button className="btnDropDown" onClick={logout}>
+                    Sair
+                  </button>
                 </>
               ) : (
                 <>
-                  <button className="btnDropDown" onClick={() => showModal(<LoginForm />)}>Login</button>
-                  <button className="btnDropDown" onClick={() => showModal(<RegisterForm />)}>Cadastrar</button>
-
+                  <button
+                    className="btnDropDown"
+                    onClick={() => showModal(<LoginForm />)}
+                  >
+                    Login
+                  </button>
+                  <button
+                    className="btnDropDown"
+                    onClick={() => showModal(<RegisterForm />)}
+                  >
+                    Cadastrar
+                  </button>
                 </>
               )}
             </div>

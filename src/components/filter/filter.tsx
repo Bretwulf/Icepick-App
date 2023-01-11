@@ -1,9 +1,12 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSentece } from "../../hooks/useSentence";
 import { StyledInputSearchBox } from "../search/styledComponents";
-import { StyledFilterSection, StyledFilterSectionProfile } from "./styledComponents";
-import { RenderProfile } from '../render/renderProfile';
+import {
+  StyledFilterSection,
+  StyledFilterSectionProfile,
+} from "./styledComponents";
+import { RenderProfile } from "../render/renderProfile";
 
 interface iFilterSection {
   page: "home" | "profile";
@@ -25,7 +28,7 @@ interface iFilterSection {
 
 const FilterSection = ({ page }: iFilterSection) => {
   const { getSentences } = useSentece();
-  
+
   const [categories, setCategories] = useState<string>("Todas");
   const [searchValue, setSearchValue] = useState("");
 

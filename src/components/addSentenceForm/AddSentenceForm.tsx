@@ -1,10 +1,9 @@
 import React from "react";
 
-
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {iSentenceRequest, iSentencesAdd } from "../../types/types";
+import { iSentencesAdd } from "../../types/types";
 import { Input, Select } from "../input/input";
 import { PulseLoader } from "react-spinners";
 import { Form } from "../form/form";
@@ -18,7 +17,10 @@ const AddSentenceForm = () => {
   const { user } = useUsers();
   const { addSentence } = useSentece();
   const schema = yup.object().shape({
-    text: yup.string().required("Frase deve ter um corpo!").matches(/[\s\S]{20,}/, "frase deve ter pelo menos 20 caracteres!"),
+    text: yup
+      .string()
+      .required("Frase deve ter um corpo!")
+      .matches(/[\s\S]{20,}/, "frase deve ter pelo menos 20 caracteres!"),
     type: yup.string().required("Frase deve ter um tipo!"),
   });
 
@@ -31,9 +33,9 @@ const AddSentenceForm = () => {
     mode: "onChange",
   });
 
-
   return (
-    <Form onSubmit={handleSubmit((data) => addSentence(data, user!.id))}>{/*Adicionar função de adicionar frase posteriormmente*/}
+    <Form onSubmit={handleSubmit((data) => addSentence(data, user!.id))}>
+      {/*Adicionar função de adicionar frase posteriormmente*/}
       <h2>Adicionar Frase</h2>
       <Controller
         control={control}
@@ -71,7 +73,9 @@ const AddSentenceForm = () => {
             onChange={onChange}
             value={value}
           >
-            <option value="" disabled selected>escolha uma categoria</option>
+            <option value="" disabled selected>
+              escolha uma categoria
+            </option>
             <option value="Formal">Formal</option>
             <option value="Engraçadas">Engraçadas</option>
             <option value="Criativas">Criativas</option>

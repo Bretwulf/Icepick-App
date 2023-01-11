@@ -25,7 +25,7 @@ export const StyledHeader = styled.header`
   figure {
     margin-left: 5%;
     padding-top: 15px;
-    
+
     img {
       object-fit: cover;
     }
@@ -52,7 +52,7 @@ export const StyledHeader = styled.header`
       background-color: #fff5f5;
       border-radius: 50%;
       overflow: hidden;
-      
+
       img {
         width: 100%;
         height: 100%;
@@ -101,7 +101,7 @@ export const StyledHeader = styled.header`
       border-bottom: 1px solid var(--Grey-1);
       padding: 10px 0;
       color: #fff;
-      
+
       &:hover {
         color: var(--Color-Blue);
       }
@@ -113,7 +113,7 @@ export const StyledHeader = styled.header`
       text-align: center;
       color: var(--Grey-1);
       padding: 10px 0;
-      
+
       :hover {
         color: var(--Color-Blue);
       }
