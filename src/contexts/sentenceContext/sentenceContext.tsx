@@ -29,11 +29,14 @@ interface iSentenceContext {
   filtradedSentences: iSentences[];
   favoriteSentence: (sentence: iSentences, id: number) => void;
   unfavoriteSentence: (sentence: iSentences, id: number) => Promise<void>;
+  profileSentences: iSentences[];
+  setProfileSentences: React.Dispatch<React.SetStateAction<iSentences[]>>;
 }
 
 export const sentenceContext = createContext({} as iSentenceContext);
 
 const SentenceProvider = ({ children }: iContextProps) => {
+  const [profileSentences, setProfileSentences] = useState<iSentences[]>([]);
   const { user, get } = useContext(userContext);
   const [sentences, setSentences] = useState<iSentences[]>([]);
   const [search, setSearch] = useState("");
@@ -93,7 +96,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
   const deleteSentence = async (id: number) => {
     toggleLoading(true);
     try {
-      await API.delete(`users/${id}`);
+      await API.delete(`sentences/${id}`);
       Toast("Frase deletada com sucesso.", "sucess");
       closeModal();
     } catch (error) {
@@ -117,7 +120,7 @@ const SentenceProvider = ({ children }: iContextProps) => {
       console.log(error);
     }
   };
-
+  /* */
   const likeSentence = async (frase: iSentences) => {
     const newSentence = sentences.map((sentence) => {
       if (sentence.id === frase.id) {
@@ -227,6 +230,8 @@ const SentenceProvider = ({ children }: iContextProps) => {
         filtradedSentences,
         favoriteSentence,
         unfavoriteSentence,
+        profileSentences,
+        setProfileSentences,
       }}
     >
       {children}
