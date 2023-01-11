@@ -90,7 +90,7 @@ const UserProvider = ({ children }: iContextProps) => {
         headers: { "Content-Type": "application/json" },
       });
      
-      console.log(response.data)
+      
       Toast("Cadastro realizado com sucesso.", "sucess");
       closeModal();
     } catch (error) {
